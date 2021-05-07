@@ -6,7 +6,35 @@
     <description>Recent content on 杨欢的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-Hans</language>
-    <lastBuildDate>Fri, 07 May 2021 09:28:37 +0800</lastBuildDate><atom:link href="https://giantpetter.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 07 May 2021 16:03:03 +0800</lastBuildDate><atom:link href="https://giantpetter.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>如何用hugo搭建个人博客</title>
+      <link>https://giantpetter.github.io/posts/%E5%A6%82%E4%BD%95%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</link>
+      <pubDate>Fri, 07 May 2021 16:03:03 +0800</pubDate>
+      
+      <guid>https://giantpetter.github.io/posts/%E5%A6%82%E4%BD%95%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</guid>
+      <description>如何用hugo搭建个人博客教程 一.建立本地hugo博客 hugo说明文档网址
+前提：有一定的命令行知识，本文基于macOS系统使用创建
+  首先点击以上链接，出来后点击quickstart.
+  安装hugo：命令行终端直接输入
+ brew install hugo
+  hugo version
+ 并验证是否已经安装完成
+  开始创建site：
+ hugo new site quickstart&amp;quot;
+ &amp;ldquo;quickstart&amp;quot;是文件夹名字，一般用github用户名替换使用。例如：
+ 你的github用户名为FrankFang，将文件夹名命名为frankfang.github.io-generator.此时命令为：
+  hugo new site frankfang.github.io-generator
+   加入主题：为你的博客页面加入主题：
+  首先转移到新建的site中目录（frankfang.github.io-generator中）
+ cd frankfang.github.io-generator
+    git init
+ 创建github本地仓库
+   git submodule add https://github.com/theNewDynamic/gohugo-theme-ananke.git themes/ananke`
+ 下载默认主题/ananke.
+   echo theme = &amp;quot;ananke&amp;quot; &amp;raquo; config.</description>
+    </item>
+    
     <item>
       <title>开播大吉</title>
       <link>https://giantpetter.github.io/posts/%E5%BC%80%E6%92%AD%E5%A4%A7%E5%90%89/</link>
