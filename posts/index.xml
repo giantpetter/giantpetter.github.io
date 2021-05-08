@@ -6,7 +6,19 @@
     <description>Recent content in Posts on 杨欢的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-Hans</language>
-    <lastBuildDate>Sat, 08 May 2021 19:10:26 +0800</lastBuildDate><atom:link href="https://giantpetter.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 08 May 2021 21:56:46 +0800</lastBuildDate><atom:link href="https://giantpetter.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Collection初了解</title>
+      <link>https://giantpetter.github.io/posts/collection%E5%88%9D%E4%BA%86%E8%A7%A3/</link>
+      <pubDate>Sat, 08 May 2021 21:56:46 +0800</pubDate>
+      
+      <guid>https://giantpetter.github.io/posts/collection%E5%88%9D%E4%BA%86%E8%A7%A3/</guid>
+      <description>前言：Collection是最基本的集合接口，在JDK 1.2版本被引入到Java的世界中来。Collection的出现，使得Java拥有了前所未有的强大能力。本文就将介绍Collection体系下常用的类的实现以及它们背后的数据结构。
+Collection体系简介  Java集合框架(Java collections framework) 是一个包含一系列实作可重复使用集合的数据结构的类别 &amp;ldquo;类别 (计算机科学)&amp;quot;)和界面&amp;quot;界面 (程式设计)&amp;quot;)集合。 虽然称为“框架”，其使用方式却像个函式库。集合框架提供了定义各式各样集合的界面和实作上述集合的类别。
+ 我们从Idea搜索Collection.java.util中可以看到其源代码，其第一段是如此说的：
+ The root interface in the collection hierarchy. A collection represents a group of objects, known as its elements. Some collections allow duplicate elements and others do not. Some are ordered and others unordered. The JDK does not provide any direct implementations of this interface: it provides implementations of more specific subinterfaces like Set and List. This interface is typically used to pass collections around and manipulate them where maximum generality is desired.</description>
+    </item>
+    
     <item>
       <title>Maven与包管理的浅解</title>
       <link>https://giantpetter.github.io/posts/maven%E4%B8%8E%E5%8C%85%E7%AE%A1%E7%90%86%E7%9A%84%E6%B5%85%E8%A7%A3/</link>
