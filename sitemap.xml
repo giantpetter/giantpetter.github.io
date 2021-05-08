@@ -2,13 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://giantpetter.github.io/posts/</loc>
-    <lastmod>2021-05-07T16:03:03+08:00</lastmod>
+    <loc>https://giantpetter.github.io/posts/maven%E4%B8%8E%E5%8C%85%E7%AE%A1%E7%90%86%E7%9A%84%E6%B5%85%E8%A7%A3/</loc>
+    <lastmod>2021-05-08T19:10:26+08:00</lastmod>
   </url><url>
-    <loc>https://giantpetter.github.io/posts/%E5%A6%82%E4%BD%95%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</loc>
-    <lastmod>2021-05-07T16:03:03+08:00</lastmod>
+    <loc>https://giantpetter.github.io/posts/</loc>
+    <lastmod>2021-05-08T19:10:26+08:00</lastmod>
   </url><url>
     <loc>https://giantpetter.github.io/</loc>
+    <lastmod>2021-05-08T19:10:26+08:00</lastmod>
+  </url><url>
+    <loc>https://giantpetter.github.io/posts/%E5%A6%82%E4%BD%95%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</loc>
     <lastmod>2021-05-07T16:03:03+08:00</lastmod>
   </url><url>
     <loc>https://giantpetter.github.io/posts/%E5%BC%80%E6%92%AD%E5%A4%A7%E5%90%89/</loc>

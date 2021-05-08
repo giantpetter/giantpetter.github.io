@@ -6,7 +6,27 @@
     <description>Recent content on 杨欢的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-Hans</language>
-    <lastBuildDate>Fri, 07 May 2021 16:03:03 +0800</lastBuildDate><atom:link href="https://giantpetter.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 08 May 2021 19:10:26 +0800</lastBuildDate><atom:link href="https://giantpetter.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Maven与包管理的浅解</title>
+      <link>https://giantpetter.github.io/posts/maven%E4%B8%8E%E5%8C%85%E7%AE%A1%E7%90%86%E7%9A%84%E6%B5%85%E8%A7%A3/</link>
+      <pubDate>Sat, 08 May 2021 19:10:26 +0800</pubDate>
+      
+      <guid>https://giantpetter.github.io/posts/maven%E4%B8%8E%E5%8C%85%E7%AE%A1%E7%90%86%E7%9A%84%E6%B5%85%E8%A7%A3/</guid>
+      <description>Maven与包管理的浅解 maven是什么 1.Maven 翻译为&amp;quot;专家&amp;quot;、&amp;ldquo;内行&amp;rdquo;，是 Apache 下的一个纯 Java 开发的开源项目。 Maven 是一个项目管理工具，可以对 Java 项目进行构建、依赖管理。Maven 也可被用于构建和管理各种项目，例如 C#，Ruby，Scala 和其他语言编写的项目。
+2.约定配置:maven基于项目固定的结构文件名使其能够很好地实现跨平台的使用。
+ 当你需要使用第三方类的时候，总要告诉JVM这些所需的第三方类库，并且能够解决包冲突问题
+ 3.约定：组织 功能 版本 作用域 test（仅测试有效）/compile（test和main都有效）/provided(只在编译时有效，运行时无效) 4.仓库： 中央仓库：按照第3点中约定存储包 本地仓库：下载第三方包在此缓存（～/.m2)
+包冲突以及解决办法 1.包冲突： 一般出现以下异常：
+AbstractMethodError/NoClassDefFoundError/ClassNotFoundException/LinkageError  2.maven的默认解决办法：
+ maven绝对不允许最终的classpath中出现同名不同版本的jar包～
+  默认解决包冲突的原则是：最近的胜出。
+ 3.有时maven默认的包冲突解决原则并不能很好实现自己想要的功能，并且冲突有时并不能解决， 需要人手动排除，有两个方式：
+ 强行在pom.xml中手动添加所需版本的依赖，覆盖掉之后的子依赖.
+  直接告诉maven排除某个特定的传递性依赖，如下代码：
+ &amp;lt;exlusions&amp;gt; &amp;lt;exclusion&amp;gt; &amp;lt;groupID&amp;gt; &amp;lt;artifactID&amp;gt; &amp;lt;exclusion&amp;gt; &amp;lt;exlusions&amp;gt;  maven的进阶功能————自动化构建工具 坐标和依赖、生命周期、聚合和继承、仓库等功能待以后扩展 </description>
+    </item>
+    
     <item>
       <title>如何用hugo搭建个人博客</title>
       <link>https://giantpetter.github.io/posts/%E5%A6%82%E4%BD%95%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</link>
