@@ -6,20 +6,23 @@
     <description>Recent content on 杨欢的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-Hans</language>
-    <lastBuildDate>Fri, 11 Jun 2021 09:46:27 +0800</lastBuildDate><atom:link href="https://giantpetter.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 21 Jul 2021 09:10:24 +0800</lastBuildDate><atom:link href="https://giantpetter.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Java8 流与函数式编程</title>
+      <link>https://giantpetter.github.io/posts/java8%E6%B5%81%E4%B8%8E%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/</link>
+      <pubDate>Wed, 21 Jul 2021 09:10:24 +0800</pubDate>
+      
+      <guid>https://giantpetter.github.io/posts/java8%E6%B5%81%E4%B8%8E%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/</guid>
+      <description>一、函数式编程 1.1 概述 目的： 为了提高效率，减少工作量，减少bug。 概念：首先需要清楚一个概念： 函数式接口；它指的是有且只有一个未实现的方法的接</description>
+    </item>
+    
     <item>
       <title>HashMap源码浅析(JDK1.8)</title>
       <link>https://giantpetter.github.io/posts/hashmap%E6%BA%90%E7%A0%81%E6%B5%85%E6%9E%90/</link>
       <pubDate>Fri, 11 Jun 2021 09:46:27 +0800</pubDate>
       
       <guid>https://giantpetter.github.io/posts/hashmap%E6%BA%90%E7%A0%81%E6%B5%85%E6%9E%90/</guid>
-      <description>1.概述 本文我们就来聊聊大家日常开发中常用的集合 ———— HashMap。HashMap 最早出现在 JDK 1.2中，底层基于散列算法实现。 HashMap 允许 null 键和 null 值，在计算哈键的哈希值时，null 键哈希值为 0。HashMap 并不保证键值对的顺序，这意味着在进行某些操作后，键值对的顺序可能会发生变化。另外，需要注意的是，HashMap 是非线程安全类，在多线程环境下可能会存在问题。 在多线程环境下创建HashMap实例需要用到一下方法,实现线程安全：
-Map m = Collections.synchronizedMap(new HashMap(...)); 在JDK1.8之后，又引入了红黑树结构，其数据结构变的更加复杂，本文就JDK1.8源码为例，对HashMap进行分析
-2.原理 HashMap底层基于散列算法实现，散列算法分为在探测和拉链式，而HashMap 则使用了拉链式的散列算法，并在 JDK 1.8 中引入了红黑树优化过长的链表。 对于拉链式的散列算法，其数据结构是由数组和链表（或树形结构）组成。在进行增删查等操作时，首先要定位到元素的所在桶的位置，之后再从链表中定位该元素。 比如我们要查询上图结构中是否包含元素35，步骤如下：
- 定位元素35处所处桶的位置，Index = 35 % 16 = 3； 在3号桶所指向的链表中继续查找，发现35在链表中。  上面就是 HashMap 底层数据结构的原理，HashMap 基本操作就是对拉链式散列算法基本操作的一层包装。
-3. 源码分析 本文基于JDK 1.8的源码进行分析。与JDK 1.7相比，JDK 1.8对HashMap进行了一些优化。比如引入红黑树解决长链表 效率低的问题。重写resize方法，实现resize的时候保证数据存储的顺序不变。
-3.1 构造方法 3.1.1 构造方法分析 查看源代码发现HashMap的构造方法只有四个。初始化一些重要的变量如loadFactor和threshold。而底层的数据结构则是延迟到插入健值对时再初始化。
-/** 构造方法 1 */ public HashMap(int initialCapacity, float loadFactor) { if (initialCapacity &amp;lt; 0) throw new IllegalArgumentException(&amp;#34;Illegal initial capacity: &amp;#34; + initialCapacity); if (initialCapacity &amp;gt; MAXIMUM_CAPACITY) initialCapacity = MAXIMUM_CAPACITY; if (loadFactor &amp;lt;= 0 || Float.</description>
+      <description>1.概述 本文我们就来聊聊大家日常开发中常用的集合 ———— HashMap。HashMap 最早出现在 JDK 1.2中，底层基于散列算法实现。 HashMap 允许 null 键</description>
     </item>
     
     <item>
@@ -28,8 +31,7 @@ Map m = Collections.synchronizedMap(new HashMap(...)); 在JDK1.8之后，又引�
       <pubDate>Fri, 21 May 2021 17:02:56 +0800</pubDate>
       
       <guid>https://giantpetter.github.io/posts/%E5%BE%90%E8%80%81%E5%B8%88%E5%A5%BD/</guid>
-      <description>偶尔也会有杀气的你 优雅的你 可爱的你 爱旅行的你 美美的你 过生日依然美美的你 小时候呆萌呆萌的你 &amp;ldquo;背影杀&amp;quot;的你 像🧚一样‍的你 重点是你，而不是怎样的你～
-谢谢你！～ Come to an end。。。</description>
+      <description>偶尔也会有杀气的你 优雅的你 可爱的你 爱旅行的你 美美的你 过生日依然美美的你 小时候呆萌呆萌的你 &amp;ldquo;背影杀&amp;quot;的你 像🧚一样‍的你 重</description>
     </item>
     
     <item>
@@ -38,14 +40,7 @@ Map m = Collections.synchronizedMap(new HashMap(...)); 在JDK1.8之后，又引�
       <pubDate>Fri, 21 May 2021 16:02:46 +0800</pubDate>
       
       <guid>https://giantpetter.github.io/posts/%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%B1%9E%E6%80%A7%E7%8A%B6%E6%80%81%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E8%AF%A6%E8%A7%A3/</guid>
-      <description>一、线程简介 线程 （英语：thread）是操作系统能够进行运算调度的最小单位。 大部分情况下，它被包含在进程之中，是进程中的实际运作单位。 一条线程指的是进程中一个单一顺序的控制流，一个进程中可以并发多个线程，每条线程并行执行不同的任务。 在Unix System V及SunOS中也被称为轻量进程（lightweight processes），但轻量进程更多指内核线程（kernel thread），而把用户线程（user thread）称为线程。
-我们运行java程序实际上就是运行了一个jvm进程，jvm默认会用主线程来执行main方法，另外jvm里面还有负责垃圾回收的其他工作线程等等，java语言做了多线程的支持，也就是说我们可以使用多线程实现多任务。 现代计算机的cpu多采用多核架构，为了充分利用性能以及让耗时操作（读写文件等等）更有效率，所以在特定场合（高并发）需要多线程操作。
-二、线程属性  线程是处理机调度的单位 多cpu计算机中，各个线程可以占用不同的cpu 每个线程都有一个线程ID、线程控制块（TCB） 线程类似进程也有就绪、堵塞、运行三种状态 线程几乎不拥有系统资源 同一进程的不同线程间共享进程的资源 由于共享内存地址空间资源，同一进程的线程间通信甚至无需系统干预 同一进程的线程切换，不会引起进程切换 切换同进程内的线程，系统开销很小 切换进程，系统开销很大  三、多线程模型  首先介绍线程的实现方式   用户级线程(User-Level Thread,ULT)：由应用程序通过线程库实现。所有的线程管理工作都由应用程序负责(包括线程的切换)，无需操作系统干预。   内核级线程(Kernel-Level Thread,KLT):线程管理工作由操作系统内核完成。线程调度、切换等工作都由内核负责。 可以说内核级线程就是&amp;quot;从操作系统内核视角可以看到的线程&amp;quot;。   只有内核级线程才是处理机分配的单位
- 多线程模型  由几个用户级线程映射到记个内核级线程的问题引出了&amp;quot;多线程模型问题&amp;quot;
-模型包括三个：
- 多对一模型：多个用户级线程映射到一个内核级线程。开销小，效率高，但是并发度不高，不支持多核处理器并行。 一对一模型：一个用户级线程映射到一个内核级线程。并发程度高，但是开销大，效率低。 多对多模型：如下图，n个用户线程映射到m个内核级线程(n&amp;gt;=m)。每个用户进程对应m个内核级线程。集合了以上两个模型的优点。   四、线程生命周期 关于Java中线程的生命周期，首先看一下下面这张较为经典的图： 上图中基本上囊括了Java中多线程各重要知识点。掌握了上图中的各知识点，Java中的多线程也就基本上掌握了。主要包括：
-Java线程具有五中基本状态
- 新建状态（New）：当线程对象对创建后，即进入了新建状态，如：Thread t = new MyThread(); 就绪状态（Runnable）：当调用线程对象的start()方法（t.start();），线程即进入就绪状态。处于就绪状态的线程，只是说明此线程已经做好了准备，随时等待CPU调度执行，并不是说执行了t.start()此线程立即就会执行； 运行状态（Running）：当CPU开始调度处于就绪状态的线程时，此时线程才得以真正执行，即进入到运行状态。注：就 绪状态是进入到运行状态的唯一入口，也就是说，线程要想进入运行状态执行，首先必须处于就绪状态中； 阻塞状态（Blocked）：处于运行状态中的线程由于某种原因，暂时放弃对CPU的使用权，停止执行，此时进入阻塞状态，直到其进入到就绪状态，才 有机会再次被CPU调用以进入到运行状态。根据阻塞产生的原因不同，阻塞状态又可以分为三种：  等待阻塞：运行状态中的线程执行wait()方法，使本线程进入到等待阻塞状态； 同步阻塞 &amp;ndash; 线程在获取synchronized同步锁失败(因为锁被其它线程所占用)，它会进入同步阻塞状态； 其他阻塞 &amp;ndash; 通过调用线程的sleep()或join()或发出了I/O请求时，线程会进入到阻塞状态。当sleep()状态超时、join()等待线程终止或者超时、或者I/O处理完毕时，线程重新转入就绪状态。   死亡状态（Dead）：线程执行完了或者因异常退出了run()方法，该线程结束生命周期。  Java多线程的就绪、运行和死亡状态(注意点)</description>
+      <description>一、线程简介 线程 （英语：thread）是操作系统能够进行运算调度的最小单位。 大部分情况下，它被包含在进程之中，是进程中的实际运作单位。 一条线</description>
     </item>
     
     <item>
@@ -54,10 +49,7 @@ Java线程具有五中基本状态
       <pubDate>Sat, 08 May 2021 21:56:46 +0800</pubDate>
       
       <guid>https://giantpetter.github.io/posts/collection%E5%88%9D%E4%BA%86%E8%A7%A3/</guid>
-      <description>前言：Collection是最基本的集合接口，在JDK 1.2版本被引入到Java的世界中来。Collection的出现，使得Java拥有了前所未有的强大能力。本文就将介绍Collection体系下常用的类的实现以及它们背后的数据结构。
-Collection体系简介  Java集合框架(Java collections framework) 是一个包含一系列实作可重复使用集合的数据结构的类别 &amp;ldquo;类别 (计算机科学)&amp;quot;)和界面&amp;quot;界面 (程式设计)&amp;quot;)集合。 虽然称为“框架”，其使用方式却像个函式库。集合框架提供了定义各式各样集合的界面和实作上述集合的类别。
- 我们从Idea搜索Collection.java.util中可以看到其源代码，其第一段是如此说的：
- The root interface in the collection hierarchy. A collection represents a group of objects, known as its elements. Some collections allow duplicate elements and others do not. Some are ordered and others unordered. The JDK does not provide any direct implementations of this interface: it provides implementations of more specific subinterfaces like Set and List. This interface is typically used to pass collections around and manipulate them where maximum generality is desired.</description>
+      <description>前言：Collection是最基本的集合接口，在JDK 1.2版本被引入到Java的世界中来。Collection的出现，使得Java拥有了前</description>
     </item>
     
     <item>
@@ -66,15 +58,7 @@ Collection体系简介  Java集合框架(Java collections framework) 是一个�
       <pubDate>Sat, 08 May 2021 19:10:26 +0800</pubDate>
       
       <guid>https://giantpetter.github.io/posts/maven%E4%B8%8E%E5%8C%85%E7%AE%A1%E7%90%86%E7%9A%84%E6%B5%85%E8%A7%A3/</guid>
-      <description>Maven与包管理的浅解 maven是什么 1.Maven 翻译为&amp;quot;专家&amp;quot;、&amp;ldquo;内行&amp;rdquo;，是 Apache 下的一个纯 Java 开发的开源项目。 Maven 是一个项目管理工具，可以对 Java 项目进行构建、依赖管理。Maven 也可被用于构建和管理各种项目，例如 C#，Ruby，Scala 和其他语言编写的项目。
-2.约定配置:maven基于项目固定的结构文件名使其能够很好地实现跨平台的使用。
- 当你需要使用第三方类的时候，总要告诉JVM这些所需的第三方类库，并且能够解决包冲突问题
- 3.约定：
-   约定结构      &amp;lt; groupID&amp;gt; 组织   &amp;lt; artifactID&amp;gt; 功能   &amp;lt; version&amp;gt; 版本   &amp;lt; scope&amp;gt; 作用域 ｜   test(仅测试有效)/compile(test和main都有效)/provided(只在编译时有效，运行时无效)    &amp;lt; optimal&amp;gt; 可选    4.仓库：
-中央仓库：按照第3点中约定存储包地址一 、 地址二
-本地仓库：下载第三方包在此缓存（～/.m2)
-包冲突以及解决办法 1.包冲突： 一般出现以下异常：
-AbstractMethodError/NoClassDefFoundError/ClassNotFoundException/LinkageError  2.</description>
+      <description>Maven与包管理的浅解 maven是什么 1.Maven 翻译为&amp;quot;专家&amp;quot;、&amp;ldquo;内行&amp;rdquo;，是 Apache 下的一个纯 Java 开发的开源项</description>
     </item>
     
     <item>
@@ -83,26 +67,7 @@ AbstractMethodError/NoClassDefFoundError/ClassNotFoundException/LinkageError  2.
       <pubDate>Fri, 07 May 2021 16:03:03 +0800</pubDate>
       
       <guid>https://giantpetter.github.io/posts/%E5%A6%82%E4%BD%95%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</guid>
-      <description>如何用hugo搭建个人博客教程 一.建立本地hugo博客 hugo说明文档网址
-前提：有一定的命令行知识，本文基于macOS系统使用创建
-  首先点击以上链接，出来后点击quickstart.
-  安装hugo：命令行终端直接输入
- brew install hugo
-  hugo version
- 并验证是否已经安装完成
-  开始创建site：
- hugo new site quickstart&amp;quot;
- &amp;ldquo;quickstart&amp;quot;是文件夹名字，一般用github用户名替换使用。例如：
- 你的github用户名为FrankFang，将文件夹名命名为frankfang.github.io-generator.此时命令为：
-  hugo new site frankfang.github.io-generator
-   加入主题：为你的博客页面加入主题：
-  首先转移到新建的site中目录（frankfang.github.io-generator中）
- cd frankfang.github.io-generator
-    git init
- 创建github本地仓库
-   git submodule add https://github.com/theNewDynamic/gohugo-theme-ananke.git themes/ananke`
- 下载默认主题/ananke.
-   echo theme = &amp;quot;ananke&amp;quot; &amp;raquo; config.</description>
+      <description>如何用hugo搭建个人博客教程 一.建立本地hugo博客 hugo说明文档网址 前提：有一定的命令行知识，本文基于macOS系统使用创建 首先点击以</description>
     </item>
     
     <item>
@@ -111,8 +76,7 @@ AbstractMethodError/NoClassDefFoundError/ClassNotFoundException/LinkageError  2.
       <pubDate>Fri, 07 May 2021 09:28:37 +0800</pubDate>
       
       <guid>https://giantpetter.github.io/posts/%E5%BC%80%E6%92%AD%E5%A4%A7%E5%90%89/</guid>
-      <description>#大家好～
-我的博客开通了，希望我能写出好文章给大家看！</description>
+      <description>#大家好～ 我的博客开通了，希望我能写出好文章给大家看！</description>
     </item>
     
   </channel>

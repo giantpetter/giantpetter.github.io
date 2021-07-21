@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Java8 流与函数式编程 | 杨欢的博客</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="一、函数式编程 1.1 概述 目的： 为了提高效率，减少工作量，减少bug。 概念：首先需要清楚一个概念： 函数式接口；它指的是有且只有一个未实现的方法的接">
+    <meta name="generator" content="Hugo 0.83.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+
+  
+  
+    <link rel="stylesheet" href="/ananke/dist/main.css_5c99d70a7725bacd4c701e995b969fea.css" >
+  
+
+
+
+
+    
+      
+
+    
+
+    
+    
+    <meta property="og:title" content="Java8 流与函数式编程" />
+<meta property="og:description" content="一、函数式编程 1.1 概述 目的： 为了提高效率，减少工作量，减少bug。 概念：首先需要清楚一个概念： 函数式接口；它指的是有且只有一个未实现的方法的接" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://giantpetter.github.io/posts/java8%E6%B5%81%E4%B8%8E%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-07-21T09:10:24&#43;08:00" />
+<meta property="article:modified_time" content="2021-07-21T09:10:24&#43;08:00" />
+
+<meta itemprop="name" content="Java8 流与函数式编程">
+<meta itemprop="description" content="一、函数式编程 1.1 概述 目的： 为了提高效率，减少工作量，减少bug。 概念：首先需要清楚一个概念： 函数式接口；它指的是有且只有一个未实现的方法的接"><meta itemprop="datePublished" content="2021-07-21T09:10:24&#43;08:00" />
+<meta itemprop="dateModified" content="2021-07-21T09:10:24&#43;08:00" />
+<meta itemprop="wordCount" content="5220">
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Java8 流与函数式编程"/>
+<meta name="twitter:description" content="一、函数式编程 1.1 概述 目的： 为了提高效率，减少工作量，减少bug。 概念：首先需要清楚一个概念： 函数式接口；它指的是有且只有一个未实现的方法的接"/>
+
+	
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        杨欢的博客
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked">
+          
+        POSTS
+      </aside>
+      
+
+
+
+
+  <div id="sharing" class="mt3">
+
+    
+    <a href="https://www.facebook.com/sharer.php?u=https://giantpetter.github.io/posts/java8%E6%B5%81%E4%B8%8E%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/" class="facebook no-underline" aria-label="share on Facebook">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+    </a>
+
+    
+    
+    <a href="https://twitter.com/share?url=https://giantpetter.github.io/posts/java8%E6%B5%81%E4%B8%8E%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/&amp;text=Java8%20%e6%b5%81%e4%b8%8e%e5%87%bd%e6%95%b0%e5%bc%8f%e7%bc%96%e7%a8%8b" class="twitter no-underline" aria-label="share on Twitter">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+    </a>
+
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://giantpetter.github.io/posts/java8%E6%B5%81%E4%B8%8E%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/&amp;title=Java8%20%e6%b5%81%e4%b8%8e%e5%87%bd%e6%95%b0%e5%bc%8f%e7%bc%96%e7%a8%8b" class="linkedin no-underline" aria-label="share on LinkedIn">
+      <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+    </a>
+  </div>
+
+
+      <h1 class="f1 athelas mt3 mb1">Java8 流与函数式编程</h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2021-07-21T09:10:24+08:00">July 21, 2021</time>
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h1 id="一函数式编程">一、函数式编程</h1>
+<h2 id="11-概述">1.1 概述</h2>
+<p>目的： 为了提高效率，减少工作量，减少bug。</p>
+<p>概念：首先需要清楚一个概念：
+函数式接口；它指的是<strong>有且只有一个</strong>未实现的方法的接口，一般通过FunctionalInterface这个注解来表明某个接口是一个函数式接口。
+函数式接口是Java支持函数式编程的基础。这些接口都在java包中：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">java<span style="color:#f92672">.</span><span style="color:#a6e22e">util</span><span style="color:#f92672">.</span><span style="color:#a6e22e">function</span>
+</code></pre></div><p>具体简化实例（以Consumer为例子）</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">//前
+</span><span style="color:#75715e"></span>Consumer c <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Consumer<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+    <span style="color:#a6e22e">@Override</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">accept</span><span style="color:#f92672">(</span>Object o<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>o<span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">};</span>
+<span style="color:#75715e">//后
+</span><span style="color:#75715e"></span>Consumer c <span style="color:#f92672">=</span> o <span style="color:#f92672">-&gt;</span> System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>o<span style="color:#f92672">);</span>  
+</code></pre></div><h2 id="12-常用接口及其介绍">1.2 常用接口及其介绍</h2>
+<h3 id="121-predicate">1.2.1 Predicate</h3>
+<p>predicate的中文意思是“断定”，即判断的意思，判断某个东西是否满足某种条件。源代码为：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a6e22e">@FunctionalInterface</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">Predicate</span><span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">test</span><span style="color:#f92672">(</span>T t<span style="color:#f92672">);</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>因此它包含test方法，根据输入值来做逻辑判断，其结果为True或者False。它的使用方法示例如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">/**
+</span><span style="color:#75715e"> * Predicate测试
+</span><span style="color:#75715e"> */</span>
+<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">predicateTest</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        Predicate<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> p <span style="color:#f92672">=</span> o <span style="color:#f92672">-&gt;</span> o<span style="color:#f92672">.</span><span style="color:#a6e22e">equals</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;test&#34;</span><span style="color:#f92672">);</span>
+        Predicate<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> g <span style="color:#f92672">=</span> o <span style="color:#f92672">-&gt;</span> o<span style="color:#f92672">.</span><span style="color:#a6e22e">startsWith</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;t&#34;</span><span style="color:#f92672">);</span>
+        <span style="color:#75715e">/**
+</span><span style="color:#75715e">         * negate: 用于对原来的Predicate做取反处理；
+</span><span style="color:#75715e">         * 如当调用p.test(&#34;test&#34;)为True时，调用p.negate().test(&#34;test&#34;)就会是False；
+</span><span style="color:#75715e">         */</span>
+        Assert<span style="color:#f92672">.</span><span style="color:#a6e22e">assertFalse</span><span style="color:#f92672">(</span>p<span style="color:#f92672">.</span><span style="color:#a6e22e">negate</span><span style="color:#f92672">().</span><span style="color:#a6e22e">test</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;test&#34;</span><span style="color:#f92672">));</span>
+        <span style="color:#75715e">/**
+</span><span style="color:#75715e">         * and: 针对同一输入值，多个Predicate均返回True时返回True，否则返回False；
+</span><span style="color:#75715e">         */</span>
+        Assert<span style="color:#f92672">.</span><span style="color:#a6e22e">assertTrue</span><span style="color:#f92672">(</span>p<span style="color:#f92672">.</span><span style="color:#a6e22e">and</span><span style="color:#f92672">(</span>g<span style="color:#f92672">).</span><span style="color:#a6e22e">test</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;test&#34;</span><span style="color:#f92672">));</span>
+
+        <span style="color:#75715e">/**
+</span><span style="color:#75715e">         * or: 针对同一输入值，多个Predicate只要有一个返回True则返回True，否则返回False
+</span><span style="color:#75715e">         */</span>
+        Assert<span style="color:#f92672">.</span><span style="color:#a6e22e">assertTrue</span><span style="color:#f92672">(</span>p<span style="color:#f92672">.</span><span style="color:#a6e22e">or</span><span style="color:#f92672">(</span>g<span style="color:#f92672">).</span><span style="color:#a6e22e">test</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;ta&#34;</span><span style="color:#f92672">));</span>
+        <span style="color:#f92672">}</span>
+</code></pre></div><h3 id="122-function">1.2.2 Function</h3>
+<p>Function也是一个函数式编程接口；它代表的含义是“函数”，而函数经常是有输入输出的，因此它含有一个apply方法，包含一个输入与一个输出；
+除apply方法外，它还有compose与andThen及indentity三个方法，其使用见下述示例；</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">/**
+</span><span style="color:#75715e"> * Function测试
+</span><span style="color:#75715e"> */</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">functionTest</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+    Function<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">,</span> Integer<span style="color:#f92672">&gt;</span> f <span style="color:#f92672">=</span> s <span style="color:#f92672">-&gt;</span> <span style="color:#f92672">++</span>s<span style="color:#f92672">;</span>
+    Function<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">,</span> Integer<span style="color:#f92672">&gt;</span> g <span style="color:#f92672">=</span> s <span style="color:#f92672">-&gt;</span> s <span style="color:#f92672">*</span> 2<span style="color:#f92672">;</span>
+
+    <span style="color:#75715e">/**
+</span><span style="color:#75715e">     * 下面表示在执行F时，先执行G，并且执行F时使用G的输出当作输入。
+</span><span style="color:#75715e">     * 相当于以下代码：
+</span><span style="color:#75715e">     * Integer a = g.apply(1);
+</span><span style="color:#75715e">     * System.out.println(f.apply(a));
+</span><span style="color:#75715e">     * 结果为：3
+</span><span style="color:#75715e">     */</span>
+    System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>f<span style="color:#f92672">.</span><span style="color:#a6e22e">compose</span><span style="color:#f92672">(</span>g<span style="color:#f92672">).</span><span style="color:#a6e22e">apply</span><span style="color:#f92672">(</span>1<span style="color:#f92672">));</span>
+
+    <span style="color:#75715e">/**
+</span><span style="color:#75715e">     * 表示执行F的Apply后使用其返回的值当作输入再执行G的Apply；
+</span><span style="color:#75715e">     * 相当于以下代码
+</span><span style="color:#75715e">     * Integer a = f.apply(1);
+</span><span style="color:#75715e">     * System.out.println(g.apply(a));
+</span><span style="color:#75715e">     * 结果为：4
+</span><span style="color:#75715e">     */</span>
+    System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>f<span style="color:#f92672">.</span><span style="color:#a6e22e">andThen</span><span style="color:#f92672">(</span>g<span style="color:#f92672">).</span><span style="color:#a6e22e">apply</span><span style="color:#f92672">(</span>1<span style="color:#f92672">));</span>
+
+    <span style="color:#75715e">/**
+</span><span style="color:#75715e">     * identity方法会返回一个不进行任何处理的Function，即输出与输入值相等；
+</span><span style="color:#75715e">     * 结果为：a
+</span><span style="color:#75715e">     */</span>
+    System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>Function<span style="color:#f92672">.</span><span style="color:#a6e22e">identity</span><span style="color:#f92672">().</span><span style="color:#a6e22e">apply</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;a&#34;</span><span style="color:#f92672">));</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><h3 id="123-consumer-和-supplier">1.2.3 Consumer 和 Supplier</h3>
+<p>Consumer是一个函数式编程接口； 顾名思义，Consumer的意思就是消费，即针对某个东西我们来使用它，因此它包含有一个有输入而无输出的accept接口方法；
+除accept方法，它还包含有andThen这个方法；
+Supplier是一个函数式编程接口；与Consumer相对，Supplier是生产者的意思，即凭空生产出一个东西，因此它包含一个没有输入而有输出的Get()接口方法；</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">consumerTest</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+    Consumer f <span style="color:#f92672">=</span> System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">::</span>println<span style="color:#f92672">;</span>
+    Consumer f2 <span style="color:#f92672">=</span> n <span style="color:#f92672">-&gt;</span> System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>n <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;-F2&#34;</span><span style="color:#f92672">);</span>
+
+    <span style="color:#75715e">//执行完F后再执行F2的Accept方法
+</span><span style="color:#75715e"></span>    f<span style="color:#f92672">.</span><span style="color:#a6e22e">andThen</span><span style="color:#f92672">(</span>f2<span style="color:#f92672">).</span><span style="color:#a6e22e">accept</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;test&#34;</span><span style="color:#f92672">);</span>
+
+    <span style="color:#75715e">//连续执行F的Accept方法
+</span><span style="color:#75715e"></span>    f<span style="color:#f92672">.</span><span style="color:#a6e22e">andThen</span><span style="color:#f92672">(</span>f<span style="color:#f92672">).</span><span style="color:#a6e22e">andThen</span><span style="color:#f92672">(</span>f<span style="color:#f92672">).</span><span style="color:#a6e22e">andThen</span><span style="color:#f92672">(</span>f<span style="color:#f92672">).</span><span style="color:#a6e22e">accept</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;test1&#34;</span><span style="color:#f92672">);</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><h3 id="124-其他接口">1.2.4 其他接口</h3>
+<p>以上四个接口为常用的基本函数式接口，除此之外还有一些扩展：</p>
+<ul>
+<li>BiConsumer、DoubleConsumer、IntConsumer、LongConsumer、ObjIntConsumer、ObjLongConsumer</li>
+<li>LongSupplier、IntSupplier、DoubleSupplier、BooleanSupplier</li>
+<li>UnaryOperator、LongUnaryOperator、LongBinaryOperator、IntUnaryOperator、IntBinaryOperator、DoubleUnaryOperator、DoubleBinaryOperator、
+ToLongFunction、ToLongBiFunction、ToIntFunction、ToIntBiFunction、ToDoubleFunction、BinaryOperator、BiFunction
+ToDoubleBiFunction、LongToIntFunction、LongToDoubleFunction、IntToLongFunction、IntToDoubleFunction、IntFunction、DoubleToLongFunction、
+DoubleToIntFunction、DoubleFunction、</li>
+<li>LongPredicate、IntPredicate、DoublePredicate、BiPredicate</li>
+</ul>
+<h1 id="二函数式接口的使用">二、函数式接口的使用</h1>
+<p>通过Stream以及Optional两个类，可以进一步利用函数式接口来简化代码。</p>
+<h2 id="21-stream">2.1 Stream</h2>
+<p>Stream可以对多个元素进行一系列的操作，也可以支持对某些操作进行并发处理。</p>
+<h3 id="211-stream对象的创建">2.1.1 Stream对象的创建</h3>
+<p>Stream对象的创建途径有以下几种:</p>
+<ol>
+<li>创建空的Stream对象</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Stream stream <span style="color:#f92672">=</span> Stream<span style="color:#f92672">().</span><span style="color:#a6e22e">Empty</span><span style="color:#f92672">();</span>
+</code></pre></div><ol start="2">
+<li>通过Stream中的of方法创建</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> list <span style="color:#f92672">=</span> Arrays<span style="color:#f92672">.</span><span style="color:#a6e22e">asList</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;a&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;b&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;c&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;d&#34;</span><span style="color:#f92672">);</span>
+Stream listStream <span style="color:#f92672">=</span> list<span style="color:#f92672">.</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">();</span>                   <span style="color:#75715e">//获取串行的Stream对象
+</span><span style="color:#75715e"></span>Stream parallelListStream <span style="color:#f92672">=</span> list<span style="color:#f92672">.</span><span style="color:#a6e22e">parallelStream</span><span style="color:#f92672">();</span>   <span style="color:#75715e">//获取并行的Stream对象  
+</span></code></pre></div><ol start="3">
+<li>通过Stream中的iterate方法创建：
+iterate方法有两个不同参数的方法</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span><span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> Stream<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">iterate</span><span style="color:#f92672">(</span><span style="color:#66d9ef">final</span> T seed<span style="color:#f92672">,</span> <span style="color:#66d9ef">final</span> UnaryOperator<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> f<span style="color:#f92672">);</span>  
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span><span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> Stream<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">iterate</span><span style="color:#f92672">(</span>T seed<span style="color:#f92672">,</span> Predicate<span style="color:#f92672">&lt;?</span> <span style="color:#66d9ef">super</span> T<span style="color:#f92672">&gt;</span> hasNext<span style="color:#f92672">,</span> UnaryOperator<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> next<span style="color:#f92672">)</span>
+</code></pre></div><p>其中第一个方法将会返回一个无限有序值的Stream对象：它的第一个元素是seed，第二个元素是f.apply(seed); 第N个元素是f.apply(n-1个元素的值)；生成无限值的方法实际上与Stream的中间方法类似，在遇到中止方法前一般是不真正的执行的。因此无限值的这个方法一般与limit等方法一起使用，来获取前多少个元素。
+当然获取前多少个元素也可以使用第二个方法。</p>
+<p>第二个方法与第一个方法生成元素的方式类似，不同的是它返回的是一个有限值的Stream；中止条件是由hasNext来断定的。</p>
+<ol start="4">
+<li>通过Stream中的generate方法创建
+与iterate中创建无限元素的Stream类似，不过它的每个元素与前一元素无关，且生成的是一个无序的队列。也就是说每一个元素都可以随机生成。因此一般用来创建常量的Stream以及随机的Stream等。
+示例如下：</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">/**
+</span><span style="color:#75715e"> * 随机生成10个Double元素的Stream并将其打印
+</span><span style="color:#75715e"> */</span>
+Stream<span style="color:#f92672">.</span><span style="color:#a6e22e">generate</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Supplier<span style="color:#f92672">&lt;</span>Double<span style="color:#f92672">&gt;()</span> <span style="color:#f92672">{</span>
+    <span style="color:#a6e22e">@Override</span>
+    <span style="color:#66d9ef">public</span> Double <span style="color:#a6e22e">get</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">return</span> Math<span style="color:#f92672">.</span><span style="color:#a6e22e">random</span><span style="color:#f92672">();</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}).</span><span style="color:#a6e22e">limit</span><span style="color:#f92672">(</span>10<span style="color:#f92672">).</span><span style="color:#a6e22e">forEach</span><span style="color:#f92672">(</span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">::</span>println<span style="color:#f92672">);</span>
+
+<span style="color:#75715e">//上述写法可以简化成以下写法：
+</span><span style="color:#75715e"></span>Stream<span style="color:#f92672">.</span><span style="color:#a6e22e">generate</span><span style="color:#f92672">(()</span> <span style="color:#f92672">-&gt;</span> Math<span style="color:#f92672">.</span><span style="color:#a6e22e">random</span><span style="color:#f92672">()).</span><span style="color:#a6e22e">limit</span><span style="color:#f92672">(</span>10<span style="color:#f92672">).</span><span style="color:#a6e22e">forEach</span><span style="color:#f92672">(</span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">::</span>println<span style="color:#f92672">);</span>
+</code></pre></div><ol start="5">
+<li>通过Stream中的concat方法连接两个Stream对象生成新的Stream对象</li>
+</ol>
+<h3 id="212-stream对象的使用">2.1.2 Stream对象的使用</h3>
+<p>Stream对象提供多个非常有用的方法，这些方法可以分成两类：
+中间操作：将原始的Stream转换成另外一个Stream；如filter返回的是过滤后的Stream。
+终端操作：产生的是一个结果或者其它的复合操作；如count或者forEach操作。</p>
+<p><strong>所有中间操作</strong></p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sequential</td>
+<td>返回一个相等的串行的Stream对象，如果原Stream对象已经是串行就可能会返回原对象</td>
+</tr>
+<tr>
+<td>parallel</td>
+<td>返回一个相等的并行的Stream对象，如果原Stream对象已经是并行的就会返回原对象</td>
+</tr>
+<tr>
+<td>unordered</td>
+<td>返回一个不关心顺序的Stream对象，如果原对象已经是这类型的对象就会返回原对象</td>
+</tr>
+<tr>
+<td>onClose</td>
+<td>返回一个相等的Steam对象，同时新的Stream对象在执行Close方法时会调用传入的Runnable对象</td>
+</tr>
+<tr>
+<td>close</td>
+<td>返回void，关闭Stream对象</td>
+</tr>
+<tr>
+<td>filter</td>
+<td>元素过滤：对Stream对象按指定的Predicate进行过滤，返回的Stream对象中Predicate为true的元素</td>
+</tr>
+<tr>
+<td>map</td>
+<td>元素一对一转换：使用传入的Function对象对Stream中的所有元素进行处理，返回的Stream对象中的元素为原元素处理后的结果</td>
+</tr>
+<tr>
+<td>mapToInt</td>
+<td>元素一对一转换：将原Stream中的使用传入的IntFunction加工后返回一个IntStream对象</td>
+</tr>
+<tr>
+<td>flatMap</td>
+<td>元素一对多转换：对原Stream中的所有元素进行操作，每个元素会有一个或者多个结果，然后将返回的所有元素组合成一个统一的Stream并返回；</td>
+</tr>
+<tr>
+<td>distinct</td>
+<td>去重：返回一个去重后的Stream对象</td>
+</tr>
+<tr>
+<td>sorted</td>
+<td>排序：返回排序后的Stream对象</td>
+</tr>
+<tr>
+<td>peek</td>
+<td>使用传入的Consumer对象对所有元素进行消费后，返回一个新的包含所有原来元素的Stream对象</td>
+</tr>
+<tr>
+<td>limit</td>
+<td>获取有限个元素组成新的Stream对象返回</td>
+</tr>
+<tr>
+<td>skip</td>
+<td>抛弃前指定个元素后使用剩下的元素组成新的Stream返回</td>
+</tr>
+<tr>
+<td>takeWhile</td>
+<td>如果Stream是有序的（Ordered），那么返回最长命中序列（符合传入的Predicate的最长命中序列）组成的Stream；如果是无序的，那么返回的是所有符合传入的Predicate的元素序列组成的Stream。</td>
+</tr>
+<tr>
+<td>dropWhile</td>
+<td>与takeWhile相反，如果是有序的，返回除最长命中序列外的所有元素组成的Stream；如果是无序的，返回所有未命中的元素组成的Stream。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>所有终端操作</strong></p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>iterator</td>
+<td>返回Stream中所有对象的迭代器;</td>
+</tr>
+<tr>
+<td>spliterator</td>
+<td>返回对所有对象进行的spliterator对象</td>
+</tr>
+<tr>
+<td>forEach</td>
+<td>对所有元素进行迭代处理，无返回值</td>
+</tr>
+<tr>
+<td>forEachOrdered</td>
+<td>按Stream的Encounter所决定的序列进行迭代处理，无返回值</td>
+</tr>
+<tr>
+<td>toArray</td>
+<td>返回所有元素的数组</td>
+</tr>
+<tr>
+<td>reduce</td>
+<td>使用一个初始化的值，与Stream中的元素一一做传入的二合运算后返回最终的值。每与一个元素做运算后的结果，再与下一个元素做运算。它不保证会按序列执行整个过程。</td>
+</tr>
+<tr>
+<td>collect</td>
+<td>根据传入参数做相关汇聚计算</td>
+</tr>
+<tr>
+<td>min、max</td>
+<td>返回所有元素中最小（大）值的Optional对象；如果Stream中无任何元素，那么返回的Optional对象为Empty</td>
+</tr>
+<tr>
+<td>count</td>
+<td>所有元素个数</td>
+</tr>
+<tr>
+<td>anyMatch</td>
+<td>只要其中有一个元素满足传入的Predicate时返回True，否则返回False</td>
+</tr>
+<tr>
+<td>allMatch</td>
+<td>所有元素均满足传入的Predicate时返回True，否则False</td>
+</tr>
+<tr>
+<td>noneMatch</td>
+<td>所有元素均不满足传入的Predicate时返回True，否则False</td>
+</tr>
+<tr>
+<td>findFirst</td>
+<td>返回第一个元素的Optional对象；如果无元素返回的是空的Optional； 如果Stream是无序的，那么任何元素都可能被返回。</td>
+</tr>
+<tr>
+<td>findAny</td>
+<td>返回任意一个元素的Optional对象，如果无元素返回的是空的Optioanl。</td>
+</tr>
+<tr>
+<td>isParallel</td>
+<td>判断是否当前Stream对象是并行的</td>
+</tr>
+</tbody>
+</table>
+<h4 id="2121-常用的方法举例">2.1.2.1 常用的方法举例</h4>
+<ol>
+<li>filter</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">//定义
+</span><span style="color:#75715e"></span>    Stream<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">filter</span><span style="color:#f92672">(</span>Predicate<span style="color:#f92672">&lt;?</span> <span style="color:#66d9ef">super</span> T<span style="color:#f92672">&gt;</span> predicate<span style="color:#f92672">);</span>
+        
+<span style="color:#75715e">//查找所有包含t的元素并进行打印
+</span><span style="color:#75715e"></span>    Stream<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> s <span style="color:#f92672">=</span> Stream<span style="color:#f92672">.</span><span style="color:#a6e22e">of</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;test&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;t1&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;t2&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;teeeee&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;aaaa&#34;</span><span style="color:#f92672">);</span>
+    s<span style="color:#f92672">.</span><span style="color:#a6e22e">filter</span><span style="color:#f92672">(</span>n <span style="color:#f92672">-&gt;</span> n<span style="color:#f92672">.</span><span style="color:#a6e22e">contains</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;t&#34;</span><span style="color:#f92672">)).</span><span style="color:#a6e22e">forEach</span><span style="color:#f92672">(</span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">::</span>println<span style="color:#f92672">);</span>
+</code></pre></div><ol start="2">
+<li>map</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">//定义
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">&lt;</span>R<span style="color:#f92672">&gt;</span> Stream<span style="color:#f92672">&lt;</span>R<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">map</span><span style="color:#f92672">(</span>Function<span style="color:#f92672">&lt;?</span> <span style="color:#66d9ef">super</span> T<span style="color:#f92672">,</span> <span style="color:#f92672">?</span> <span style="color:#66d9ef">extends</span> R<span style="color:#f92672">&gt;</span> mapper<span style="color:#f92672">);</span>
+<span style="color:#75715e">//每个元素添加相同的后缀.txt
+</span><span style="color:#75715e"></span>    Stream<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> s <span style="color:#f92672">=</span> Stream<span style="color:#f92672">.</span><span style="color:#a6e22e">of</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;test&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;t1&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;t2&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;teeeee&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;aaaa&#34;</span><span style="color:#f92672">);</span>
+    s<span style="color:#f92672">.</span><span style="color:#a6e22e">map</span><span style="color:#f92672">(</span>n <span style="color:#f92672">-&gt;</span> n<span style="color:#f92672">.</span><span style="color:#a6e22e">concat</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;.txt&#34;</span><span style="color:#f92672">)).</span><span style="color:#a6e22e">forEach</span><span style="color:#f92672">(</span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">::</span>println<span style="color:#f92672">);</span>
+
+</code></pre></div><ol start="3">
+<li>flatMap</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">//定义
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">&lt;</span>R<span style="color:#f92672">&gt;</span> Stream<span style="color:#f92672">&lt;</span>R<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">flatMap</span><span style="color:#f92672">(</span>Function<span style="color:#f92672">&lt;?</span> <span style="color:#66d9ef">super</span> T<span style="color:#f92672">,</span> <span style="color:#f92672">?</span> <span style="color:#66d9ef">extends</span> Stream<span style="color:#f92672">&lt;?</span> <span style="color:#66d9ef">extends</span> R<span style="color:#f92672">&gt;&gt;</span> mapper<span style="color:#f92672">);</span>
+<span style="color:#75715e">//将每一个元素的拆分成单个字母，并打印
+</span><span style="color:#75715e"></span>    Stream<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> s <span style="color:#f92672">=</span> Stream<span style="color:#f92672">.</span><span style="color:#a6e22e">of</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;test&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;t1&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;t2&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;teeeee&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;aaaa&#34;</span><span style="color:#f92672">);</span>
+    s<span style="color:#f92672">.</span><span style="color:#a6e22e">flatMap</span><span style="color:#f92672">(</span>n <span style="color:#f92672">-&gt;</span> Stream<span style="color:#f92672">.</span><span style="color:#a6e22e">of</span><span style="color:#f92672">(</span>n<span style="color:#f92672">.</span><span style="color:#a6e22e">split</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">))).</span><span style="color:#a6e22e">forEach</span><span style="color:#f92672">(</span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">::</span>println<span style="color:#f92672">);</span>
+</code></pre></div><ol start="4">
+<li>takeWhile</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">//定义
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">default</span> Stream<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">takeWhile</span><span style="color:#f92672">(</span>Predicate<span style="color:#f92672">&lt;?</span> <span style="color:#66d9ef">super</span> T<span style="color:#f92672">&gt;</span> predicate<span style="color:#f92672">)</span>
+<span style="color:#75715e">//查找这几个元素中包含t的最长命中序列
+</span><span style="color:#75715e"></span>    Stream<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> s <span style="color:#f92672">=</span> Stream<span style="color:#f92672">.</span><span style="color:#a6e22e">of</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;test&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;t1&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;t2&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;teeeee&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;aaaa&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;taaa&#34;</span><span style="color:#f92672">);</span>
+<span style="color:#75715e">//以下结果将打印： &#34;test&#34;, &#34;t1&#34;, &#34;t2&#34;, &#34;teeeee&#34;，最后的那个taaa不会进行打印 
+</span><span style="color:#75715e"></span>    s<span style="color:#f92672">.</span><span style="color:#a6e22e">takeWhile</span><span style="color:#f92672">(</span>n <span style="color:#f92672">-&gt;</span> n<span style="color:#f92672">.</span><span style="color:#a6e22e">contains</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;t&#34;</span><span style="color:#f92672">)).</span><span style="color:#a6e22e">forEach</span><span style="color:#f92672">(</span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">::</span>println<span style="color:#f92672">);</span>
+</code></pre></div><ol start="5">
+<li>dropWhile</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">//定义
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">default</span> Stream<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">dropWhile</span><span style="color:#f92672">(</span>Predicate<span style="color:#f92672">&lt;?</span> <span style="color:#66d9ef">super</span> T<span style="color:#f92672">&gt;</span> predicate<span style="color:#f92672">)</span>
+<span style="color:#75715e">//删除这几个元素中包含t的最长命中序列
+</span><span style="color:#75715e"></span>    Stream<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> s <span style="color:#f92672">=</span> Stream<span style="color:#f92672">.</span><span style="color:#a6e22e">of</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;test&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;t1&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;t2&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;teeeee&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;aaaa&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;taaa&#34;</span><span style="color:#f92672">);</span>
+<span style="color:#75715e">//以下结果将打印：&#34;aaaa&#34;, &#34;taaa&#34; 　
+</span><span style="color:#75715e"></span>    s<span style="color:#f92672">.</span><span style="color:#a6e22e">dropWhile</span><span style="color:#f92672">(</span>n <span style="color:#f92672">-&gt;</span> n<span style="color:#f92672">.</span><span style="color:#a6e22e">contains</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;t&#34;</span><span style="color:#f92672">)).</span><span style="color:#a6e22e">forEach</span><span style="color:#f92672">(</span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">::</span>println<span style="color:#f92672">);</span>
+</code></pre></div><h2 id="22-optional">2.2 Optional</h2>
+<p>用于简化Java中对空值的判断处理，以防止出现各种空指针异常。
+Optional实际上是对一个变量进行封装，它包含有一个属性value，实际上就是这个变量的值。</p>
+<h3 id="221-optional对象创建">2.2.1 Optional对象创建</h3>
+<ol>
+<li>empty</li>
+</ol>
+<p>用于创建一个空的Optional对象；其value属性为Null。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Optional o <span style="color:#f92672">=</span> Optional<span style="color:#f92672">.</span><span style="color:#a6e22e">empty</span><span style="color:#f92672">();</span>
+</code></pre></div><ol start="2">
+<li>of</li>
+</ol>
+<p>根据传入的值构建一个Optional对象;
+传入的值必须是非空值，否则如果传入的值为空值，则会抛出空指针异常。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">o <span style="color:#f92672">=</span> Optional<span style="color:#f92672">.</span><span style="color:#a6e22e">of</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;test&#34;</span><span style="color:#f92672">);</span>
+</code></pre></div><ol start="3">
+<li>ofNullable</li>
+</ol>
+<p>根据传入值构建一个Optional对象
+传入的值可以是空值，如果传入的值是空值，则与empty返回的结果是一样的。</p>
+<h3 id="222-方法">2.2.2 方法</h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>get</td>
+<td>获取Value的值，如果Value值是空值，则会抛出NoSuchElementException异常；因此返回的Value值无需再做空值判断，只要没有抛出异常，都会是非空值</td>
+</tr>
+<tr>
+<td>isPresent</td>
+<td>Value是否为空值的判断</td>
+</tr>
+<tr>
+<td>ifPresent</td>
+<td>当Value不为空时，执行传入的Consumer；</td>
+</tr>
+<tr>
+<td>ifPresentOrElse</td>
+<td>Value不为空时，执行传入的Consumer；否则执行传入的Runnable对象；</td>
+</tr>
+<tr>
+<td>filter</td>
+<td>当Value为空或者传入的Predicate对象调用test(value)返回False时，返回Empty对象；否则返回当前的Optional对象</td>
+</tr>
+<tr>
+<td>map</td>
+<td>一对一转换：当Value为空时返回Empty对象，否则返回传入的Function执行apply(value)后的结果组装的Optional对象；</td>
+</tr>
+<tr>
+<td>flatMap</td>
+<td>一对多转换：当Value为空时返回Empty对象，否则传入的Function执行apply(value)后返回的结果（其返回结果直接是Optional对象）</td>
+</tr>
+<tr>
+<td>or</td>
+<td>如果Value不为空，则返回当前的Optional对象；否则，返回传入的Supplier生成的Optional对象；</td>
+</tr>
+<tr>
+<td>stream</td>
+<td>如果Value为空，返回Stream对象的Empty值；否则返回Stream.of(value)的Stream对象；</td>
+</tr>
+<tr>
+<td>orElse</td>
+<td>不为空则返回Value，否则返回传入的值；</td>
+</tr>
+<tr>
+<td>orElseGet</td>
+<td>Value不为空则返回Value，否则返回传入的Supplier生成的值；</td>
+</tr>
+<tr>
+<td>orElseThrow</td>
+<td>Value不为空则返回Value，否则抛出Supplier中生成的异常对象；</td>
+</tr>
+</tbody>
+</table>
+<h3 id="223-使用场景">2.2.3 使用场景</h3>
+<ol>
+<li>判断结果不为空后使用</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">//以前的做法
+</span><span style="color:#75715e"></span>String s <span style="color:#f92672">=</span> test<span style="color:#f92672">();</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">null</span> <span style="color:#f92672">!=</span> s<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+    System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>s<span style="color:#f92672">);</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#75715e">//现在做法
+</span><span style="color:#75715e"></span>Optional<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> s <span style="color:#f92672">=</span> Optional<span style="color:#f92672">.</span><span style="color:#a6e22e">ofNullable</span><span style="color:#f92672">(</span>test<span style="color:#f92672">());</span>
+s<span style="color:#f92672">.</span><span style="color:#a6e22e">ifPresent</span><span style="color:#f92672">(</span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">::</span>println<span style="color:#f92672">);</span>
+</code></pre></div><ol start="2">
+<li>变量为空时提供默认值</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">//以前的做法
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">null</span> <span style="color:#f92672">==</span> s<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        s <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;test&#34;</span><span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>s<span style="color:#f92672">);</span>
+
+<span style="color:#75715e">//现在做法
+</span><span style="color:#75715e"></span>Optional<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> o <span style="color:#f92672">=</span> Optional<span style="color:#f92672">.</span><span style="color:#a6e22e">ofNullable</span><span style="color:#f92672">(</span>s<span style="color:#f92672">);</span>
+System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>o<span style="color:#f92672">.</span><span style="color:#a6e22e">orElse</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;test&#34;</span><span style="color:#f92672">));</span>
+</code></pre></div><ol start="3">
+<li>变量为空时抛出异常，否则使用</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">//以前的做法
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">null</span> <span style="color:#f92672">==</span> s<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> Exception<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;test&#34;</span><span style="color:#f92672">);</span>
+        <span style="color:#f92672">}</span>
+System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>s<span style="color:#f92672">);</span>
+
+<span style="color:#75715e">//现在做法
+</span><span style="color:#75715e"></span>Optional<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> o <span style="color:#f92672">=</span> Optional<span style="color:#f92672">.</span><span style="color:#a6e22e">ofNullable</span><span style="color:#f92672">(</span>s<span style="color:#f92672">);</span>
+System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>o<span style="color:#f92672">.</span><span style="color:#a6e22e">orElseThrow</span><span style="color:#f92672">(()-&gt;</span><span style="color:#66d9ef">new</span> Exception<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;test&#34;</span><span style="color:#f92672">)));</span>
+</code></pre></div><ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://giantpetter.github.io" >
+    &copy;  杨欢的博客 2021 
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>
