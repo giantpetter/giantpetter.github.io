@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Maven与包管理的浅解 - Even - A super concise theme for Hugo</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="拾光" /><meta name="description" content="Maven与包管理的浅解 maven是什么 1.Maven 翻译为&amp;quot;专家&amp;quot;、&amp;ldquo;内行&amp;rdquo;，是 Apache 下的一个纯 Java 开发的开源项" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.83.0 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/maven%E4%B8%8E%E5%8C%85%E7%AE%A1%E7%90%86%E7%9A%84%E6%B5%85%E8%A7%A3/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Maven与包管理的浅解" />
+<meta property="og:description" content="Maven与包管理的浅解 maven是什么 1.Maven 翻译为&quot;专家&quot;、&ldquo;内行&rdquo;，是 Apache 下的一个纯 Java 开发的开源项" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/maven%E4%B8%8E%E5%8C%85%E7%AE%A1%E7%90%86%E7%9A%84%E6%B5%85%E8%A7%A3/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-05-08T19:10:26&#43;08:00" />
+<meta property="article:modified_time" content="2021-05-08T19:10:26&#43;08:00" />
+
+<meta itemprop="name" content="Maven与包管理的浅解">
+<meta itemprop="description" content="Maven与包管理的浅解 maven是什么 1.Maven 翻译为&quot;专家&quot;、&ldquo;内行&rdquo;，是 Apache 下的一个纯 Java 开发的开源项"><meta itemprop="datePublished" content="2021-05-08T19:10:26&#43;08:00" />
+<meta itemprop="dateModified" content="2021-05-08T19:10:26&#43;08:00" />
+<meta itemprop="wordCount" content="635">
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Maven与包管理的浅解"/>
+<meta name="twitter:description" content="Maven与包管理的浅解 maven是什么 1.Maven 翻译为&quot;专家&quot;、&ldquo;内行&rdquo;，是 Apache 下的一个纯 Java 开发的开源项"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">拾光</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">拾光</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Maven与包管理的浅解</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-05-08 </span>
+        
+          <span class="more-meta"> 约 635 字 </span>
+          <span class="more-meta"> 预计阅读 2 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#maven与包管理的浅解">Maven与包管理的浅解</a>
+      <ul>
+        <li><a href="#maven是什么">maven是什么</a></li>
+        <li><a href="#包冲突以及解决办法">包冲突以及解决办法</a></li>
+        <li><a href="#maven的进阶功能自动化构建工具">maven的进阶功能————自动化构建工具</a>
+          <ul>
+            <li><a href="#坐标和依赖生命周期聚合和继承仓库等功能待以后扩展">坐标和依赖、生命周期、聚合和继承、仓库等功能待以后扩展</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="maven与包管理的浅解">Maven与包管理的浅解</h1>
+<h2 id="maven是什么">maven是什么</h2>
+<p>1.Maven 翻译为&quot;专家&quot;、&ldquo;内行&rdquo;，是 Apache 下的一个纯 Java 开发的开源项目。
+Maven 是一个项目管理工具，可以对 Java 项目进行构建、依赖管理。Maven 也可被用于构建和管理各种项目，例如 C#，Ruby，Scala 和其他语言编写的项目。</p>
+<p>2.约定配置:maven基于项目固定的结构文件名使其能够很好地实现跨平台的使用。</p>
+<blockquote>
+<p>当你需要使用第三方类的时候，总要告诉JVM这些所需的第三方类库，并且能够解决包冲突问题</p>
+</blockquote>
+<p>3.约定：</p>
+<table>
+<thead>
+<tr>
+<th>约定结构</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&lt; groupID&gt;</td>
+<td>组织</td>
+</tr>
+<tr>
+<td>&lt; artifactID&gt;</td>
+<td>功能</td>
+</tr>
+<tr>
+<td>&lt; version&gt;</td>
+<td>版本</td>
+</tr>
+<tr>
+<td>&lt; scope&gt;</td>
+<td>作用域   ｜</td>
+</tr>
+<tr>
+<td>test(仅测试有效)/compile(test和main都有效)/provided(只在编译时有效，运行时无效)</td>
+<td></td>
+</tr>
+<tr>
+<td>&lt; optimal&gt;</td>
+<td>可选</td>
+</tr>
+</tbody>
+</table>
+<p>4.仓库：</p>
+<p>中央仓库：按照第3点中约定存储包<a href="https://repo1.maven.org/maven2">地址一</a> 、 <a href="https://repo.maven.apache.org/maven2/">地址二</a></p>
+<p>本地仓库：下载第三方包在此缓存（～/.m2)</p>
+<h2 id="包冲突以及解决办法">包冲突以及解决办法</h2>
+<p>1.包冲突：
+一般出现以下异常：</p>
+<pre><code>AbstractMethodError/NoClassDefFoundError/ClassNotFoundException/LinkageError
+</code></pre>
+<p>2.maven的默认解决办法：</p>
+<blockquote>
+<p>maven绝对不允许最终的classpath中出现<em><strong>同名不同版本</strong></em>的jar包～</p>
+</blockquote>
+<blockquote>
+<p>默认解决包冲突的原则是：<em><strong>最近的胜出</strong></em>。</p>
+</blockquote>
+<p>3.有时maven默认的包冲突解决原则并不能很好实现自己想要的功能，并且冲突有时并不能解决，
+需要人手动排除，有两个方式：</p>
+<blockquote>
+<p>强行在pom.xml中手动添加所需版本的依赖，覆盖掉之后的子依赖.</p>
+</blockquote>
+<blockquote>
+<p>直接告诉maven排除某个特定的传递性依赖，如下代码：</p>
+</blockquote>
+<pre><code>&lt;exlusions&gt;
+    &lt;exclusion&gt; 
+        &lt;groupID&gt;
+        &lt;artifactID&gt;
+    &lt;exclusion&gt;
+&lt;exlusions&gt;
+</code></pre>
+<h2 id="maven的进阶功能自动化构建工具">maven的进阶功能————自动化构建工具</h2>
+<h3 id="坐标和依赖生命周期聚合和继承仓库等功能待以后扩展">坐标和依赖、生命周期、聚合和继承、仓库等功能待以后扩展</h3>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">拾光</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2021-05-08
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        <a class="prev" href="/post/collection%E5%88%9D%E4%BA%86%E8%A7%A3/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Collection初了解</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/%E5%A6%82%E4%BD%95%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">
+            <span class="next-text nav-default">如何用hugo搭建个人博客</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="yang_95@126.com" class="iconfont icon-email" title="email"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>Huan</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
