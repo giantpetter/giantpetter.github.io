@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>java8 on 拾光的博客</title>
+    <link>http://localhost:1313/tags/java8/</link>
+    <description>Recent content in java8 on 拾光的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>Huan</copyright>
+    <lastBuildDate>Wed, 21 Jul 2021 09:10:24 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/java8/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Java8 流与函数式编程</title>
+      <link>http://localhost:1313/2021/07/java8-%E6%B5%81%E4%B8%8E%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/</link>
+      <pubDate>Wed, 21 Jul 2021 09:10:24 +0800</pubDate>
+      
+      <guid>http://localhost:1313/2021/07/java8-%E6%B5%81%E4%B8%8E%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/</guid>
+      <description>一、函数式编程 1.1 概述 目的： 为了提高效率，减少工作量，减少bug。 概念：首先需要清楚一个概念： 函数式接口；它指的是有且只有一个未实现的方法的接</description>
+    </item>
+    
+  </channel>
+</rss>

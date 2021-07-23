@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on 拾光的博客</title>
-    <link>http://localhost:1313/post/</link>
-    <description>Recent content in Posts on 拾光的博客</description>
+    <title>Java on 拾光的博客</title>
+    <link>http://localhost:1313/categories/java/</link>
+    <description>Recent content in Java on 拾光的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>Huan</copyright>
-    <lastBuildDate>Wed, 21 Jul 2021 09:10:24 +0800</lastBuildDate><atom:link href="http://localhost:1313/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 21 Jul 2021 09:10:24 +0800</lastBuildDate><atom:link href="http://localhost:1313/categories/java/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Java8 流与函数式编程</title>
       <link>http://localhost:1313/2021/07/java8-%E6%B5%81%E4%B8%8E%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/</link>
@@ -51,24 +51,6 @@
       
       <guid>http://localhost:1313/2021/05/maven%E4%B8%8E%E5%8C%85%E7%AE%A1%E7%90%86%E7%9A%84%E6%B5%85%E8%A7%A3/</guid>
       <description>Maven与包管理的浅解 maven是什么 1.Maven 翻译为&amp;quot;专家&amp;quot;、&amp;ldquo;内行&amp;rdquo;，是 Apache 下的一个纯 Java 开发的开源项</description>
-    </item>
-    
-    <item>
-      <title>如何用hugo搭建个人博客</title>
-      <link>http://localhost:1313/2021/05/%E5%A6%82%E4%BD%95%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</link>
-      <pubDate>Fri, 07 May 2021 16:03:03 +0800</pubDate>
-      
-      <guid>http://localhost:1313/2021/05/%E5%A6%82%E4%BD%95%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</guid>
-      <description>如何用hugo搭建个人博客教程 一.建立本地hugo博客 hugo说明文档网址 前提：有一定的命令行知识，本文基于macOS系统使用创建 首先点击以</description>
-    </item>
-    
-    <item>
-      <title>开播大吉</title>
-      <link>http://localhost:1313/2021/05/%E5%BC%80%E6%92%AD%E5%A4%A7%E5%90%89/</link>
-      <pubDate>Fri, 07 May 2021 09:28:37 +0800</pubDate>
-      
-      <guid>http://localhost:1313/2021/05/%E5%BC%80%E6%92%AD%E5%A4%A7%E5%90%89/</guid>
-      <description>#大家好～ 我的博客开通了，希望我能写出好文章给大家看！</description>
     </item>
     
   </channel>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>操作系统 on 拾光的博客</title>
+    <link>http://localhost:1313/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</link>
+    <description>Recent content in 操作系统 on 拾光的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>Huan</copyright>
+    <lastBuildDate>Fri, 21 May 2021 16:02:46 +0800</lastBuildDate><atom:link href="http://localhost:1313/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>线程的属性、状态、生命周期详解</title>
+      <link>http://localhost:1313/2021/05/%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%B1%9E%E6%80%A7%E7%8A%B6%E6%80%81%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E8%AF%A6%E8%A7%A3/</link>
+      <pubDate>Fri, 21 May 2021 16:02:46 +0800</pubDate>
+      
+      <guid>http://localhost:1313/2021/05/%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%B1%9E%E6%80%A7%E7%8A%B6%E6%80%81%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E8%AF%A6%E8%A7%A3/</guid>
+      <description>一、线程简介 线程 （英语：thread）是操作系统能够进行运算调度的最小单位。 大部分情况下，它被包含在进程之中，是进程中的实际运作单位。 一条线</description>
+    </item>
+    
+  </channel>
+</rss>
