@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>浅析URL - 拾光的博客</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="拾光" /><meta name="description" content="一、概述 URL 是“统一资源定位符”（Uniform Resource Locator）的首字母缩写，中文译为“网址”，表示各种资源的互联网地址。下面就是一个典型的" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.83.0 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/2021/07/%E6%B5%85%E6%9E%90url/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="浅析URL" />
+<meta property="og:description" content="一、概述 URL 是“统一资源定位符”（Uniform Resource Locator）的首字母缩写，中文译为“网址”，表示各种资源的互联网地址。下面就是一个典型的" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/2021/07/%E6%B5%85%E6%9E%90url/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-07-23T15:56:49&#43;08:00" />
+<meta property="article:modified_time" content="2021-07-23T15:56:49&#43;08:00" />
+
+<meta itemprop="name" content="浅析URL">
+<meta itemprop="description" content="一、概述 URL 是“统一资源定位符”（Uniform Resource Locator）的首字母缩写，中文译为“网址”，表示各种资源的互联网地址。下面就是一个典型的"><meta itemprop="datePublished" content="2021-07-23T15:56:49&#43;08:00" />
+<meta itemprop="dateModified" content="2021-07-23T15:56:49&#43;08:00" />
+<meta itemprop="wordCount" content="3487">
+<meta itemprop="keywords" content="URL,DNS,IP,域名," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="浅析URL"/>
+<meta name="twitter:description" content="一、概述 URL 是“统一资源定位符”（Uniform Resource Locator）的首字母缩写，中文译为“网址”，表示各种资源的互联网地址。下面就是一个典型的"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">拾光</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">拾光</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">浅析URL</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-07-23 </span>
+        <div class="post-category">
+            <a href="/categories/%E5%89%8D%E7%AB%AF/"> 前端 </a>
+            </div>
+          <span class="more-meta"> 3487 words </span>
+          <span class="more-meta"> 7 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一概述">一、概述</a>
+      <ul>
+        <li><a href="#11-协议">1.1 协议</a></li>
+        <li><a href="#12-主机域名">1.2 主机(域名)</a></li>
+        <li><a href="#13-端口">1.3 端口</a></li>
+        <li><a href="#14-路径">1.4 路径</a></li>
+        <li><a href="#15-查询参数">1.5 查询参数</a></li>
+        <li><a href="#16-锚点">1.6 锚点</a></li>
+      </ul>
+    </li>
+    <li><a href="#二dns">二、DNS</a>
+      <ul>
+        <li><a href="#21-dns服务器分类">2.1 DNS服务器分类</a></li>
+        <li><a href="#22-dns服务器工作流程">2.2 DNS服务器工作流程</a></li>
+        <li><a href="#23-nslookup">2.3 nslookup</a></li>
+      </ul>
+    </li>
+    <li><a href="#三ip">三、IP</a>
+      <ul>
+        <li><a href="#31-ipv4与ipv6简介">3.1 IPv4与IPv6简介</a>
+          <ul>
+            <li><a href="#ipv4">IPv4</a></li>
+            <li><a href="#ipv6">IPv6</a></li>
+          </ul>
+        </li>
+        <li><a href="#32-外网地址">3.2 外网地址</a></li>
+        <li><a href="#33-内网地址">3.3 内网地址</a></li>
+        <li><a href="#34-ping">3.4 Ping</a></li>
+      </ul>
+    </li>
+    <li><a href="#四域名">四、域名</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="一概述">一、概述</h1>
+<p>URL 是“统一资源定位符”（Uniform Resource Locator）的首字母缩写，中文译为“网址”，表示各种资源的互联网地址。下面就是一个典型的 URL。</p>
+<p><code>https://www.example.com/path/index.html</code></p>
+<p>只要资源可以通过互联网访问，它就必然有对应的 URL。一个 URL 对应一个资源，但是同一个资源可能对应多个 URL。</p>
+<p><strong>URL主要由协议、域名（ip）、路径、查询参数、锚点和端口号组成。如下图</strong></p>
+<p><img src="/images/URL/url.png" alt=""></p>
+<h2 id="11-协议">1.1 协议</h2>
+<p>协议（scheme）是浏览器请求服务器资源的方法，上例是https://的部分，表示使用 HTTPS 协议。</p>
+<p>互联网支持多种协议，必须指明网址使用哪一种协议，默认是 HTTP 协议。也就是说，如果省略协议，直接在浏览器地址栏输入www.example.com，那么浏览器默认会访问http://www.example.com。HTTPS 是 HTTP 的加密版本，出于安全考虑，越来越多的网站使用这个协议。</p>
+<p>HTTP 和 HTTPS 的协议名称后面，紧跟着一个冒号和两个斜杠（://）。其他协议不一定如此，邮件地址协议mailto:的协议名后面只有一个冒号，比如mailto:foo@example.com。</p>
+<h2 id="12-主机域名">1.2 主机(域名)</h2>
+<p>主机（host）是资源所在的网站名或服务器的名字，又称为域名。上例的主机是www.example.com。</p>
+<p>有些主机没有域名，只有 IP 地址，比如192.168.2.15。这种情况常常出现在局域网。</p>
+<h2 id="13-端口">1.3 端口</h2>
+<p>同一个域名下面可能同时包含多个网站，它们之间通过端口（port）区分。</p>
+<p>https的默认端口为443；http协议的默认端口为80；ftp协议默认端口为21。</p>
+<h2 id="14-路径">1.4 路径</h2>
+<p>路径（path）是资源在网站的位置。比如，/path/index.html这个路径，指向网站的/path子目录下面的网页文件index.html。</p>
+<p>路径可能只包含目录，不包含文件名，比如/foo/，甚至结尾的斜杠都可以省略。这时，服务器通常会默认跳转到该目录里面的index.html文件（即等同于请求/foo/index.html），但也可能有其他的处理（比如列出目录里面的所有文件），这取决于服务器的设置。一般来说，访问www.example.com这个网址，很可能返回的是网页文件www.example.com/index.html。</p>
+<h2 id="15-查询参数">1.5 查询参数</h2>
+<p>查询参数（parameter）是提供给服务器的额外信息。参数的位置是在路径后面，两者之间使用?分隔，上例是?wd=hello&amp;rsv_spt=1。</p>
+<p>查询参数可以有一组或多组。每组参数都是键值对（key-value pair）的形式，同时具有键名(key)和键值(value)，它们之间使用等号（=）连接。比如，key1=value就是一个键值对，key1是键名，value1是键值。</p>
+<p>多组参数之间使用&amp;连接，比如key1=value1&amp;key2=value2。</p>
+<h2 id="16-锚点">1.6 锚点</h2>
+<p>锚点（anchor）是网页内部的定位点，使用<code>#</code>加上锚点名称，放在网址的最后，比如<code>#anchor</code>。浏览器加载页面以后，会自动滚动到锚点所在的位置。</p>
+<p>锚点名称通过网页元素的<code>id</code>属性命名</p>
+<h1 id="二dns">二、DNS</h1>
+<p><a href="https://baike.baidu.com/item/%E5%9F%9F%E5%90%8D%E7%B3%BB%E7%BB%9F/2251573?fromtitle=DNS&amp;fromid=427444&amp;fr=aladdin">DNS(Domain Name System)</a>又名域名系统。我们知道识别主机有两种方式：主机名和IP地址。为了折中这些不同的偏好，需要一种能够进行主机名到IP地址转换的目录服务————这就是域名系统（DNS）的目的。其概念包括：</p>
+<ul>
+<li>1）一个由分层的DNS服务器实现的分布式数据库；</li>
+<li>2）一个使得主机能够分布式数据库的应用层协议。</li>
+</ul>
+<p>注意：DNS协议运行在UDP之上，使用53号端口。
+且DNS通常是由其他应用层协议（如HTTP、SMTP和FTP）所使用的。</p>
+<h2 id="21-dns服务器分类">2.1 DNS服务器分类</h2>
+<p>DNS是一个分布式、层次数据库，采用了大量的DNS服务器，它们以层次方式组织，分布在全世界范围内。一般来说有三种类型的DNS服务器：根DNS服务器、顶级域（Top-Level Domain，TLD）DNS服务器和权威DNS服务器。</p>
+<ol>
+<li>根服务器：全世界大概400多台。提供TLD服务器的IP地址</li>
+<li>顶级域（TLD）服务器：对于每个顶级域(com、org、net、edu等)和所有国家级顶级域(如uk、fr、ca)都有TLD服务器。TLD服务器提供权威DNS服务器的IP地址。</li>
+<li>权威DNS服务器：因特网上具有公共可访问主机的每个组织机构必须提供公共可以访问的DNS记录。</li>
+</ol>
+<p>除此之外，还有一个本地DNS服务器，它严格上不属于DNS服务器的层次结构，但是作用极大。主机与IPS（Internet Serve Provider）连接时，提供一台主机的IP地址，该主机具有一台或多台本地DNS服务器的IP地址（一般通过DHCP）。</p>
+<h2 id="22-dns服务器工作流程">2.2 DNS服务器工作流程</h2>
+<p><img src="/images/URL/DNS.png" alt=""></p>
+<p>假设客户想要访问网址：www.taobao.com。</p>
+<ul>
+<li>step1 客户首先向本地DNS服务器发送查询报文，本地DNS获得根服务器的com的TLD的IP地址。</li>
+<li>step2 本地DNS再向这些TLD服务器之一发送查询报文，获得taobao.com的权威DNS服务器的IP地址。</li>
+<li>step3 本地DNS再向该权威DNS服务器发送查询报文，最终获得www.taobao.com的IP地址。</li>
+<li>step4 本地DNS向客服发送需要的IP地址。</li>
+</ul>
+<p>客户向本地DNS服务器查询是<strong>递归查询</strong>，本地DNS服务器向其他层次DNS服务器是<strong>迭代查询</strong>。</p>
+<p>为减少查询次数，降低查询时延，DNS服务器使用<strong>缓存技术</strong>缓存最近最经常用的域名IP映射。</p>
+<h2 id="23-nslookup">2.3 nslookup</h2>
+<p>nslookup命令的作用是查询DNS的记录，查看域名解析是否正常，在网络故障的时候用来诊断网络问题。</p>
+<p>查询格式如下：</p>
+<p><code>nslookup www.163.com</code></p>
+<p>注意：从DNS缓存中读取的信息为<strong>非权威回答</strong></p>
+<h1 id="三ip">三、IP</h1>
+<p><a href="https://baike.baidu.com/item/IP/224599?fr=aladdin">IP</a>是Internet Protocol，称为网际协议。</p>
+<p>根据端到端的设计原则，IP只为主机提供一种无连接、不可靠的、尽力而为的数据包传输服务。IP规定网络上所有的设备都必须有一个独一无二的IP地址，从技术上说，一个IP地址与一个接口相关联，而不是与包括该接口的主机或路由器相关联。我们这里只介绍IPv4。</p>
+<h2 id="31-ipv4与ipv6简介">3.1 IPv4与IPv6简介</h2>
+<p>IPv4为IP版本4，IPv6位IP版本6。</p>
+<h3 id="ipv4">IPv4</h3>
+<p>简单来说，IPv4的IP地址长度为32比特（4字节），因此总共有大约40亿个可能的IP地址。每个IP地址由三个点、4个数字段组成。如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">192.32.216.9      ----&gt;   11000001 00100000 11011000 00001001
+</code></pre></td></tr></table>
+</div>
+</div><p>当有一些新的主机连入主网，每个子网将具有一个DHCP(Dynamic Host Configuration Protocol，动态主机配置协议)服务器，为该主机动态的分配一个IP地址。</p>
+<h3 id="ipv6">IPv6</h3>
+<p>由于32比特的IP地址将要用完，所以采用IPv6，地址大小为128比特。</p>
+<h2 id="32-外网地址">3.2 外网地址</h2>
+<p>对于家庭或企业来说，路由器是其连接外界互联网的唯一关口，也称为网关。对于外界互联网，路由器有着自己的IP地址，家庭成员的上网都是由其分发数据包，家庭成员没有自己的IP地址。</p>
+<h2 id="33-内网地址">3.3 内网地址</h2>
+<p>家庭找所有设备和路由器构成一个内网，也称局域网。路由器为每一个设备分配内网IP地址，如192.168.0.1.</p>
+<p>特殊的IP地址：127.0.0.1表示主机自身（通过host文件别名也为localhost）；对ipv6来说地址则为：：：1； 0.0.0.0不表示任何设备</p>
+<h2 id="34-ping">3.4 Ping</h2>
+<p>ICMP协议是“Internet Control Message Protocol”（因特网控制消息协议）的缩写。它是TCP/IP协议族的一个子协议，用于在IP主机、路由器之间传递控制消息。</p>
+<p><code>ping</code> (Packet Internet Groper)，因特网包探索器，用于测试网络连接量的程序。Ping发送一个ICMP；回声请求消息给目的地并报告是否收到所希望的ICMP echo （ICMP回声应答）。它是用来检查网络是否通畅或者网络连接速度的命令</p>
+<p>ping命令通常用来作为网络可用性的检查。ping命令可以对一个网络地址发送测试数据包，看该网络地址是否有响应并统计响应时间，以此测试网络。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">ping www.baidu.com
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>注意与nslookup的区别</strong></p>
+<ol>
+<li>ping出来的是一台服务器的IP，而nslookup是查看该域名有哪几台d服务器提供服务，很多公司都使用了负载均衡技术，将用户的访问随机定到某一台服务器上，所以你ping的可能有时候不一样，而nslookup则能看到所有提供服务的服务器。</li>
+<li>ping出来是本地区的服务器的地址，而nslookup是所有的地址。</li>
+<li>ping主要是测试服务器跟本机的连通性；nslookup是查询域名的ip地址的</li>
+</ol>
+<h1 id="四域名">四、域名</h1>
+<p><a href="https://baike.baidu.com/item/%E5%9F%9F%E5%90%8D/86062?fr=aladdin">域名</a>是由一串用点分隔的名字组成的Internet上某一台计算机或计算机组的名称，用于在数据传输时对计算机的定位标识。主要是为了解决IP地址不好记忆的问题。</p>
+<p>一个域名可以对应不同的IP，应对大量访问的问题，可以实现负载均衡，防止一台主机爆表；</p>
+<p>一个IP也可以对应不同的域名，由一个共享主机为不同的开发者提供服务。</p>
+<p>注意IP：114.114.114.114或114.114.115.115</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">拾光</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2021-07-23
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/url/">URL</a>
+          <a href="/tags/dns/">DNS</a>
+          <a href="/tags/ip/">IP</a>
+          <a href="/tags/%E5%9F%9F%E5%90%8D/">域名</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/2021/07/html%E5%B8%B8%E7%94%A8%E6%A0%87%E7%AD%BE/">
+            <span class="next-text nav-default">HTML常用标签</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="yang_95@126.com" class="iconfont icon-email" title="email"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>Huan</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
