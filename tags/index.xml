@@ -7,43 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>Huan</copyright>
-    <lastBuildDate>Fri, 23 Jul 2021 15:56:49 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>DNS</title>
-      <link>http://localhost:1313/tags/dns/</link>
-      <pubDate>Fri, 23 Jul 2021 15:56:49 +0800</pubDate>
-      
-      <guid>http://localhost:1313/tags/dns/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>IP</title>
-      <link>http://localhost:1313/tags/ip/</link>
-      <pubDate>Fri, 23 Jul 2021 15:56:49 +0800</pubDate>
-      
-      <guid>http://localhost:1313/tags/ip/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>URL</title>
-      <link>http://localhost:1313/tags/url/</link>
-      <pubDate>Fri, 23 Jul 2021 15:56:49 +0800</pubDate>
-      
-      <guid>http://localhost:1313/tags/url/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>域名</title>
-      <link>http://localhost:1313/tags/%E5%9F%9F%E5%90%8D/</link>
-      <pubDate>Fri, 23 Jul 2021 15:56:49 +0800</pubDate>
-      
-      <guid>http://localhost:1313/tags/%E5%9F%9F%E5%90%8D/</guid>
-      <description></description>
-    </item>
-    
+    <lastBuildDate>Fri, 23 Jul 2021 13:26:54 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Html</title>
       <link>http://localhost:1313/tags/html/</link>
