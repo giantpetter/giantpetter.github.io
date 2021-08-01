@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>如何用hugo搭建个人博客 | 杨欢的博客</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="如何用hugo搭建个人博客教程 一.建立本地hugo博客 hugo说明文档网址 前提：有一定的命令行知识，本文基于macOS系统使用创建 首先点击以">
+    <meta name="generator" content="Hugo 0.83.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+
+  
+  
+    <link rel="stylesheet" href="/ananke/dist/main.css_5c99d70a7725bacd4c701e995b969fea.css" >
+  
+
+
+
+
+    
+      
+
+    
+
+    
+    
+    <meta property="og:title" content="如何用hugo搭建个人博客" />
+<meta property="og:description" content="如何用hugo搭建个人博客教程 一.建立本地hugo博客 hugo说明文档网址 前提：有一定的命令行知识，本文基于macOS系统使用创建 首先点击以" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://giantpetter.github.io/posts/%E5%A6%82%E4%BD%95%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-05-07T16:03:03&#43;08:00" />
+<meta property="article:modified_time" content="2021-05-07T16:03:03&#43;08:00" />
+
+<meta itemprop="name" content="如何用hugo搭建个人博客">
+<meta itemprop="description" content="如何用hugo搭建个人博客教程 一.建立本地hugo博客 hugo说明文档网址 前提：有一定的命令行知识，本文基于macOS系统使用创建 首先点击以"><meta itemprop="datePublished" content="2021-05-07T16:03:03&#43;08:00" />
+<meta itemprop="dateModified" content="2021-05-07T16:03:03&#43;08:00" />
+<meta itemprop="wordCount" content="886">
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="如何用hugo搭建个人博客"/>
+<meta name="twitter:description" content="如何用hugo搭建个人博客教程 一.建立本地hugo博客 hugo说明文档网址 前提：有一定的命令行知识，本文基于macOS系统使用创建 首先点击以"/>
+
+	
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        杨欢的博客
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked">
+          
+        POSTS
+      </aside>
+      
+
+
+
+
+  <div id="sharing" class="mt3">
+
+    
+    <a href="https://www.facebook.com/sharer.php?u=https://giantpetter.github.io/posts/%E5%A6%82%E4%BD%95%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" class="facebook no-underline" aria-label="share on Facebook">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+    </a>
+
+    
+    
+    <a href="https://twitter.com/share?url=https://giantpetter.github.io/posts/%E5%A6%82%E4%BD%95%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/&amp;text=%e5%a6%82%e4%bd%95%e7%94%a8hugo%e6%90%ad%e5%bb%ba%e4%b8%aa%e4%ba%ba%e5%8d%9a%e5%ae%a2" class="twitter no-underline" aria-label="share on Twitter">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+    </a>
+
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://giantpetter.github.io/posts/%E5%A6%82%E4%BD%95%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/&amp;title=%e5%a6%82%e4%bd%95%e7%94%a8hugo%e6%90%ad%e5%bb%ba%e4%b8%aa%e4%ba%ba%e5%8d%9a%e5%ae%a2" class="linkedin no-underline" aria-label="share on LinkedIn">
+      <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+    </a>
+  </div>
+
+
+      <h1 class="f1 athelas mt3 mb1">如何用hugo搭建个人博客</h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2021-05-07T16:03:03+08:00">May 7, 2021</time>
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h1 id="如何用hugo搭建个人博客教程">如何用hugo搭建个人博客教程</h1>
+<h2 id="一建立本地hugo博客">一.建立本地hugo博客</h2>
+<p><a href="https://gohugo.io/getting-started/quick-start/">hugo说明文档网址</a></p>
+<p>前提：有一定的命令行知识，本文基于macOS系统使用创建</p>
+<ol>
+<li>
+<p>首先点击以上链接，出来后点击<a href="https://gohugo.io/getting-started/quick-start/">quickstart</a>.</p>
+</li>
+<li>
+<p>安装hugo：命令行终端直接输入</p>
+<blockquote>
+<p>brew install hugo</p>
+</blockquote>
+<blockquote>
+<p>hugo version</p>
+</blockquote>
+<p>并验证是否已经安装完成</p>
+</li>
+<li>
+<p>开始创建site：</p>
+<blockquote>
+<p>hugo new site quickstart&quot;</p>
+</blockquote>
+<p>&ldquo;quickstart&quot;是文件夹名字，一般用github用户名替换使用。例如：</p>
+<blockquote>
+<p>你的github用户名为FrankFang，将文件夹名命名为frankfang.github.io-generator.此时命令为：</p>
+</blockquote>
+<blockquote>
+<p>hugo new site frankfang.github.io-generator</p>
+</blockquote>
+</li>
+<li>
+<p>加入主题：为你的博客页面加入主题：</p>
+<ul>
+<li>
+<p>首先转移到新建的site中目录（frankfang.github.io-generator中）</p>
+<blockquote>
+<p>cd frankfang.github.io-generator</p>
+</blockquote>
+</li>
+<li>
+<blockquote>
+<p>git init</p>
+</blockquote>
+<p>创建github本地仓库</p>
+</li>
+<li>
+<blockquote>
+<p>git submodule add <a href="https://github.com/theNewDynamic/gohugo-theme-ananke.git">https://github.com/theNewDynamic/gohugo-theme-ananke.git</a> themes/ananke`</p>
+</blockquote>
+<p>下载默认主题/ananke.</p>
+</li>
+<li>
+<blockquote>
+<p>echo theme = &quot;ananke&quot; &raquo; config.toml</p>
+</blockquote>
+<p>将该主题添加到配置文件中。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>接下来就开始激动人心的创建博客文件并写啦：</p>
+<blockquote>
+<p>hugo new posts/yourfilename.md</p>
+</blockquote>
+<p>在post目录中创建一个md的文件，
+并在此文件中编写你的第一篇博客。如图</p>
+</li>
+</ol>
+<p><img src="/images/1.png" alt="">
+编写完博客后记得将&quot;draft:true&quot;改为&quot;draft:false&rdquo;</p>
+<ol start="6">
+<li><code>hugo server -D</code>可以再本地创建自己的博客，点击链接可以查看。如下图</li>
+</ol>
+<p><img src="/images/2.png" alt=""></p>
+<ol start="7">
+<li>编辑配置文件config.toml，其中&quot;title:&ldquo;项可编辑自己博客大标题</li>
+</ol>
+<p><img src="/images/3.png" alt=""></p>
+<h2 id="二将本地hugo博客上传到github中">二.将本地hugo博客上传到github中</h2>
+<ol>
+<li></li>
+</ol>
+<blockquote>
+<p>hugo -D</p>
+</blockquote>
+<p>创建static pages，当前工作目录中出现public文件夹，首先创建<code>.gitignore</code>文件并编辑将</p>
+<blockquote>
+<p>/public/</p>
+</blockquote>
+<p>写入其中后关闭(目的是防止public文件夹备份到github，public目录需要单独备份)
+将工作目录转移到public文件夹中</p>
+<ol start="2">
+<li>在个人github网站创建仓库repository，仓库名为：<code>个人用户名.github.io</code>，其他的不动。然后出现如下图：
+<img src="/images/4.png" alt="">将选中的命令复制(如下）:</li>
+</ol>
+<blockquote>
+<p>git remote add origin <a href="mailto:git@github.com">git@github.com</a>:*********.github.io.git</p>
+</blockquote>
+<blockquote>
+<p>git push -u origin master</p>
+</blockquote>
+<p>至此，已经将public中的本地仓库传递到远程github仓库中</p>
+<ol start="3">
+<li>在github远程仓库中打开setting，拉到最下，找到如下界面，基本可以不动，
+点击的链接即为自己的博客网址啦～
+<img src="/images/5.png" alt=""></li>
+</ol>
+<h1 id="以上">以上</h1>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://giantpetter.github.io" >
+    &copy;  杨欢的博客 2021 
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>
