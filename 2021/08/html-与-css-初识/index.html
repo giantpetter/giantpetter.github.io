@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>HTML 与 CSS 初识 - 拾光的博客</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="拾光" /><meta name="description" content="一、概述 本文主要讲解本人对 html 与 css 初学的一些认识。适合作为入门级知识学习。 二、HTML 文件的概 HTML 是网页使用的语言，定义了网页的结构和内容。浏览" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.83.0 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/2021/08/html-%E4%B8%8E-css-%E5%88%9D%E8%AF%86/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="HTML 与 CSS 初识" />
+<meta property="og:description" content="一、概述 本文主要讲解本人对 html 与 css 初学的一些认识。适合作为入门级知识学习。 二、HTML 文件的概 HTML 是网页使用的语言，定义了网页的结构和内容。浏览" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/2021/08/html-%E4%B8%8E-css-%E5%88%9D%E8%AF%86/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-08-25T16:46:19&#43;08:00" />
+<meta property="article:modified_time" content="2021-08-25T16:46:19&#43;08:00" />
+
+<meta itemprop="name" content="HTML 与 CSS 初识">
+<meta itemprop="description" content="一、概述 本文主要讲解本人对 html 与 css 初学的一些认识。适合作为入门级知识学习。 二、HTML 文件的概 HTML 是网页使用的语言，定义了网页的结构和内容。浏览"><meta itemprop="datePublished" content="2021-08-25T16:46:19&#43;08:00" />
+<meta itemprop="dateModified" content="2021-08-25T16:46:19&#43;08:00" />
+<meta itemprop="wordCount" content="3112">
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="HTML 与 CSS 初识"/>
+<meta name="twitter:description" content="一、概述 本文主要讲解本人对 html 与 css 初学的一些认识。适合作为入门级知识学习。 二、HTML 文件的概 HTML 是网页使用的语言，定义了网页的结构和内容。浏览"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">拾光</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">拾光</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">HTML 与 CSS 初识</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-08-25 </span>
+        <div class="post-category">
+            <a href="/categories/java/"> Java </a>
+            </div>
+          <span class="more-meta"> 3112 words </span>
+          <span class="more-meta"> 7 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一">一、概述</a></li>
+    <li><a href="#二">二、HTML 文件的概</a>
+      <ul>
+        <li><a href="#21-doctype">2.1 DOCTYPE</a></li>
+        <li><a href="#22-html-lang">2.2 html lang</a></li>
+        <li><a href="#23-head">2.3 head</a></li>
+        <li><a href="#24-body">2.4 body</a></li>
+      </ul>
+    </li>
+    <li><a href="#三css-初识">三、CSS 初识</a>
+      <ul>
+        <li><a href="#31盒子模型">3.1盒子模型</a>
+          <ul>
+            <li><a href="#311块级盒子">3.1.1块级盒子</a></li>
+            <li><a href="#312行级盒子">3.1.2行级盒子</a></li>
+            <li><a href="#313盒模型标准与ie">3.1.3盒模型：标准与IE</a></li>
+          </ul>
+        </li>
+        <li><a href="#32-css-常用选择器">3.2 CSS 常用选择器</a>
+          <ul>
+            <li><a href="#321-元素选择器">3.2.1 元素选择器</a></li>
+            <li><a href="#322-id选择器">3.2.2 ID选择器</a></li>
+            <li><a href="#323-类选择器">3.2.3 类选择器</a></li>
+            <li><a href="#324-通用选择器">3.2.4 通用选择器</a></li>
+            <li><a href="#325-属性选择器">3.2.5 属性选择器</a></li>
+            <li><a href="#326-组合选择器">3.2.6 组合选择器</a></li>
+          </ul>
+        </li>
+        <li><a href="#32-css-引入方式">3.2 CSS 引入方式</a>
+          <ul>
+            <li><a href="#321-标签-link">3.2.1 标签 link</a></li>
+            <li><a href="#322-使用-css-语法引入">3.2.2 使用 CSS 语法引入</a></li>
+            <li><a href="#323-内部样式">3.2.3 内部样式</a></li>
+            <li><a href="#324-内联样式不推荐">3.2.4 内联样式(不推荐)</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#四总结">四、总结</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="一">一、概述</h1>
+<p>本文主要讲解本人对 <code>html</code> 与 <code>css</code> 初学的一些认识。适合作为入门级知识学习。</p>
+<h1 id="二">二、HTML 文件的概</h1>
+<p><a href="https://en.wikipedia.org/wiki/HTML">HTML</a> 是网页使用的语言，定义了网页的结构和内容。浏览器访问网站，其实就是从服务器下载 HTML 代码，然后渲染出网页。HTML 的全名是“超文本标记语言”（HyperText Markup Language），上个世纪 90 年代由欧洲核子研究中心的物理学家蒂姆·伯纳斯-李（Tim Berners-Lee）发明。</p>
+<p>以下是一个简单的 HTML 源代码:html 文件主要包含 DOCTYPE 、html 标签包住的 head 与 body 两部分</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-html" data-lang="html"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;zh-CN&#34;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&#34;utf-8&#34;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;viewport&#34;</span> <span class="na">content</span><span class="o">=</span><span class="s">&#34;width=device-width&#34;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>网页标题<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Hello World<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="21-doctype">2.1 DOCTYPE</h2>
+<p>DOCTYPE 意思是文件类型( document type )，主要是告诉浏览器渲染该 html 文件的方式。用作区分如何渲染老页面和新页面，如果没有 doctype ，用老的方法渲染页面，如果有 doctpye 用标准模式渲染页面。</p>
+<p>注意该行代码不属于 HTML 语法，并且只能放在第一行。</p>
+<h2 id="22-html-lang">2.2 html lang</h2>
+<p><code>&lt;html lang=&quot;zh-CN&quot;&gt;</code>意在告诉浏览器该页面为中国中文编写。类似的语言也有英文- <code>en</code>。</p>
+<h2 id="23-head">2.3 head</h2>
+<p><code>&lt;head&gt;</code> 标签是一个容器标签，用于放置网页的元信息。它的内容不会出现在网页上，而是为网页渲染提供额外信息。他是 <code>&lt;html&gt;</code> 标签的第一个子元素。如果网页不包含 <code>&lt;head&gt;</code> ，浏览器会自动创建一个。
+<code>&lt;head&gt;</code>的子元素主要有：</p>
+<ul>
+<li>meta ：设置网页的元数据，(<code>&lt;meta charset=&quot;utf-8&quot;&gt;</code>)。</li>
+<li>link ：连接引入 CSS 外部样式。</li>
+<li>title ：设置网页标题，一般显示在浏览器标签页上。</li>
+<li>style ：一般为内嵌的 CSS 样式表。</li>
+</ul>
+<p><code>&lt;meta charset=&quot;utf-8&quot;&gt;</code>告诉浏览器网页编码为 UTF-8 ，可以直接按照 UTF-8 方式解码显示。<br>
+<code>&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width&quot;&gt;</code> 主要是为了适配手机浏览器，因为手机浏览器是把页面放在一个虚拟的“窗口（viewport）”中，通常这样的窗口比屏幕宽，这样就不用把每个页面挤到一个很小的窗口中，用户可以通过平移和缩放来看网页不同部分。<code>width=device-width</code>表示控制该窗口宽度为设备的宽度（单位为缩放为 100% 时的 CSS 的像素）</p>
+<h2 id="24-body">2.4 body</h2>
+<p><code>&lt;body&gt;</code> 标签是一个容器标签，用于放置网页的主体内容。浏览器显示的页面内容，都放置在它的内部。它是<code>&lt;html&gt;</code>的第二个子元素，紧跟在<code>&lt;head&gt;</code>后面。</p>
+<h1 id="三css-初识">三、CSS 初识</h1>
+<p><a href="https://zh.wikipedia.org/wiki/CSS">CSS</a> 指层叠样式表 (Cascading Style Sheets)，样式定义浏览器如何显示 HTML 元素，样式一般储存在样式表中，主要解决了内容与表现分离的问题。</p>
+<h2 id="31盒子模型">3.1盒子模型</h2>
+<p>所有 HTML 都可以看做是一个盒子，在 CSS 中，“box model”是用来设计与布局时使用的。如图:
+<img src="/images/CSS/boxModel.png" alt="box model"></p>
+<p>不同部分说明：</p>
+<ul>
+<li>Margin(外边距) - 清除边框外的区域，外边距是透明的。</li>
+<li>Border(边框) - 围绕在内边距和内容外的边框。</li>
+<li>Padding(内边距) - 清除内容周围的区域，内边距是透明的。</li>
+<li>Content(内容) - 盒子的内容，显示文本和图像。</li>
+</ul>
+<p>而盒子元素主要包括两类：块级盒子和行级盒子</p>
+<h3 id="311块级盒子">3.1.1块级盒子</h3>
+<p>块级盒⼦会在⽔平⽅向上扩展并占据⽗容器在该⽅向上的所有可⽤空间，并且每个盒⼦都会换到新⾏，width 和 height 属性有效。内边距（padding）, 外边距（margin） 和 边框（border） 会将其他元素从当前盒⼦周围推开。</p>
+<p>常见的块级标签有：<code>&lt;h1&gt;...&lt;h6&gt;</code>、<code>&lt;p&gt;</code>、 <code>&lt;div&gt;</code>、 <code>&lt;ul&gt;</code>、<code>&lt;ol&gt;</code>、<code>&lt;li&gt;</code>、<code>&lt;dl&gt;</code>、<code>&lt;dt&gt;</code>、<code>&lt;dd&gt;</code>、<code>&lt;header&gt;</code>、<code>&lt;main&gt;</code>、<code>&lt;footer&gt;</code>、<code>&lt;aside&gt;</code>、<code>&lt;nav&gt;</code>、<code>&lt;section&gt;</code>、<code>&lt;table&gt;</code>、<code>&lt;pre&gt;</code>。
+更多详情请点击<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Block-level_elements">这里</a></p>
+<h3 id="312行级盒子">3.1.2行级盒子</h3>
+<p>行级盒子不会产生换行， width 和 height 属性将不起作⽤。<br>内边距、外边距以及边框会被应⽤但是不会把其他处于 inline 状态的盒⼦推开。
+常见的块级标签有：<code>&lt;a&gt;</code>、<code>&lt;span&gt;</code>、<code>&lt;em&gt;</code>、<code>&lt;strong&gt;</code>、<code>&lt;img&gt;</code>、<code>&lt;input&gt;</code>、
+<code>&lt;label&gt;</code>、<code>&lt;textarea&gt;</code>、<code>&lt;select&gt;</code>、<code>&lt;button&gt;</code>、<code>&lt;code&gt;</code>&hellip;
+更多详情请点击<a href="https://developer.mozilla.org/en-US/docs/Web">这里</a></p>
+<h3 id="313盒模型标准与ie">3.1.3盒模型：标准与IE</h3>
+<p>同时盒子模型也包括两部分：标准盒模型和IE盒模型。</p>
+<h4 id="1标准盒模型">1）标准盒模型</h4>
+<p><strong>设置的width 和 height 指的是Content(盒子内容）</strong>
+一个盒子的宽度不包括 margin (外边距)的实际大小，只会影响盒子实际占用空间，所以盒子宽度的计算方式为：
+<code>宽度 = width + 2 * padding + 2 * border</code></p>
+<h4 id="2ie-盒模型">2）IE 盒模型</h4>
+<p><strong>设置的width和height包含内边距和边框</strong>
+浏览器默认使⽤标准盒模型，如想使⽤IE盒模型可以设置<code>box-sizing</code>,具体如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="p">.</span><span class="nc">box</span><span class="p">{</span>
+    <span class="k">width</span><span class="p">:</span> <span class="mi">350</span><span class="kt">px</span><span class="p">;</span>
+    <span class="k">height</span><span class="p">:</span> <span class="mi">150</span><span class="kt">px</span><span class="p">;</span>
+    <span class="k">margin</span><span class="p">:</span> <span class="mi">10</span><span class="kt">px</span><span class="p">;</span>
+    <span class="k">padding</span><span class="p">:</span> <span class="mi">25</span><span class="kt">px</span><span class="p">;</span>
+    <span class="k">box-sizing</span><span class="p">:</span> <span class="kc">border-box</span><span class="p">;</span> <span class="c">/* content-box */</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="32-css-常用选择器">3.2 CSS 常用选择器</h2>
+<p>CSS 的常用选择器有：元素选择器（标签选择器）、ID选择器、类选择器（class）、通用选择器、属性选择器和一些组合选择器</p>
+<h3 id="321-元素选择器">3.2.1 元素选择器</h3>
+<p>即选择特定标签进行选择渲染，具体代码如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="nt">p</span> <span class="p">{</span>
+    <span class="k">color</span> <span class="p">:</span> <span class="kc">red</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">div</span> <span class="p">{</span>
+    <span class="k">color</span> <span class="p">:</span> <span class="kc">blue</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="322-id选择器">3.2.2 ID选择器</h3>
+<p>每个标签内容块都有页面唯一的 id 来定位，使用 <code>#id</code> 来选择的示例如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="o">&lt;</span><span class="nt">p</span> <span class="nt">id</span><span class="o">=</span><span class="s2">&#34;box&#34;</span><span class="o">&gt;</span><span class="nt">拾光</span><span class="o">&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+
+<span class="o">&lt;</span><span class="nt">style</span><span class="o">&gt;</span>
+    <span class="p">#</span><span class="nn">box</span><span class="p">{</span>
+        <span class="k">border</span> <span class="p">:</span> <span class="mi">1</span><span class="kt">px</span> <span class="kc">solid</span> <span class="kc">red</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="o">&lt;/</span><span class="nt">style</span><span class="o">&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="323-类选择器">3.2.3 类选择器</h3>
+<p>每个标签内容都有一个 <code>class</code> 类别，一般用来对一组元素设置样式，class 有别于 全局唯一的 id 属性，class 可以在多个元素中使用。在选择时使用 &ldquo;.&rdquo; 来选择，示例如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="o">&lt;</span><span class="nt">p</span> <span class="nt">class</span><span class="o">=</span><span class="s2">&#34;box active&#34;</span><span class="o">&gt;</span><span class="nt">拾光</span><span class="o">&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+
+<span class="o">&lt;</span><span class="nt">style</span><span class="o">&gt;</span>
+    <span class="p">.</span><span class="nc">active</span><span class="p">{</span>
+        <span class="k">font-size</span> <span class="p">:</span> <span class="mi">20</span><span class="kt">px</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="o">&lt;/</span><span class="nt">style</span><span class="o">&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="324-通用选择器">3.2.4 通用选择器</h3>
+<p>对全局标签生效。示例如下，用 &ldquo;*&rdquo; 来选择：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="o">&lt;</span><span class="nt">style</span><span class="o">&gt;</span>
+    <span class="o">*</span><span class="p">{</span>
+        <span class="k">box-sizing</span> <span class="p">:</span> <span class="kc">border-box</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="o">&lt;/</span><span class="nt">style</span><span class="o">&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="325-属性选择器">3.2.5 属性选择器</h3>
+<p>对某些标签的特定属性进行样式设置。用 &ldquo;[]&rdquo; 来选择，示例如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="o">&lt;</span><span class="nt">style</span><span class="o">&gt;</span>
+    <span class="o">[</span><span class="nt">disabled</span><span class="o">]</span> <span class="p">{</span>
+        <span class="k">border</span> <span class="p">:</span>  <span class="mi">1</span><span class="kt">px</span> <span class="kc">solid</span> <span class="kc">red</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="o">[</span><span class="nt">data-color</span><span class="o">=</span><span class="s2">&#34;gray&#34;</span><span class="o">]</span> <span class="p">{</span>
+        <span class="k">color</span> <span class="p">:</span> <span class="kc">blue</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="o">&lt;/</span><span class="nt">style</span><span class="o">&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="326-组合选择器">3.2.6 组合选择器</h3>
+<p><strong>1）A,B</strong><br>
+表示同时选中 A 和 B，示例如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="o">&lt;</span><span class="nt">p</span> <span class="nt">class</span><span class="o">=</span><span class="s2">&#34;author&#34;</span><span class="o">&gt;</span><span class="nt">拾光</span><span class="o">&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="nt">p</span> <span class="nt">class</span><span class="o">=</span><span class="s2">&#34;detail&#34;</span><span class="o">&gt;</span><span class="nt">朝花夕拾</span> <span class="nt">荏苒时光</span><span class="o">&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="nt">style</span><span class="o">&gt;</span>
+ <span class="p">.</span><span class="nc">author</span><span class="o">,</span> <span class="p">.</span><span class="nc">detail</span> <span class="p">{</span>
+ <span class="k">color</span><span class="p">:</span> <span class="kc">red</span><span class="p">;</span>
+ <span class="p">}</span>
+<span class="o">&lt;/</span><span class="nt">style</span><span class="o">&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>2）A B</strong><br>
+表示选中 A 的<em>后代</em> B元素（A和B间有个空格），示例如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="o">&lt;</span><span class="nt">ul</span> <span class="nt">class</span><span class="o">=</span><span class="s2">&#34;detail&#34;</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nt">li</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nt">ul</span><span class="o">&gt;</span>
+           <span class="o">&lt;</span><span class="nt">li</span><span class="o">&gt;</span><span class="nt">被选中</span><span class="err">✅</span> <span class="o">&lt;/</span><span class="nt">li</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="nt">ul</span><span class="o">&gt;</span>
+    <span class="o">&lt;/</span><span class="nt">li</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nt">li</span><span class="o">&gt;</span><span class="nt">被选中</span><span class="err">✅</span> <span class="o">&lt;/</span><span class="nt">li</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="nt">ul</span><span class="o">&gt;</span>
+
+<span class="o">&lt;</span><span class="nt">style</span><span class="o">&gt;</span>
+ <span class="p">.</span><span class="nc">detail</span> <span class="nt">li</span> <span class="p">{</span>
+    <span class="k">color</span><span class="p">:</span> <span class="kc">red</span><span class="p">;</span>
+ <span class="p">}</span>
+<span class="o">&lt;/</span><span class="nt">style</span><span class="o">&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>3）A&gt;B</strong><br>
+表示选中 A 的<em>直接子元素</em> B，示例如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="o">&lt;</span><span class="nt">ul</span> <span class="nt">class</span><span class="o">=</span><span class="s2">&#34;detail&#34;</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nt">li</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nt">ul</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="nt">li</span><span class="o">&gt;</span><span class="nt">不被选中</span><span class="o">&lt;/</span><span class="nt">li</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="nt">ul</span><span class="o">&gt;</span>
+    <span class="o">&lt;/</span><span class="nt">li</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nt">li</span><span class="o">&gt;</span><span class="nt">被选中</span>
+        <span class="err">✅</span> <span class="o">&lt;/</span><span class="nt">li</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="nt">ul</span><span class="o">&gt;</span>
+
+<span class="o">&lt;</span><span class="nt">style</span><span class="o">&gt;</span>
+ <span class="p">.</span><span class="nc">detail</span> <span class="nt">li</span> <span class="p">{</span>
+ <span class="k">color</span><span class="p">:</span> <span class="kc">red</span>
+<span class="p">;</span>
+ <span class="p">}</span>
+<span class="o">&lt;/</span><span class="nt">style</span><span class="o">&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="32-css-引入方式">3.2 CSS 引入方式</h2>
+<p>CSS 引入方式主要包括四种：</p>
+<h3 id="321-标签-link">3.2.1 标签 link</h3>
+<p>通过在 head 标签中引入外部 CSS 样式，示例如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="o">&lt;</span><span class="nt">head</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nt">link</span> <span class="nt">rel</span><span class="o">=</span><span class="s2">&#34;stylesheet&#34;</span> <span class="nt">href</span><span class="o">=</span><span class="s2">&#34;index.css&#34;</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="nt">head</span><span class="o">&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="322-使用-css-语法引入">3.2.2 使用 CSS 语法引入</h3>
+<p>CSS 语法只有在 <code>&lt;style&gt;</code> 标签内或者 CSS 文件中才能有效，具体引入方式如示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="o">&lt;</span><span class="nt">style</span><span class="o">&gt;</span>
+    <span class="p">@</span><span class="k">import</span> <span class="nt">url</span><span class="o">(</span><span class="s2">&#34;index.css&#34;</span><span class="o">)</span><span class="p">;</span>
+    <span class="p">@</span><span class="k">import</span> <span class="nt">url</span><span class="o">(</span><span class="nt">index</span><span class="p">.</span><span class="nc">css</span><span class="o">)</span><span class="p">;</span>
+    <span class="p">@</span><span class="k">import</span> <span class="nt">url</span><span class="o">(</span><span class="s1">&#39;index.css&#39;</span><span class="o">)</span><span class="p">;</span>
+    <span class="p">@</span><span class="k">import</span> <span class="s2">&#34;index.css&#34;</span><span class="p">;</span>
+    <span class="p">@</span><span class="k">import</span> <span class="s1">&#39;index.css&#39;</span><span class="p">;</span>
+<span class="o">&lt;/</span><span class="nt">style</span><span class="o">&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><em>注意</em>：通过CSS语法@import引⼊时</p>
+<ul>
+<li>放在style标签或者CSS⽂件中</li>
+<li>@import 必须放在CSS⽂件开头</li>
+<li>语法后⾯的分号必不可少</li>
+</ul>
+<h3 id="323-内部样式">3.2.3 内部样式</h3>
+<p>将CSS放在⻚⾯<code>&lt;style&gt;</code>标签中，style 标签可以放在 head ⾥，也可放在 body 内任意地⽅。示例如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="o">&lt;!</span><span class="nt">DOCTYPE</span> <span class="nt">html</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="nt">html</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="nt">head</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nt">meta</span> <span class="nt">charset</span><span class="o">=</span><span class="s2">&#34;UTF-8&#34;</span> <span class="o">/&gt;</span>
+    <span class="o">&lt;</span><span class="nt">style</span><span class="o">&gt;</span>
+        <span class="nt">h1</span> <span class="p">{</span>
+            <span class="k">background</span><span class="p">:</span> <span class="kc">orange</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="o">&lt;/</span><span class="nt">style</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="nt">head</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="nt">body</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nt">h1</span><span class="o">&gt;</span><span class="nt">Hello</span> <span class="nt">CSS</span><span class="o">!&lt;/</span><span class="nt">h1</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="nt">body</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="nt">html</span><span class="o">&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="324-内联样式不推荐">3.2.4 内联样式(不推荐)</h3>
+<p>直接在标签的内部添加 style 属性来设置样式，示例如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="o">&lt;</span><span class="nt">p</span> <span class="nt">style</span><span class="o">=</span><span class="s2">&#34;background: orange; font-size: 24px;&#34;</span><span class="o">&gt;</span>
+    <span class="nt">拾光</span>
+<span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="四总结">四、总结</h1>
+<p>本文简要介绍了 HTML 与 CSS 的部分基础知识，适合初学者观看学习。如果想要学习更多，可以点击<a href="https://wangdoc.com/html/">html</a>和<a href="https://www.runoob.com/css/css-tutorial.html">CSS</a>,谢谢！</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">拾光</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2021-08-25
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        
+        <a class="next" href="/2021/07/%E6%B5%85%E6%9E%90url/">
+            <span class="next-text nav-default">浅析URL</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="yang_95@126.com" class="iconfont icon-email" title="email"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>Huan</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
