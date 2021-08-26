@@ -49,7 +49,7 @@
 <meta itemprop="name" content="HTML 与 CSS 初识">
 <meta itemprop="description" content="一、概述 本文主要讲解本人对 html 与 css 初学的一些认识。适合作为入门级知识学习。 二、HTML 文件的概 HTML 是网页使用的语言，定义了网页的结构和内容。浏览"><meta itemprop="datePublished" content="2021-08-25T16:46:19&#43;08:00" />
 <meta itemprop="dateModified" content="2021-08-25T16:46:19&#43;08:00" />
-<meta itemprop="wordCount" content="3112">
+<meta itemprop="wordCount" content="3137">
 <meta itemprop="keywords" content="CSS,HTML," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="HTML 与 CSS 初识"/>
 <meta name="twitter:description" content="一、概述 本文主要讲解本人对 html 与 css 初学的一些认识。适合作为入门级知识学习。 二、HTML 文件的概 HTML 是网页使用的语言，定义了网页的结构和内容。浏览"/>
@@ -132,7 +132,7 @@
         <div class="post-category">
             <a href="/categories/%E5%89%8D%E7%AB%AF/"> 前端 </a>
             </div>
-          <span class="more-meta"> 3112 words </span>
+          <span class="more-meta"> 3137 words </span>
           <span class="more-meta"> 7 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -476,20 +476,28 @@
 </span><span class="lnt">14
 </span><span class="lnt">15
 </span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-css" data-lang="css"><span class="o">&lt;</span><span class="nt">ul</span> <span class="nt">class</span><span class="o">=</span><span class="s2">&#34;detail&#34;</span><span class="o">&gt;</span>
+    <span class="nt">不被选中</span>
+    <span class="o">&lt;</span><span class="nt">ul</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nt">li</span><span class="o">&gt;</span><span class="nt">不被选中</span><span class="o">&lt;/</span><span class="nt">li</span><span class="o">&gt;</span>
+    <span class="o">&lt;/</span><span class="nt">ul</span><span class="o">&gt;</span>
+
     <span class="o">&lt;</span><span class="nt">li</span><span class="o">&gt;</span>
+        <span class="nt">被选中</span><span class="err">✅</span>
         <span class="o">&lt;</span><span class="nt">ul</span><span class="o">&gt;</span>
-            <span class="o">&lt;</span><span class="nt">li</span><span class="o">&gt;</span><span class="nt">不被选中</span><span class="o">&lt;/</span><span class="nt">li</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="nt">li</span><span class="o">&gt;</span><span class="nt">被选中</span><span class="err">✅</span><span class="o">&lt;/</span><span class="nt">li</span><span class="o">&gt;</span>
         <span class="o">&lt;/</span><span class="nt">ul</span><span class="o">&gt;</span>
     <span class="o">&lt;/</span><span class="nt">li</span><span class="o">&gt;</span>
-    <span class="o">&lt;</span><span class="nt">li</span><span class="o">&gt;</span><span class="nt">被选中</span>
-        <span class="err">✅</span> <span class="o">&lt;/</span><span class="nt">li</span><span class="o">&gt;</span>
 <span class="o">&lt;/</span><span class="nt">ul</span><span class="o">&gt;</span>
 
 <span class="o">&lt;</span><span class="nt">style</span><span class="o">&gt;</span>
- <span class="p">.</span><span class="nc">detail</span> <span class="nt">li</span> <span class="p">{</span>
+ <span class="p">.</span><span class="nc">detail</span> <span class="o">&gt;</span> <span class="nt">li</span> <span class="p">{</span>
  <span class="k">color</span><span class="p">:</span> <span class="kc">red</span>
 <span class="p">;</span>
  <span class="p">}</span>
