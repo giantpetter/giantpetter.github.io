@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>CSS常见样式 - 拾光的博客</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="拾光" /><meta name="description" content="一、概述 本文继前文简要介绍 CSS 的常用样式，包括：文本样式、列表样式、背景边框、常见特效、展示隐藏等效果。 二、文本样式 首先介绍文本样式,我们通过" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.83.0 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/2021/08/css%E5%B8%B8%E8%A7%81%E6%A0%B7%E5%BC%8F/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="CSS常见样式" />
+<meta property="og:description" content="一、概述 本文继前文简要介绍 CSS 的常用样式，包括：文本样式、列表样式、背景边框、常见特效、展示隐藏等效果。 二、文本样式 首先介绍文本样式,我们通过" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/2021/08/css%E5%B8%B8%E8%A7%81%E6%A0%B7%E5%BC%8F/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-08-29T11:23:11&#43;08:00" />
+<meta property="article:modified_time" content="2021-08-29T11:23:11&#43;08:00" />
+
+<meta itemprop="name" content="CSS常见样式">
+<meta itemprop="description" content="一、概述 本文继前文简要介绍 CSS 的常用样式，包括：文本样式、列表样式、背景边框、常见特效、展示隐藏等效果。 二、文本样式 首先介绍文本样式,我们通过"><meta itemprop="datePublished" content="2021-08-29T11:23:11&#43;08:00" />
+<meta itemprop="dateModified" content="2021-08-29T11:23:11&#43;08:00" />
+<meta itemprop="wordCount" content="2452">
+<meta itemprop="keywords" content="CSS," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="CSS常见样式"/>
+<meta name="twitter:description" content="一、概述 本文继前文简要介绍 CSS 的常用样式，包括：文本样式、列表样式、背景边框、常见特效、展示隐藏等效果。 二、文本样式 首先介绍文本样式,我们通过"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">拾光</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">拾光</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">CSS常见样式</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-08-29 </span>
+        <div class="post-category">
+            <a href="/categories/%E5%89%8D%E7%AB%AF/"> 前端 </a>
+            </div>
+          <span class="more-meta"> 2452 words </span>
+          <span class="more-meta"> 5 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一概述">一、概述</a></li>
+    <li><a href="#二文本样式">二、文本样式</a></li>
+    <li><a href="#三列表背景">三、列表、背景</a>
+      <ul>
+        <li><a href="#31-列表样式布局">3.1 列表样式布局</a></li>
+        <li><a href="#32-背景">3.2 背景</a></li>
+      </ul>
+    </li>
+    <li><a href="#四圆阴影过渡">四、圆、阴影、过渡</a>
+      <ul>
+        <li><a href="#41-边框">4.1 边框</a></li>
+      </ul>
+    </li>
+    <li><a href="#五水平居中均匀分布">五、水平居中、均匀分布</a>
+      <ul>
+        <li><a href="#51-两栏布局">5.1 两栏布局</a></li>
+        <li><a href="#52-垂直水平居中">5.2 垂直水平居中</a></li>
+        <li><a href="#53-均匀分布">5.3 均匀分布</a></li>
+      </ul>
+    </li>
+    <li><a href="#六展示隐藏绝对定位">六、展示隐藏、绝对定位</a></li>
+    <li><a href="#61-隐藏展示">6.1 隐藏展示</a></li>
+    <li><a href="#62-绝对定位">6.2 绝对定位</a></li>
+    <li><a href="#七总结">七、总结</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="一概述">一、概述</h1>
+<p>本文继前文简要介绍 CSS 的常用样式，包括：文本样式、列表样式、背景边框、常见特效、展示隐藏等效果。</p>
+<h1 id="二文本样式">二、文本样式</h1>
+<p>首先介绍文本样式,我们通过以下代码例子即备注来介绍：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="p">.</span><span class="nc">text</span><span class="p">{</span>
+    <span class="k">color</span><span class="p">:</span> <span class="kc">red</span><span class="p">;</span><span class="c">/*字体颜色，还可以设置为：#fof、#fc34de、red、rgb(255,100,30)、rgba...、hls...等*/</span>
+    <span class="k">font-size</span><span class="p">:</span><span class="mi">20</span><span class="kt">px</span><span class="p">;</span> <span class="c">/*字体大小 */</span>
+    <span class="k">line-height</span><span class="p">:</span> <span class="mf">1.5</span><span class="p">;</span> <span class="c">/* ⾏⾼, font-size的倍数 */</span>
+    <span class="k">font-family</span><span class="p">:</span> <span class="n">Arial</span><span class="p">,</span> <span class="n">Helvetica</span><span class="p">,</span> <span class="kc">sans-serif</span><span class="p">;</span><span class="c">/*设置文本的字体系列,如宋体等*/</span>
+    <span class="k">font-weight</span><span class="p">:</span> <span class="kc">bold</span><span class="p">;</span> <span class="c">/* 粗细 bold、normal */</span>
+    <span class="k">font-style</span><span class="p">:</span> <span class="kc">italic</span><span class="p">;</span> <span class="c">/* 斜体 italic、 normal */</span>
+    <span class="k">text-decoration</span><span class="p">:</span> <span class="kc">underline</span><span class="p">;</span> <span class="c">/* 下划线 none、underline、line-through */</span>
+    <span class="k">text-align</span><span class="p">:</span> <span class="kc">center</span><span class="p">;</span> <span class="c">/* ⽂字对⻬ center、left、right、justify(每一行被展开为宽度相等，左右外边距是对其) */</span>
+    <span class="k">text-indent</span><span class="p">:</span> <span class="mi">2</span><span class="kt">em</span><span class="p">;</span> <span class="c">/* 缩进当前font-size的2倍 */</span>
+    <span class="k">letter-spacing</span><span class="p">:</span> <span class="mi">3</span><span class="kt">px</span><span class="p">;</span> <span class="c">/* 单个字符⽔平间隔 */</span>
+    <span class="k">white-space</span><span class="p">:</span> <span class="kc">nowrap</span><span class="p">;</span> <span class="c">/* 这三⾏让⽂字单⾏展示超出展示... */</span>
+    <span class="k">overflow</span><span class="p">:</span> <span class="kc">hidden</span><span class="p">;</span><span class="c">/*如果单行文本溢出则 hidden 设置为隐藏 */</span>
+    <span class="k">text-overflow</span><span class="p">:</span> <span class="kc">ellipsis</span><span class="p">;</span><span class="c">/*同上，隐藏后更换为&#34;...&#34;符号显示，两者通常一起使用&#34;*/</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>注意：</strong> 设置字体大小时有两个单位</p>
+<ul>
+<li>px：字体大小像素，完全控制字体大小;</li>
+<li>em：em 的字体尺寸大小由 W3C 建议，1 em 和当前字体大小相等，浏览器中默认大小为 16 px。所以2 em = 32 px。</li>
+</ul>
+<h1 id="三列表背景">三、列表、背景</h1>
+<h2 id="31-列表样式布局">3.1 列表样式布局</h2>
+<p>列表属性布局主要有四个，通过实例展示说明：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="c">/* 列表 */</span>
+<span class="nt">ul</span><span class="o">,</span> <span class="nt">ol</span> <span class="p">{</span>
+  <span class="k">list-style</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span> <span class="c">/* 去掉前⾯的点或者数字 */</span>
+  
+  <span class="k">list-style-type</span><span class="p">:</span><span class="kc">circle</span><span class="p">;</span><span class="c">/*设置列表标记的类型，ol 有upper-roman、lower-roman等，ul 有circle、square等。*/</span>
+  <span class="n">list-style-img</span><span class="p">:</span><span class="nb">url</span><span class="p">(</span><span class="s1">&#39;***&#39;</span><span class="p">);</span><span class="c">/* 设置列表标记的图像，以 url 链接过来的为准*/</span>
+  <span class="n">list-style-positon</span><span class="p">:</span><span class="mi">0</span><span class="kt">px</span> <span class="mi">5</span><span class="kt">px</span><span class="p">;</span><span class="c">/* 设置列表标记的位置左 0px，上下 5px*/</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="32-背景">3.2 背景</h2>
+<p>CSS 背景属性用于定义HTML元素的背景。
+CSS 属性定义背景效果说明见下表：</p>
+<table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>background-color</td>
+<td>背景颜色，通常用十六进制(#ff0000)，rgb(255,0,0) 或颜色名字(red) 来表示</td>
+</tr>
+<tr>
+<td>background-size</td>
+<td>背景图像大小。可以设置宽度高度数值，也可以相对区域百分比，还有cover(完全覆盖区域的最小大小)和contain(完全覆盖区域的最大大小)</td>
+</tr>
+<tr>
+<td>background-image</td>
+<td>背景图像，通常使用<code>url('...')</code>来引入</td>
+</tr>
+<tr>
+<td>background-repeat</td>
+<td>背景平铺，默认背景图片为水平或者垂直方向平铺(repeat-x/y),也可以不让平铺(no-repeat)</td>
+</tr>
+<tr>
+<td>background-attachment</td>
+<td>背景图像是否固定或者随着页面的其余部分滚动。(<code>fix</code>为固定、<code>scroll</code>滚动等)</td>
+</tr>
+<tr>
+<td>background-position</td>
+<td>背景位置，平衡文本与背景的位置，改变图像在背景中的位置，如(<code>right top</code>)为右上</td>
+</tr>
+<tr>
+<td>background</td>
+<td>可以简化属性设置的代码，将以上几个属性按顺序设置在该属性栏</td>
+</tr>
+</tbody>
+</table>
+<p>背景的属性还有很多，本文只是简要介绍一些主要使用的属性。</p>
+<h1 id="四圆阴影过渡">四、圆、阴影、过渡</h1>
+<h2 id="41-边框">4.1 边框</h2>
+<p>边框设置圆角和圆形，如下例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="p">.</span><span class="nc">box</span><span class="p">{</span>
+    <span class="k">border</span><span class="p">:</span><span class="mi">1</span><span class="kt">px</span> <span class="kc">solid</span> <span class="mh">#ccc</span><span class="p">;</span>
+    <span class="k">border-radius</span><span class="p">:</span><span class="mi">4</span><span class="kt">px</span><span class="p">;</span><span class="c">/*要设置成圆，可以设置值为50%或者边框高度(宽度)的一半*/</span>
+<span class="p">}</span>
+<span class="err">##</span> <span class="nt">4</span><span class="p">.</span><span class="nc">2</span> <span class="nt">常见特效</span><span class="err">：</span><span class="nt">阴影</span><span class="err">、</span><span class="nt">偏移</span><span class="err">、</span><span class="nt">过渡</span>
+<span class="nt">具体见下代码及其注释</span><span class="err">：</span>
+<span class="err">```</span><span class="nt">css</span>
+<span class="c">/* 常⻅特效 */</span>
+ <span class="p">.</span><span class="nc">box</span> <span class="p">{</span>
+    <span class="k">width</span><span class="p">:</span> <span class="mi">100</span><span class="kt">px</span><span class="p">;</span>
+    <span class="k">height</span><span class="p">:</span> <span class="mi">100</span><span class="kt">px</span><span class="p">;</span>
+    <span class="k">border</span><span class="p">:</span> <span class="mi">1</span><span class="kt">px</span> <span class="kc">solid</span> <span class="mh">#ccc</span><span class="p">;</span>
+    <span class="k">border-radius</span><span class="p">:</span> <span class="mi">50</span><span class="kt">px</span><span class="p">;</span>
+    <span class="k">transition</span><span class="p">:</span> <span class="kc">all</span> <span class="mf">.3</span><span class="kt">s</span><span class="p">;</span> <span class="c">/* 样式变化的时间持续0.3s */</span>
+    <span class="k">cursor</span><span class="p">:</span> <span class="kc">pointer</span><span class="p">;</span> <span class="c">/* ⿏标放置上去变成⼿指 */</span>
+ <span class="p">}</span>
+ <span class="p">.</span><span class="nc">box</span><span class="p">:</span><span class="nd">hover</span> <span class="p">{</span>
+    <span class="k">box-shadow</span><span class="p">:</span> <span class="kc">inset</span> <span class="mi">-10</span><span class="kt">px</span> <span class="mi">-10</span><span class="kt">px</span> <span class="mi">10</span><span class="kt">px</span> <span class="mh">#aaa</span><span class="p">,</span>
+    <span class="mi">2</span><span class="kt">px</span> <span class="mi">2</span><span class="kt">px</span> <span class="mi">4</span><span class="kt">px</span> <span class="mi">4</span><span class="kt">px</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">);</span>
+<span class="c">/* x偏移量 | y偏移量 | 阴影模糊半径 | 阴影扩散半径 | 阴影颜⾊ */</span>
+    <span class="k">opacity</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">;</span> <span class="c">/* 透明度为0.3， 1为不透明，0为全透明 */</span>
+    <span class="k">transform</span><span class="p">:</span> <span class="nb">translateX</span><span class="p">(</span><span class="mi">3</span><span class="kt">px</span><span class="p">);</span> <span class="c">/* ⽔平偏移3px */</span>
+ <span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="五水平居中均匀分布">五、水平居中、均匀分布</h1>
+<h2 id="51-两栏布局">5.1 两栏布局</h2>
+<p>设置成两栏布局，将侧边宽度固定，主要内容设置成变化，具体代码如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="c">/* flex 两栏布局*/</span>
+ <span class="p">.</span><span class="nc">container</span> <span class="p">{</span>
+    <span class="k">display</span><span class="p">:</span> <span class="kc">flex</span><span class="p">;</span>
+ <span class="p">}</span>
+ <span class="p">.</span><span class="nc">aside</span> <span class="p">{</span>
+    <span class="k">width</span><span class="p">:</span> <span class="mi">100</span><span class="kt">px</span><span class="p">;</span>
+ <span class="p">}</span>
+ <span class="p">.</span><span class="nc">main</span> <span class="p">{</span>
+    <span class="k">flex</span><span class="p">:</span><span class="mi">1</span><span class="p">;</span>
+ <span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="52-垂直水平居中">5.2 垂直水平居中</h2>
+<p>见下代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="c">/* 垂直⽔平居中 */</span>
+<span class="p">.</span><span class="nc">box</span> <span class="p">{</span>
+   <span class="k">display</span><span class="p">:</span> <span class="kc">flex</span><span class="p">;</span>
+   <span class="k">align-items</span><span class="p">:</span> <span class="kc">center</span><span class="p">;</span>
+   <span class="k">justify-content</span><span class="p">:</span> <span class="kc">center</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>说明如下：</p>
+<ul>
+<li>display：规定元素应该生成的框的类型。none表示该元素不会被显示，block 块级元素，inline 默认内联元素前后无换行符，inline-block 行内块元素。设置 flex 表明指定该元素为 <a href="https://www.ruanyifeng.com/blog/2015/07/flex-grammar.html">Flex</a> 布局。</li>
+<li>flex：用于设置或检索弹性盒模型对象的子元素如何分配空间。值为 1 时让所有弹性盒模型对象的子元素都有相同的长度，且忽略它们内部的内容。</li>
+<li>align-items: 居中对齐弹性盒的各项 <code>&lt;div&gt;</code> 元素.定义flex子项在flex容器的当前行的侧轴（纵轴）方向上的对齐方式。</li>
+<li>justify-content: 用于设置或检索弹性盒子元素在主轴（横轴）方向上的对齐方式。
+*注意：属性<code>align-items</code>和<code>justify-content</code>的使用必须将 <code>display</code> 属性设置为 <code>flex</code></li>
+</ul>
+<h2 id="53-均匀分布">5.3 均匀分布</h2>
+<p>具体实现参考以下代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="o">*</span> <span class="p">{</span>
+   <span class="k">box-sizing</span><span class="p">:</span> <span class="kc">border-box</span><span class="p">;</span><span class="c">/*设置IE盒模型模式*/</span>
+<span class="p">}</span>
+<span class="p">.</span><span class="nc">ct</span> <span class="p">{</span>
+   <span class="k">width</span><span class="p">:</span> <span class="mi">900</span><span class="kt">px</span><span class="p">;</span>
+   <span class="k">border</span><span class="p">:</span> <span class="mi">1</span><span class="kt">px</span> <span class="kc">solid</span> <span class="mh">#ccc</span><span class="p">;</span>
+   <span class="k">display</span><span class="p">:</span> <span class="kc">flex</span><span class="p">;</span>
+   <span class="k">flex-wrap</span><span class="p">:</span> <span class="kc">wrap</span><span class="p">;</span><span class="c">/* 规定灵活的项目在必要的时候拆行或拆列。默认为 nowrap*/</span>
+   <span class="k">justify-content</span><span class="p">:</span> <span class="kc">space</span><span class="o">-</span><span class="n">between</span><span class="p">;</span><span class="c">/* 表明项目位于各行之间留有空白的容器内。*/</span>
+   <span class="k">margin</span><span class="p">:</span> <span class="mi">0</span> <span class="kc">auto</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="p">.</span><span class="nc">box</span> <span class="p">{</span>
+   <span class="k">height</span><span class="p">:</span> <span class="mi">80</span><span class="kt">px</span><span class="p">;</span>
+   <span class="k">width</span><span class="p">:</span> <span class="mi">31</span><span class="kt">%</span><span class="p">;</span>
+   <span class="k">border</span><span class="p">:</span> <span class="mi">1</span><span class="kt">px</span> <span class="kc">solid</span> <span class="kc">red</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="六展示隐藏绝对定位">六、展示隐藏、绝对定位</h1>
+<h1 id="61-隐藏展示">6.1 隐藏展示</h1>
+<p>实现代码如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="c">/* 隐藏/展示 */</span>
+ <span class="p">.</span><span class="nc">box</span> <span class="p">{</span>
+    <span class="k">display</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span> <span class="c">/* none、block、flex ... */</span>
+ <span class="p">}</span>
+ <span class="p">.</span><span class="nc">box</span><span class="p">:</span><span class="nd">hover</span><span class="p">{</span><span class="c">/*表明鼠标移到元素区域后，该元素从隐藏变为显示*/</span>
+     <span class="k">display</span><span class="p">:</span> <span class="kc">block</span>
+ <span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="62-绝对定位">6.2 绝对定位</h1>
+<p>将元素内容设置到容器内任意想要的位置，实现代码如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="c">/* 绝对定位 */</span>
+ <span class="p">.</span><span class="nc">father</span> <span class="p">{</span>
+    <span class="k">position</span><span class="p">:</span> <span class="kc">relative</span><span class="p">;</span>
+ <span class="p">}</span>
+ <span class="p">.</span><span class="nc">child</span> <span class="p">{</span>
+    <span class="k">position</span><span class="p">:</span> <span class="kc">absolute</span><span class="p">;</span>
+    <span class="k">left</span><span class="p">:</span> <span class="mi">10</span><span class="kt">px</span><span class="p">;</span>
+    <span class="k">top</span><span class="p">:</span> <span class="mi">10</span><span class="kt">px</span><span class="p">;</span>
+ <span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>说明：</strong><br>
+<strong>position</strong> :指定一个元素（静态的，相对的，绝对或固定）的定位方法的类型。它有以下几个常见属性：</p>
+<ol>
+<li>absolute: 生成绝对定位的元素，相对于 static 定位以外的第一个父元素进行定位。元素的位置通过 &ldquo;left&rdquo;, &ldquo;top&rdquo;, &ldquo;right&rdquo; 以及 &ldquo;bottom&rdquo; 属性进行规定。</li>
+<li>fixed: 生成固定定位的元素，相对于浏览器窗口进行定位。元素的位置通过 &ldquo;left&rdquo;, &ldquo;top&rdquo;, &ldquo;right&rdquo; 以及 &ldquo;bottom&rdquo; 属性进行规定。</li>
+<li>relative: 生成相对定位的元素，相对于其正常位置进行定位。因此，&ldquo;left:20&rdquo; 会向元素的 LEFT 位置添加 20 像素。</li>
+<li>static: 默认值。没有定位，元素出现在正常的流中</li>
+<li>sticky: 粘性定位，该定位基于用户滚动的位置。它的行为就像 position:relative; 而当页面滚动超出目标区域时，它的表现就像 position:fixed;，它会固定在目标位置。</li>
+</ol>
+<h1 id="七总结">七、总结</h1>
+<p>本文简要介绍了<code>CSS</code>的一些常用样式和一些特效的实现方法，只是粗浅的见解，详细使用方法还请参考  <a href="https://developer.mozilla.org/zh-CN/docs/Learn/CSS">MDN 教程</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">拾光</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2021-08-29
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/css/">CSS</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/2021/08/html-%E4%B8%8E-css-%E5%88%9D%E8%AF%86/">
+            <span class="next-text nav-default">HTML 与 CSS 初识</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="yang_95@126.com" class="iconfont icon-email" title="email"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>Huan</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
