@@ -49,7 +49,7 @@
 <meta itemprop="name" content="CSS常见样式">
 <meta itemprop="description" content="一、概述 本文继前文简要介绍 CSS 的常用样式，包括：文本样式、列表样式、背景边框、常见特效、展示隐藏等效果。 二、文本样式 首先介绍文本样式,我们通过"><meta itemprop="datePublished" content="2021-08-29T11:23:11&#43;08:00" />
 <meta itemprop="dateModified" content="2021-08-29T11:23:11&#43;08:00" />
-<meta itemprop="wordCount" content="2452">
+<meta itemprop="wordCount" content="2447">
 <meta itemprop="keywords" content="CSS," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="CSS常见样式"/>
 <meta name="twitter:description" content="一、概述 本文继前文简要介绍 CSS 的常用样式，包括：文本样式、列表样式、背景边框、常见特效、展示隐藏等效果。 二、文本样式 首先介绍文本样式,我们通过"/>
@@ -132,7 +132,7 @@
         <div class="post-category">
             <a href="/categories/%E5%89%8D%E7%AB%AF/"> 前端 </a>
             </div>
-          <span class="more-meta"> 2452 words </span>
+          <span class="more-meta"> 2447 words </span>
           <span class="more-meta"> 5 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -154,6 +154,7 @@
     <li><a href="#四圆阴影过渡">四、圆、阴影、过渡</a>
       <ul>
         <li><a href="#41-边框">4.1 边框</a></li>
+        <li><a href="#42-常见特效阴影偏移过渡">4.2 常见特效：阴影、偏移、过渡</a></li>
       </ul>
     </li>
     <li><a href="#五水平居中均匀分布">五、水平居中、均匀分布</a>
@@ -289,6 +290,22 @@ CSS 属性定义背景效果说明见下表：</p>
 <p>边框设置圆角和圆形，如下例：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="p">.</span><span class="nc">box</span><span class="p">{</span>
+    <span class="k">border</span><span class="p">:</span><span class="mi">1</span><span class="kt">px</span> <span class="kc">solid</span> <span class="mh">#ccc</span><span class="p">;</span>
+    <span class="k">border-radius</span><span class="p">:</span><span class="mi">4</span><span class="kt">px</span><span class="p">;</span><span class="c">/*要设置成圆，可以设置值为50%或者边框高度(宽度)的一半*/</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="42-常见特效阴影偏移过渡">4.2 常见特效：阴影、偏移、过渡</h2>
+<p>具体见下代码及其注释：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
@@ -305,23 +322,9 @@ CSS 属性定义背景效果说明见下表：</p>
 </span><span class="lnt">14
 </span><span class="lnt">15
 </span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-css" data-lang="css"><span class="p">.</span><span class="nc">box</span><span class="p">{</span>
-    <span class="k">border</span><span class="p">:</span><span class="mi">1</span><span class="kt">px</span> <span class="kc">solid</span> <span class="mh">#ccc</span><span class="p">;</span>
-    <span class="k">border-radius</span><span class="p">:</span><span class="mi">4</span><span class="kt">px</span><span class="p">;</span><span class="c">/*要设置成圆，可以设置值为50%或者边框高度(宽度)的一半*/</span>
-<span class="p">}</span>
-<span class="err">##</span> <span class="nt">4</span><span class="p">.</span><span class="nc">2</span> <span class="nt">常见特效</span><span class="err">：</span><span class="nt">阴影</span><span class="err">、</span><span class="nt">偏移</span><span class="err">、</span><span class="nt">过渡</span>
-<span class="nt">具体见下代码及其注释</span><span class="err">：</span>
-<span class="err">```</span><span class="nt">css</span>
-<span class="c">/* 常⻅特效 */</span>
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="c">/* 常⻅特效 */</span>
  <span class="p">.</span><span class="nc">box</span> <span class="p">{</span>
     <span class="k">width</span><span class="p">:</span> <span class="mi">100</span><span class="kt">px</span><span class="p">;</span>
     <span class="k">height</span><span class="p">:</span> <span class="mi">100</span><span class="kt">px</span><span class="p">;</span>
