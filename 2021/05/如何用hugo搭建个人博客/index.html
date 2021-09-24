@@ -49,7 +49,7 @@
 <meta itemprop="name" content="如何用hugo搭建个人博客">
 <meta itemprop="description" content="如何用hugo搭建个人博客教程 一.建立本地hugo博客 hugo说明文档网址 前提：有一定的命令行知识，本文基于macOS系统使用创建 首先点击以"><meta itemprop="datePublished" content="2021-05-07T16:03:03&#43;08:00" />
 <meta itemprop="dateModified" content="2021-05-07T16:03:03&#43;08:00" />
-<meta itemprop="wordCount" content="886">
+<meta itemprop="wordCount" content="896">
 <meta itemprop="keywords" content="Hugo," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="如何用hugo搭建个人博客"/>
 <meta name="twitter:description" content="如何用hugo搭建个人博客教程 一.建立本地hugo博客 hugo说明文档网址 前提：有一定的命令行知识，本文基于macOS系统使用创建 首先点击以"/>
@@ -132,7 +132,7 @@
         <div class="post-category">
             <a href="/categories/hugo/"> Hugo </a>
             </div>
-          <span class="more-meta"> 886 words </span>
+          <span class="more-meta"> 896 words </span>
           <span class="more-meta"> 2 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -164,74 +164,78 @@
 <p>首先点击以上链接，出来后点击<a href="https://gohugo.io/getting-started/quick-start/">quickstart</a>.</p>
 </li>
 <li>
-<p>安装hugo：命令行终端直接输入</p>
-<blockquote>
-<p>brew install hugo</p>
-</blockquote>
-<blockquote>
-<p>hugo version</p>
-</blockquote>
-<p>并验证是否已经安装完成</p>
+<p>安装hugo：命令行终端直接输入</br></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">  brew install hugo
+  hugo version
+</code></pre></td></tr></table>
+</div>
+</div><p>并验证是否已经安装完成</p>
 </li>
 <li>
 <p>开始创建site：</p>
-<blockquote>
-<p>hugo new site quickstart&quot;</p>
-</blockquote>
-<p>&ldquo;quickstart&quot;是文件夹名字，一般用github用户名替换使用。例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">  hugo new site quickstart
+</code></pre></td></tr></table>
+</div>
+</div><p>&ldquo;quickstart&quot;是文件夹名字，一般用github用户名替换使用。例如：</p>
 <blockquote>
 <p>你的github用户名为FrankFang，将文件夹名命名为frankfang.github.io-generator.此时命令为：</p>
 </blockquote>
-<blockquote>
-<p>hugo new site frankfang.github.io-generator</p>
-</blockquote>
-</li>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">hugo new site frankfang.github.io-generator
+</code></pre></td></tr></table>
+</div>
+</div></li>
 <li>
 <p>加入主题：为你的博客页面加入主题：</p>
 <ul>
 <li>
-<p>首先转移到新建的site中目录（frankfang.github.io-generator中）</p>
-<blockquote>
-<p>cd frankfang.github.io-generator</p>
-</blockquote>
+<p>首先转移到新建的site中目录（frankfang.github.io-generator中） </br>
+<code>cd frankfang.github.io-generator</code></p>
 </li>
 <li>
-<blockquote>
-<p>git init</p>
-</blockquote>
-<p>创建github本地仓库</p>
+<p>创建github本地仓库</br>
+<code>git init</code></p>
 </li>
 <li>
-<blockquote>
-<p>git submodule add <a href="https://github.com/theNewDynamic/gohugo-theme-ananke.git">https://github.com/theNewDynamic/gohugo-theme-ananke.git</a> themes/ananke`</p>
-</blockquote>
-<p>下载默认主题/ananke.</p>
+<p>下载默认主题/ananke.</br>
+<code>git submodule add https://github.com/theNewDynamic/gohugo-theme-ananke.git themes/ananke</code></p>
 </li>
 <li>
-<blockquote>
-<p>echo theme = &quot;ananke&quot; &raquo; config.toml</p>
-</blockquote>
-<p>将该主题添加到配置文件中。</p>
+<p>将该主题添加到配置文件中。</br>
+<code>echo theme = \&quot;ananke\&quot; &gt;&gt; config.toml</code></p>
 </li>
 </ul>
 </li>
 <li>
-<p>接下来就开始激动人心的创建博客文件并写啦：</p>
-<blockquote>
-<p>hugo new posts/yourfilename.md</p>
-</blockquote>
+<p>接下来就开始激动人心的创建博客文件并写啦：</br>
+<code>hugo new post/yourfilename.md</code></p>
 <p>在post目录中创建一个md的文件，
 并在此文件中编写你的第一篇博客。如图</p>
 </li>
 </ol>
 <p><img src="/images/1.png" alt="">
-编写完博客后记得将&quot;draft:true&quot;改为&quot;draft:false&rdquo;</p>
+<strong>注意</strong>：编写完博客后记得将&quot;draft:true&quot;改为&quot;draft:false&rdquo;</p>
 <ol start="6">
 <li><code>hugo server -D</code>可以再本地创建自己的博客，点击链接可以查看。如下图</li>
 </ol>
 <p><img src="/images/2.png" alt=""></p>
 <ol start="7">
-<li>编辑配置文件config.toml，其中&quot;title:&ldquo;项可编辑自己博客大标题</li>
+<li>编辑配置文件 config.toml，其中&quot;title:&ldquo;项可编辑自己博客大标题</li>
 </ol>
 <p><img src="/images/3.png" alt=""></p>
 <h2 id="二将本地hugo博客上传到github中">二.将本地hugo博客上传到github中</h2>
@@ -241,23 +245,26 @@
 <blockquote>
 <p>hugo -D</p>
 </blockquote>
-<p>创建static pages，当前工作目录中出现public文件夹，首先创建<code>.gitignore</code>文件并编辑将</p>
-<blockquote>
-<p>/public/</p>
-</blockquote>
-<p>写入其中后关闭(目的是防止public文件夹备份到github，public目录需要单独备份)
+<p>创建static pages，当前工作目录中出现public文件夹，首先创建<code>.gitignore</code>文件并编辑将  <code>/public/</code>
+写入其中后关闭(目的是防止public文件夹备份到github，public目录需要单独备份)
 将工作目录转移到public文件夹中</p>
 <ol start="2">
-<li>在个人github网站创建仓库repository，仓库名为：<code>个人用户名.github.io</code>，其他的不动。然后出现如下图：
+<li>在个人github网站创建仓库 repository，仓库名为：<code>个人用户名.github.io</code>，其他的不动。然后出现如下图：
 <img src="/images/4.png" alt="">将选中的命令复制(如下）:</li>
 </ol>
-<blockquote>
-<p>git remote add origin <a href="mailto:git@github.com">git@github.com</a>:*********.github.io.git</p>
-</blockquote>
-<blockquote>
-<p>git push -u origin master</p>
-</blockquote>
-<p>至此，已经将public中的本地仓库传递到远程github仓库中</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">git remote add origin git@github.com:*********.github.io.git
+
+git push -u origin master
+</code></pre></td></tr></table>
+</div>
+</div><p>至此，已经将public中的本地仓库传递到远程github仓库中</p>
 <ol start="3">
 <li>在github远程仓库中打开setting，拉到最下，找到如下界面，基本可以不动，
 点击的链接即为自己的博客网址啦～

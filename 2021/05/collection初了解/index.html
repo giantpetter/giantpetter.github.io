@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="拾光" /><meta name="description" content="前言：Collection是最基本的集合接口，在JDK 1.2版本被引入到Java的世界中来。Collection的出现，使得Java拥有了前" /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="拾光" /><meta name="description" content="前言：Collection 是最基本的集合接口，在 JDK 1.2 版本被引入到 Java 的世界中来。Collection 的出现，使得 Java 拥有了前所未有的强大能力。本" /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
@@ -40,19 +40,19 @@
 
 
 <meta property="og:title" content="Collection初了解" />
-<meta property="og:description" content="前言：Collection是最基本的集合接口，在JDK 1.2版本被引入到Java的世界中来。Collection的出现，使得Java拥有了前" />
+<meta property="og:description" content="前言：Collection 是最基本的集合接口，在 JDK 1.2 版本被引入到 Java 的世界中来。Collection 的出现，使得 Java 拥有了前所未有的强大能力。本" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://localhost:1313/2021/05/collection%E5%88%9D%E4%BA%86%E8%A7%A3/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2021-05-08T21:56:46&#43;08:00" />
 <meta property="article:modified_time" content="2021-05-21T16:02:46&#43;08:00" />
 
 <meta itemprop="name" content="Collection初了解">
-<meta itemprop="description" content="前言：Collection是最基本的集合接口，在JDK 1.2版本被引入到Java的世界中来。Collection的出现，使得Java拥有了前"><meta itemprop="datePublished" content="2021-05-08T21:56:46&#43;08:00" />
+<meta itemprop="description" content="前言：Collection 是最基本的集合接口，在 JDK 1.2 版本被引入到 Java 的世界中来。Collection 的出现，使得 Java 拥有了前所未有的强大能力。本"><meta itemprop="datePublished" content="2021-05-08T21:56:46&#43;08:00" />
 <meta itemprop="dateModified" content="2021-05-21T16:02:46&#43;08:00" />
-<meta itemprop="wordCount" content="3385">
+<meta itemprop="wordCount" content="3027">
 <meta itemprop="keywords" content="Collection," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Collection初了解"/>
-<meta name="twitter:description" content="前言：Collection是最基本的集合接口，在JDK 1.2版本被引入到Java的世界中来。Collection的出现，使得Java拥有了前"/>
+<meta name="twitter:description" content="前言：Collection 是最基本的集合接口，在 JDK 1.2 版本被引入到 Java 的世界中来。Collection 的出现，使得 Java 拥有了前所未有的强大能力。本"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -132,7 +132,7 @@
         <div class="post-category">
             <a href="/categories/java/"> Java </a>
             </div>
-          <span class="more-meta"> 3385 words </span>
+          <span class="more-meta"> 3027 words </span>
           <span class="more-meta"> 7 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -143,15 +143,15 @@
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#collection体系简介">Collection体系简介</a></li>
-    <li><a href="#collection体系下的三种结构">Collection体系下的三种结构</a>
+    <li><a href="#collection-体系简介">Collection 体系简介</a></li>
+    <li><a href="#collection-体系下的三种结构">Collection 体系下的三种结构</a>
       <ul>
         <li><a href="#list有序列表">List(有序列表)</a></li>
         <li><a href="#set集合">Set(集合)</a></li>
         <li><a href="#map映射表">Map（映射表）</a></li>
       </ul>
     </li>
-    <li><a href="#collection体系常用实现类详解">Collection体系常用实现类详解</a>
+    <li><a href="#collection-体系常用实现类详解">Collection 体系常用实现类详解</a>
       <ul>
         <li><a href="#一list">一、List</a>
           <ul>
@@ -160,7 +160,7 @@
             <li><a href="#linkedlist链表">LinkedList（链表）</a></li>
             <li><a href="#二set">二、Set</a></li>
             <li><a href="#三map">三、Map</a></li>
-            <li><a href="#四collection的其他实现">四、Collection的其他实现</a></li>
+            <li><a href="#四collection-的其他实现">四、Collection 的其他实现</a></li>
           </ul>
         </li>
       </ul>
@@ -170,40 +170,40 @@
   </div>
 </div>
     <div class="post-content">
-      <p><em><strong>前言</strong></em>：Collection是最基本的集合接口，在JDK 1.2版本被引入到Java的世界中来。Collection的出现，使得Java拥有了前所未有的强大能力。本文就将介绍Collection体系下常用的类的实现以及它们背后的数据结构。</p>
-<h1 id="collection体系简介">Collection体系简介</h1>
+      <p><em><strong>前言</strong></em>：Collection 是最基本的集合接口，在 JDK 1.2 版本被引入到 Java 的世界中来。Collection 的出现，使得 Java 拥有了前所未有的强大能力。本文就将介绍 Collection 体系下常用的类的实现以及它们背后的数据结构。</p>
+<h1 id="collection-体系简介">Collection 体系简介</h1>
 <p><img src="/images/11.png" alt=""></p>
 <blockquote>
-<p><strong>Java集合框架(Java collections framework)</strong> 是一个包含一系列实作可重复使用集合的数据结构的类别 &ldquo;类别 (计算机科学)&quot;)和界面&quot;界面 (程式设计)&quot;)集合。 虽然称为“框架”，其使用方式却像个函式库。集合框架提供了定义各式各样集合的界面和实作上述集合的类别。</p>
+<p><strong>Java 集合框架(Java collections framework)</strong> 是一个包含一系列实作可重复使用集合的数据结构的类别 &ldquo;类别 (计算机科学)&quot;)和界面&quot;界面 (程式设计)&quot;)集合。 虽然称为“框架”，其使用方式却像个函式库。集合框架提供了定义各式各样集合的界面和实作上述集合的类别。</p>
 </blockquote>
-<p>我们从Idea搜索Collection.java.util中可以看到其源代码，其第一段是如此说的：</p>
+<p>我们从 Idea 搜索 Collection.java.util 中可以看到其源代码，其第一段是如此说的：</p>
 <blockquote>
 <p>The root interface in the collection hierarchy. A collection
 represents a group of objects, known as its elements. Some collections allow duplicate elements and others do not. Some are ordered and others unordered. The JDK does not provide any direct implementations of this interface: it provides implementations of more specific subinterfaces like Set and List. This interface is typically used to pass collections around and manipulate them where maximum generality is desired.</p>
 </blockquote>
 <p>翻译过来就是：</p>
-<p><code>Collection</code>是Java Collection继承体系中的根接口。一个Collection代表一组对象，被称为它的元素。有一些集合允许重复的元素（如<code>List</code>），而另一些则不允许重复（如<code>Set</code>）。一些是有序的（如<code>ArrayList</code>），而有些则是无序的（如<code>HashSet</code>）。 JDK不提供对Collection这个接口的任何直接实现：它提供了很多对它子接口（如Set和List）的实现。该接口通常用于在非常通用的地方把Collection当作参数传来传去，同时对它们进行操作。</p>
-<h1 id="collection体系下的三种结构">Collection体系下的三种结构</h1>
+<p><code>Collection</code> 是 Java Collection 继承体系中的根接口。一个 Collection 代表一组对象，被称为它的元素。有一些集合允许重复的元素（如<code>List</code>），而另一些则不允许重复（如 <code>Set</code> ）。一些是有序的（如 <code>ArrayList</code> ），而有些则是无序的（如 <code>HashSet</code> ）。 JDK 不提供对 Collection 这个接口的任何直接实现：它提供了很多对它子接口（如 Set 和 List ）的实现。该接口通常用于在非常通用的地方把 Collection 当作参数传来传去，同时对它们进行操作。</p>
+<h1 id="collection-体系下的三种结构">Collection 体系下的三种结构</h1>
 <h2 id="list有序列表">List(有序列表)</h2>
-<p><code>List</code>接口是一个有序的 <code>Collection</code>，使用此接口能够精确的控制每个元素插入的位置，能够通过索引(元素在List中位置，类似于数组的下标)来访问List中的元素，第一个元素的索引为 0，而且允许有相同的元素。List 接口存储一组<strong>不唯一，有序</strong>（插入顺序）的对象。</p>
+<p><code>List</code> 接口是一个有序的 <code>Collection</code>，使用此接口能够精确的控制每个元素插入的位置，能够通过索引(元素在List中位置，类似于数组的下标)来访问List中的元素，第一个元素的索引为 0，而且允许有相同的元素。List 接口存储一组<strong>不唯一，有序</strong>（插入顺序）的对象。</p>
 <blockquote>
 <p>常用的List实现类有：ArrayList、LinkedList</p>
 </blockquote>
 <h2 id="set集合">Set(集合)</h2>
 <p><code>Set</code> 具有与 Collection 完全一样的接口，只是行为上不同，Set 不保存重复的元素。Set 接口存储一组<strong>唯一，无序</strong>的对象。</p>
 <blockquote>
-<p>常用的Set实现类有：HashSet</p>
+<p>常用的 Set 实现类有：HashSet</p>
 </blockquote>
-<p>需要注意的是：Set判断重复是通过equals方法。</p>
+<p>需要注意的是：Set 判断重复是通过 equals 方法。</p>
 <h2 id="map映射表">Map（映射表）</h2>
-<p><code>Map</code> 接口存储一组键值对象，提供key（键）到value（值）的映射。</p>
+<p><code>Map</code> 接口存储一组键值对象，提供 key（键）到 value（值）的映射。</p>
 <blockquote>
 <p>常用的Map实现类：HashMap</p>
 </blockquote>
-<h1 id="collection体系常用实现类详解">Collection体系常用实现类详解</h1>
+<h1 id="collection-体系常用实现类详解">Collection 体系常用实现类详解</h1>
 <h2 id="一list">一、List</h2>
 <h3 id="arraylist线性结构基于动态数组">ArrayList（线性结构，基于动态数组）</h3>
-<p>1.本质上，ArrayList就是一个数组。</p>
+<p>1.本质上，ArrayList 就是一个数组。</p>
 <p>2.动态扩容的实现：创建一个更大空间的对象。然后把原先的所有元素拷贝过去。</p>
 <h3 id="线性结构">线性结构</h3>
 <p>简单地说，线性结构就是表中各个结点具有线性关系。如果从数据结构的语言来描述，线性结构应该包括如下几点：</p>
@@ -214,7 +214,7 @@ represents a group of objects, known as its elements. Some collections allow dup
 <h3 id="linkedlist链表">LinkedList（链表）</h3>
 <p><strong>链表</strong></p>
 <p>链表是一种数据元素按照链式存储结构进行存储的数据结构，这种存储结构具有在物理上存在非连续的特点。链表由一系列数据结点构成，每个数据结点包括数据域和指针域两部分。其中，指针域保存了数据结构中下一个元素存放的地址。链表结构中数据元素的逻辑顺序是通过链表中的指针链接次序来实现的。</p>
-<p><strong>ArrayList和LinkedList比较</strong></p>
+<p><strong>ArrayList 和 LinkedList 比较</strong></p>
 <p>由于二者是基于不同的数据结构实现的，基于链表和线性结构的不同，二者主要的不同用法：</p>
 <ul>
 <li>ArrayList 对于【查】、【改】操作性能更高</li>
@@ -222,67 +222,67 @@ represents a group of objects, known as its elements. Some collections allow dup
 </ul>
 <h3 id="二set">二、Set</h3>
 <p><strong>HashSet</strong>
-最常用，最高效的Set实现</p>
+最常用，最高效的 Set 实现</p>
 <ul>
-<li>List可以使用Set来去重</li>
+<li>List 可以使用 Set 来去重</li>
 </ul>
 <blockquote>
-<p>注意：HashSet是无序随机的，如果需要有序的HashSet可以使用LinkedHashSet(按插入顺序排列)。
-如果需要排好序的集合，可以使用TreeSet。</p>
+<p>注意：HashSet是无序随机的，如果需要有序的 HashSet 可以使用 LinkedHashSet (按插入顺序排列)。
+如果需要排好序的集合，可以使用 TreeSet。</p>
 </blockquote>
 <p><strong>散列表（Hash）</strong>
 散列表源自于散列函数(Hash function)，其思想是如果在结构中存在关键字和T相等的记录，那么必定在F(T)的存储位置可以找到该记录，这样就可以不用进行比较操作而直接取得所查记录。</p>
 <p><strong>TreeSet</strong></p>
-<p>TreeSet是有序的，因为Comparable的默认顺序是从小到大，所以TreeSet的默认顺序是从小到大，即自然顺序。</p>
-<p>因此：TreeSet最大的用途就是用来排序的。TreeSet内部的数据结构是红黑树。</p>
+<p>TreeSet 是有序的，因为 Comparable 的默认顺序是从小到大，所以TreeSet的默认顺序是从小到大，即自然顺序。</p>
+<p>因此：TreeSet 最大的用途就是用来排序的。TreeSet 内部的数据结构是红黑树。</p>
 <p><strong>树</strong></p>
 <p><a href="https://baike.baidu.com/item/%E6%A0%91/2699484">树</a> 是典型的非线性结构，它是包括，2个结点的有穷集合K。在树结构中，有且仅有一个根结点，该结点没有前驱结点。在树结构中的其他结点都有且仅有一个前驱结点，而且可以有两个后继结点，m≥0</p>
 <p><strong>LinkedHashSet（有顺序的HashSet）</strong></p>
 <p>保证内部顺序和插入的顺序一样。</p>
 <h3 id="三map">三、Map</h3>
 <p><strong>HashMap</strong></p>
-<p><strong>HashMap的线程不安全性</strong></p>
-<p>注意：HashMap是线程不安全的，在jdk的官方注释中也提到了【Note that this implementation is not synchronized.】。即：请注意，HashMap的实现没有被同步。</p>
-<p>在多线程中，HashMap的死循环问题：在多线程中，扩容的时候，即resize的时候，有可能变成一个死循环的链表。感兴趣的可以移步：<a href="https://coolshell.cn/articles/9606.html">疫苗：JAVA HASHMAP的死循环</a> 。因此在多线程中，应该使用ConcurrentHashMap，即并发的HashMap。</p>
+<p><strong>HashMap 的线程不安全性</strong></p>
+<p>注意：HashMap 是线程不安全的，在 jdk 的官方注释中也提到了【Note that this implementation is not synchronized.】。即：请注意，HashMap 的实现没有被同步。</p>
+<p>在多线程中，HashMap 的死循环问题：在多线程中，扩容的时候，即 resize 的时候，有可能变成一个死循环的链表。感兴趣的可以移步：<a href="https://coolshell.cn/articles/9606.html">疫苗：JAVA HASHMAP的死循环</a> 。因此在多线程中，应该使用 ConcurrentHashMap，即并发的 HashMap。</p>
 <blockquote>
-<p>解决办法：采用ConcurrentHashMap（线程安全的HashMap）</p>
+<p>解决办法：采用 ConcurrentHashMap（线程安全的 HashMap ）</p>
 </blockquote>
-<p><strong>HashMap在jdk1.7后的改变：同一个哈希桶中存储的数据结构由链表改为红黑树</strong></p>
-<p>如果恰好一个Map的所有的key的hashCode都是一样的，那么他们就会放到同一个哈希桶中，那么这个HashMap就会变成一个效率极低的链表，导致程序运行变慢，丧失了使用Hash算法的好处。JDK7以后，发生哈希碰撞，存在同一个哈希桶中的数据不再是一个链表，而是变成了一个红黑树，从而提高了性能。</p>
+<p><strong>HashMap 在 jdk1.7 后的改变：同一个哈希桶中存储的数据结构由链表改为红黑树</strong></p>
+<p>如果恰好一个 Map 的所有的 key 的 hashCode 都是一样的，那么他们就会放到同一个哈希桶中，那么这个 HashMap 就会变成一个效率极低的链表，导致程序运行变慢，丧失了使用 Hash 算法的好处。JDK7 以后，发生哈希碰撞，存在同一个哈希桶中的数据不再是一个链表，而是变成了一个红黑树，从而提高了性能。</p>
 <p><strong>TreeMap</strong></p>
-<p>内部数据结构同TreeSet，此处不再赘述。
-HashMap和HashSet本质上是⼀种东⻄</p>
+<p>内部数据结构同 TreeSet，此处不再赘述。
+HashMap 和 HashSet 本质上是⼀种东⻄</p>
 <ul>
-<li>HashMap的key的set就是一个HashSet</li>
-<li>HashSet的实现中就包含了一个HashMap</li>
+<li>HashMap 的 key 的 set 就是一个 HashSet</li>
+<li>HashSet 的实现中就包含了一个 HashMap</li>
 </ul>
 <p><strong>哈希算法简介</strong></p>
-<p><strong>Java世界里第二重要的约定（hashCode）</strong></p>
-<p>（第一重要的约定是equals约定）</p>
+<p><strong>Java 世界里第二重要的约定（hashCode）</strong></p>
+<p>（第一重要的约定是 equals 约定）</p>
 <ul>
 <li>
 <p>同于一个对象必须始终返回相同的hashCode</p>
 </li>
 <li>
-<p>两个对象的equals返回true，则必须返回相同的hashCode</p>
+<p>两个对象的 equals 返回 true，则必须返回相同的 hashCode</p>
 <ul>
-<li>因此，当我们重写equals方法时，必须重写hashCode方法</li>
+<li>因此，当我们重写 equals 方法时，必须重写 hashCode 方法</li>
 </ul>
 </li>
 <li>
-<p>两个对象不等，也可能返回相同的hashCode（原因参照上一条）</p>
+<p>两个对象不等，也可能返回相同的 hashCode（原因参照上一条）</p>
 </li>
 </ul>
-<p>哈希就是一个单项的映射，举例来说就像百家姓：先把所有人按照姓来分类，然后再查找：人名怎么取hashCode呢，通过取他的姓；那对象Object就会通过hashCode算法，映射成一个int。</p>
-<p>在内存中，上面百家姓的例子，姓就是内存中的哈希桶，通过hashCode方法算出一个哈希值，然后放到哈希桶中。如果我们有10万条数据，通过哈希算法分散到10万个哈希桶中，那么我们查找某一条数据，只需要查找一次，因此通过哈希算法，查找的时间复杂度是呈指数下降的。</p>
-<h3 id="四collection的其他实现">四、Collection的其他实现</h3>
+<p>哈希就是一个单项的映射，举例来说就像百家姓：先把所有人按照姓来分类，然后再查找：人名怎么取 hashCode 呢，通过取他的姓；那对象 Object 就会通过hashCode 算法，映射成一个 int。</p>
+<p>在内存中，上面百家姓的例子，姓就是内存中的哈希桶，通过 hashCode 方法算出一个哈希值，然后放到哈希桶中。如果我们有10万条数据，通过哈希算法分散到10万个哈希桶中，那么我们查找某一条数据，只需要查找一次，因此通过哈希算法，查找的时间复杂度是呈指数下降的。</p>
+<h3 id="四collection-的其他实现">四、Collection 的其他实现</h3>
 <p><strong>Queue（队列）</strong></p>
 <p>有优先级的集合，LILO（Last In Last Out）</p>
 <p>队列和栈类似，也是一种特殊的线性表。和栈不同的是，队列只允许在表的一端进行插入操作，而在另一端进行删除操作。一般来说，进行插入操作的一端称为队尾，进行删除操作的一端称为队头。队列中没有元素时，称为空队列。</p>
 <p><strong>Deque（双端队列）</strong></p>
 <p>允许在两端进行增删元素。</p>
 <p><strong><del>Veetor</del></strong>
-Vector是ArrayList的前身，已弃用</p>
+Vector是 ArrayList 的前身，已弃用</p>
 <p><strong><del>Stack</del>（栈）</strong></p>
 <p>LIFO（Last In First Out），如果需要”栈“这种数据结构，推荐使用Deque</p>
 <p><a href="https://baike.baidu.com/item/%E6%A0%88/12808149">栈</a> 是一种特殊的线性表，它只能在一个表的一个固定端进行数据结点的插入和删除操作。栈按照后进先出的原则来存储数据，也就是说，先插入的数据将被压入栈底，最后插入的数据在栈顶，读出数据时，从栈顶开始逐个读出。栈在汇编语言程序中，经常用于重要数据的现场保护。栈中没有数据时，称为空栈。</p>

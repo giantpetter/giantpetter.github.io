@@ -49,7 +49,7 @@
 <meta itemprop="name" content="线程的属性、状态、生命周期详解">
 <meta itemprop="description" content="一、线程简介 线程 （英语：thread）是操作系统能够进行运算调度的最小单位。 大部分情况下，它被包含在进程之中，是进程中的实际运作单位。 一条线"><meta itemprop="datePublished" content="2021-05-21T16:02:46&#43;08:00" />
 <meta itemprop="dateModified" content="2021-05-21T16:02:46&#43;08:00" />
-<meta itemprop="wordCount" content="1952">
+<meta itemprop="wordCount" content="1856">
 <meta itemprop="keywords" content="线程," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="线程的属性、状态、生命周期详解"/>
 <meta name="twitter:description" content="一、线程简介 线程 （英语：thread）是操作系统能够进行运算调度的最小单位。 大部分情况下，它被包含在进程之中，是进程中的实际运作单位。 一条线"/>
@@ -133,7 +133,7 @@
             <a href="/categories/java/"> Java </a>
             <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"> 操作系统 </a>
             </div>
-          <span class="more-meta"> 1952 words </span>
+          <span class="more-meta"> 1856 words </span>
           <span class="more-meta"> 4 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -158,14 +158,14 @@
 （英语：thread）是操作系统能够进行运算调度的最小单位。
 大部分情况下，它被包含在进程之中，是进程中的实际运作单位。
 一条线程指的是进程中一个单一顺序的控制流，一个进程中可以并发多个线程，每条线程并行执行不同的任务。
-在Unix System V及SunOS中也被称为轻量进程（lightweight processes），但轻量进程更多指内核线程（kernel thread），而把用户线程（user thread）称为线程。</p>
-<p>我们运行java程序实际上就是运行了一个jvm进程，jvm默认会用主线程来执行main方法，另外jvm里面还有负责垃圾回收的其他工作线程等等，java语言做了多线程的支持，也就是说我们可以使用多线程实现多任务。
-现代计算机的cpu多采用多核架构，为了充分利用性能以及让耗时操作（读写文件等等）更有效率，所以在特定场合（高并发）需要多线程操作。</p>
+在 Unix System V 及 SunOS 中也被称为轻量进程（lightweight processes），但轻量进程更多指内核线程（kernel thread），而把用户线程（user thread）称为线程。</p>
+<p>我们运行 java 程序实际上就是运行了一个 jvm 进程，jvm 默认会用主线程来执行 main 方法，另外 jvm 里面还有负责垃圾回收的其他工作线程等等，java语言做了多线程的支持，也就是说我们可以使用多线程实现多任务。
+现代计算机的 cpu 多采用多核架构，为了充分利用性能以及让耗时操作（读写文件等等）更有效率，所以在特定场合（高并发）需要多线程操作。</p>
 <h1 id="二线程属性">二、线程属性</h1>
 <ul>
 <li>线程是处理机调度的单位</li>
-<li>多cpu计算机中，各个线程可以占用不同的cpu</li>
-<li>每个线程都有一个线程ID、线程控制块（TCB）</li>
+<li>多 cpu 计算机中，各个线程可以占用不同的 cpu</li>
+<li>每个线程都有一个线程 ID、线程控制块（TCB）</li>
 <li>线程类似进程也有就绪、堵塞、运行三种状态</li>
 <li>线程几乎不拥有系统资源</li>
 <li>同一进程的不同线程间共享进程的资源</li>
@@ -198,7 +198,7 @@
 <ul>
 <li>多对一模型：多个用户级线程映射到一个内核级线程。开销小，效率高，但是并发度不高，不支持多核处理器并行。</li>
 <li>一对一模型：一个用户级线程映射到一个内核级线程。并发程度高，但是开销大，效率低。</li>
-<li>多对多模型：如下图，n个用户线程映射到m个内核级线程(n&gt;=m)。每个用户进程对应m个内核级线程。集合了以上两个模型的优点。
+<li>多对多模型：如下图，n个用户线程映射到m个内核级线程(n&gt;=m)。每个用户进程对应 m 个内核级线程。集合了以上两个模型的优点。
 <img src="/images/%E5%A4%9A%E5%AF%B9%E5%A4%9A%E6%A8%A1%E5%9E%8B.png" alt=""></li>
 </ul>
 <h1 id="四线程生命周期">四、线程生命周期</h1>
@@ -207,26 +207,26 @@
 <p>上图中基本上囊括了Java中多线程各重要知识点。掌握了上图中的各知识点，Java中的多线程也就基本上掌握了。主要包括：</p>
 <p><strong>Java线程具有五中基本状态</strong></p>
 <ul>
-<li>新建状态（New）：当线程对象对创建后，即进入了新建状态，如：Thread t = new MyThread();</li>
-<li>就绪状态（Runnable）：当调用线程对象的start()方法（t.start();），线程即进入就绪状态。处于就绪状态的线程，只是说明此线程已经做好了准备，随时等待CPU调度执行，并不是说执行了t.start()此线程立即就会执行；</li>
-<li>运行状态（Running）：当CPU开始调度处于就绪状态的线程时，此时线程才得以真正执行，即进入到运行状态。注：就     绪状态是进入到运行状态的唯一入口，也就是说，线程要想进入运行状态执行，首先必须处于就绪状态中；</li>
-<li>阻塞状态（Blocked）：处于运行状态中的线程由于某种原因，暂时放弃对CPU的使用权，停止执行，此时进入阻塞状态，直到其进入到就绪状态，才 有机会再次被CPU调用以进入到运行状态。根据阻塞产生的原因不同，阻塞状态又可以分为三种：
+<li><strong>新建状态（New）</strong>：当线程对象对创建后，即进入了新建状态，如：Thread t = new MyThread();</li>
+<li><strong>就绪状态（Runnable)</strong>：当调用线程对象的 <code>start()</code> 方法 <code>t.start();</code>，线程即进入就绪状态。处于就绪状态的线程，只是说明此线程已经做好了准备，随时等待CPU调度执行，并不是说执行了t.start()此线程立即就会执行；</li>
+<li><strong>运行状态（Running）</strong>：当 CPU 开始调度处于就绪状态的线程时，此时线程才得以真正执行，即进入到运行状态。注：就绪状态是进入到运行状态的唯一入口，也就是说，线程要想进入运行状态执行，首先必须处于就绪状态中；</li>
+<li><strong>阻塞状态（Blocked）</strong>：处于运行状态中的线程由于某种原因，暂时放弃对CPU的使用权，停止执行，此时进入阻塞状态，直到其进入到就绪状态，才 有机会再次被CPU调用以进入到运行状态。根据阻塞产生的原因不同，阻塞状态又可以分为三种：
 <ol>
-<li>等待阻塞：运行状态中的线程执行wait()方法，使本线程进入到等待阻塞状态；</li>
-<li>同步阻塞 &ndash; 线程在获取synchronized同步锁失败(因为锁被其它线程所占用)，它会进入同步阻塞状态；</li>
-<li>其他阻塞 &ndash; 通过调用线程的sleep()或join()或发出了I/O请求时，线程会进入到阻塞状态。当sleep()状态超时、join()等待线程终止或者超时、或者I/O处理完毕时，线程重新转入就绪状态。</li>
+<li>等待阻塞：运行状态中的线程执行 <code>wait()</code> 方法，使本线程进入到等待阻塞状态；</li>
+<li>同步阻塞 &ndash; 线程在获取 <code>synchronized</code> 同步锁失败(因为锁被其它线程所占用)，它会进入同步阻塞状态；</li>
+<li>其他阻塞 &ndash; 通过调用线程的 <code>sleep()</code> 或 <code>join()</code> 或发出了 I/O 请求时，线程会进入到阻塞状态。当 <code>sleep()</code> 状态超时、<code>join()</code> 等待线程终止或者超时、或者 I/O 处理完毕时，线程重新转入就绪状态。</li>
 </ol>
 </li>
-<li>死亡状态（Dead）：线程执行完了或者因异常退出了run()方法，该线程结束生命周期。</li>
+<li><strong>死亡状态（Dead）</strong>：线程执行完了或者因异常退出了 <code>run()</code> 方法，该线程结束生命周期。</li>
 </ul>
 <p><strong>Java多线程的就绪、运行和死亡状态(<em>注意点</em>)</strong></p>
 <ul>
 <li>就绪状态转换为运行状态：当此线程得到处理器资源；</li>
-<li>运行状态转换为就绪状态：当此线程主动调用yield()方法或在运行过程中失去处理器资源。</li>
+<li>运行状态转换为就绪状态：当此线程主动调用 <code>yield()</code> 方法或在运行过程中失去处理器资源。</li>
 <li>运行状态转换为死亡状态：当此线程线程执行体执行完毕或发生了异常。</li>
 </ul>
 <blockquote>
-<p>此处需要特别注意的是：当调用线程的yield()方法时，线程从运行状态转换为就绪状态，但接下来CPU调度就绪状态中的哪个线程具有一定的随机性，因此，可能会出现A线程调用了yield()方法后，接下来CPU仍然调度了A线程的情况。</p>
+<p>此处需要特别注意的是：当调用线程的 <code>yield()</code> 方法时，线程从运行状态转换为就绪状态，但接下来 CPU 调度就绪状态中的哪个线程具有一定的随机性，因此，可能会出现 A 线程调用了 <code>yield()</code> 方法后，接下来 CPU 仍然调度了 A 线程的情况。</p>
 </blockquote>
 
     </div>

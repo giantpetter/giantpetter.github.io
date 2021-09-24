@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="拾光" /><meta name="description" content="Maven与包管理的浅解 maven是什么 1.Maven 翻译为&amp;quot;专家&amp;quot;、&amp;ldquo;内行&amp;rdquo;，是 Apache 下的一个纯 Java 开发的开源项" /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="拾光" /><meta name="description" content="一、maven是什么 1.Maven 翻译为&amp;quot;专家&amp;quot;、&amp;ldquo;内行&amp;rdquo;，是 Apache 下的一个纯 Java 开发的开源项目。 Maven 是一个项目管理" /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
@@ -40,19 +40,19 @@
 
 
 <meta property="og:title" content="Maven与包管理的浅解" />
-<meta property="og:description" content="Maven与包管理的浅解 maven是什么 1.Maven 翻译为&quot;专家&quot;、&ldquo;内行&rdquo;，是 Apache 下的一个纯 Java 开发的开源项" />
+<meta property="og:description" content="一、maven是什么 1.Maven 翻译为&quot;专家&quot;、&ldquo;内行&rdquo;，是 Apache 下的一个纯 Java 开发的开源项目。 Maven 是一个项目管理" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://localhost:1313/2021/05/maven%E4%B8%8E%E5%8C%85%E7%AE%A1%E7%90%86%E7%9A%84%E6%B5%85%E8%A7%A3/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2021-05-08T19:10:26&#43;08:00" />
 <meta property="article:modified_time" content="2021-06-11T09:46:27&#43;08:00" />
 
 <meta itemprop="name" content="Maven与包管理的浅解">
-<meta itemprop="description" content="Maven与包管理的浅解 maven是什么 1.Maven 翻译为&quot;专家&quot;、&ldquo;内行&rdquo;，是 Apache 下的一个纯 Java 开发的开源项"><meta itemprop="datePublished" content="2021-05-08T19:10:26&#43;08:00" />
+<meta itemprop="description" content="一、maven是什么 1.Maven 翻译为&quot;专家&quot;、&ldquo;内行&rdquo;，是 Apache 下的一个纯 Java 开发的开源项目。 Maven 是一个项目管理"><meta itemprop="datePublished" content="2021-05-08T19:10:26&#43;08:00" />
 <meta itemprop="dateModified" content="2021-06-11T09:46:27&#43;08:00" />
-<meta itemprop="wordCount" content="635">
+<meta itemprop="wordCount" content="633">
 <meta itemprop="keywords" content="Maven," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Maven与包管理的浅解"/>
-<meta name="twitter:description" content="Maven与包管理的浅解 maven是什么 1.Maven 翻译为&quot;专家&quot;、&ldquo;内行&rdquo;，是 Apache 下的一个纯 Java 开发的开源项"/>
+<meta name="twitter:description" content="一、maven是什么 1.Maven 翻译为&quot;专家&quot;、&ldquo;内行&rdquo;，是 Apache 下的一个纯 Java 开发的开源项目。 Maven 是一个项目管理"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -132,7 +132,7 @@
         <div class="post-category">
             <a href="/categories/java/"> Java </a>
             </div>
-          <span class="more-meta"> 635 words </span>
+          <span class="more-meta"> 633 words </span>
           <span class="more-meta"> 2 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -143,24 +143,16 @@
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#maven与包管理的浅解">Maven与包管理的浅解</a>
-      <ul>
-        <li><a href="#maven是什么">maven是什么</a></li>
-        <li><a href="#包冲突以及解决办法">包冲突以及解决办法</a></li>
-        <li><a href="#maven的进阶功能自动化构建工具">maven的进阶功能————自动化构建工具</a>
-          <ul>
-            <li><a href="#坐标和依赖生命周期聚合和继承仓库等功能待以后扩展">坐标和依赖、生命周期、聚合和继承、仓库等功能待以后扩展</a></li>
-          </ul>
-        </li>
-      </ul>
-    </li>
+    <li><a href="#一maven是什么">一、maven是什么</a></li>
+    <li><a href="#二包冲突以及解决办法">二、包冲突以及解决办法</a></li>
+    <li><a href="#三maven的进阶功能自动化构建工具">三、maven的进阶功能————自动化构建工具</a></li>
+    <li><a href="#四坐标和依赖生命周期聚合和继承仓库等功能待以后扩展">四、坐标和依赖、生命周期、聚合和继承、仓库等功能待以后扩展</a></li>
   </ul>
 </nav>
   </div>
 </div>
     <div class="post-content">
-      <h1 id="maven与包管理的浅解">Maven与包管理的浅解</h1>
-<h2 id="maven是什么">maven是什么</h2>
+      <h1 id="一maven是什么">一、maven是什么</h1>
 <p>1.Maven 翻译为&quot;专家&quot;、&ldquo;内行&rdquo;，是 Apache 下的一个纯 Java 开发的开源项目。
 Maven 是一个项目管理工具，可以对 Java 项目进行构建、依赖管理。Maven 也可被用于构建和管理各种项目，例如 C#，Ruby，Scala 和其他语言编写的项目。</p>
 <p>2.约定配置:maven基于项目固定的结构文件名使其能够很好地实现跨平台的使用。</p>
@@ -205,7 +197,7 @@ Maven 是一个项目管理工具，可以对 Java 项目进行构建、依赖�
 <p>4.仓库：</p>
 <p>中央仓库：按照第3点中约定存储包<a href="https://repo1.maven.org/maven2">地址一</a> 、 <a href="https://repo.maven.apache.org/maven2/">地址二</a></p>
 <p>本地仓库：下载第三方包在此缓存（～/.m2)</p>
-<h2 id="包冲突以及解决办法">包冲突以及解决办法</h2>
+<h1 id="二包冲突以及解决办法">二、包冲突以及解决办法</h1>
 <p>1.包冲突：
 一般出现以下异常：</p>
 <pre><code>AbstractMethodError/NoClassDefFoundError/ClassNotFoundException/LinkageError
@@ -225,15 +217,17 @@ Maven 是一个项目管理工具，可以对 Java 项目进行构建、依赖�
 <blockquote>
 <p>直接告诉maven排除某个特定的传递性依赖，如下代码：</p>
 </blockquote>
-<pre><code>&lt;exlusions&gt;
+<pre><code>```xml
+&lt;exlusions&gt;
     &lt;exclusion&gt; 
         &lt;groupID&gt;
         &lt;artifactID&gt;
     &lt;exclusion&gt;
 &lt;exlusions&gt;
+```
 </code></pre>
-<h2 id="maven的进阶功能自动化构建工具">maven的进阶功能————自动化构建工具</h2>
-<h3 id="坐标和依赖生命周期聚合和继承仓库等功能待以后扩展">坐标和依赖、生命周期、聚合和继承、仓库等功能待以后扩展</h3>
+<h1 id="三maven的进阶功能自动化构建工具">三、maven的进阶功能————自动化构建工具</h1>
+<h1 id="四坐标和依赖生命周期聚合和继承仓库等功能待以后扩展">四、坐标和依赖、生命周期、聚合和继承、仓库等功能待以后扩展</h1>
 
     </div>
 
