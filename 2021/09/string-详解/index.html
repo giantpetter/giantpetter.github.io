@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>String 详解 - 拾光的博客</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="拾光" /><meta name="description" content="一、简介 String 类型可能是 Java 中应用最频繁的引用类型，但它的性能问题却常常被忽略。高效的使用字符串，可以提升系统的整体性能。当然，要做到高效使用字符" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.83.0 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/2021/09/string-%E8%AF%A6%E8%A7%A3/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="String 详解" />
+<meta property="og:description" content="一、简介 String 类型可能是 Java 中应用最频繁的引用类型，但它的性能问题却常常被忽略。高效的使用字符串，可以提升系统的整体性能。当然，要做到高效使用字符" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/2021/09/string-%E8%AF%A6%E8%A7%A3/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-09-23T20:20:17&#43;08:00" />
+<meta property="article:modified_time" content="2021-09-23T20:20:17&#43;08:00" />
+
+<meta itemprop="name" content="String 详解">
+<meta itemprop="description" content="一、简介 String 类型可能是 Java 中应用最频繁的引用类型，但它的性能问题却常常被忽略。高效的使用字符串，可以提升系统的整体性能。当然，要做到高效使用字符"><meta itemprop="datePublished" content="2021-09-23T20:20:17&#43;08:00" />
+<meta itemprop="dateModified" content="2021-09-23T20:20:17&#43;08:00" />
+<meta itemprop="wordCount" content="4007">
+<meta itemprop="keywords" content="String," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="String 详解"/>
+<meta name="twitter:description" content="一、简介 String 类型可能是 Java 中应用最频繁的引用类型，但它的性能问题却常常被忽略。高效的使用字符串，可以提升系统的整体性能。当然，要做到高效使用字符"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">拾光</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">拾光</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">String 详解</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-09-23 </span>
+        <div class="post-category">
+            <a href="/categories/java/"> Java </a>
+            </div>
+          <span class="more-meta"> 4007 words </span>
+          <span class="more-meta"> 8 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一简介">一、简介</a></li>
+    <li><a href="#二string-的不可变性">二、String 的不可变性</a></li>
+    <li><a href="#三string-的性能考量">三、String 的性能考量</a>
+      <ul>
+        <li><a href="#31-字符串拼接">3.1 字符串拼接</a></li>
+        <li><a href="#32-字符串分割">3.2 字符串分割</a></li>
+        <li><a href="#33-stringintern">3.3 String.intern()</a></li>
+      </ul>
+    </li>
+    <li><a href="#三-stringstringbufferstringbuilder-的区别">三、 String、StringBuffer、StringBuilder 的区别</a></li>
+    <li><a href="#四string-的一些常用方法">四、String 的一些常用方法</a>
+      <ul>
+        <li><a href="#41-构造器">4.1 构造器</a></li>
+        <li><a href="#42-常用方法">4.2 常用方法</a></li>
+        <li><a href="#43-与基本类型的转换">4.3 与基本类型的转换</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="一简介">一、简介</h1>
+<p>String 类型可能是 Java 中应用最频繁的引用类型，但它的性能问题却常常被忽略。高效的使用字符串，可以提升系统的整体性能。当然，要做到高效使用字符串，需要深入了解其特性。</p>
+<p>互联网基本上只干一件事：处理字符串，可以处理好字符串是 Web 服务器的基本要求。他的重要性不言而喻。值得注意的是：String 创建的字符串存储在公共池中，而 new 创建的字符串对象在堆上。</p>
+<h1 id="二string-的不可变性">二、String 的不可变性</h1>
+<p>首先我们来看 <code>String</code> 的开始部分源码,即定义：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">String</span>
+    <span class="kd">implements</span> <span class="n">java</span><span class="o">.</span><span class="na">io</span><span class="o">.</span><span class="na">Serializable</span><span class="o">,</span> <span class="n">Comparable</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;,</span> <span class="n">CharSequence</span> <span class="o">{</span>
+    <span class="cm">/** The value is used for character storage. */</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">char</span> <span class="n">value</span><span class="o">[];</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>String</code> 类被 <code>final</code> 字段修饰，说明<strong>它是不可继承的类</strong></p>
+<p><code>String</code> 类的实体数据存储在 <code>char[]</code> 数组中， 且被 <code>final</code> 修饰，说明 <code>String</code> 对象<strong>不可更改</strong>。</p>
+<p>为什么要进行这样的设计？</p>
+<ol>
+<li><strong>保证 String 对象的安全性。</strong> 防止 String 被篡改，所以具有天生的线程安全性。</li>
+<li><strong>保证 hash 值不会频繁变更。</strong> 整个 java 生命周期中同意个对象的多次计算哈希值都是相同的。</li>
+<li><strong>可以实现字符串常量池。</strong> 通常有两种创建字符串对象的方式，一种是通过字符串常量的方式创建，<code>String str = &quot;abc&quot;</code>; 另一种是字符串变量通过 new 形式的创建，如 <code>String str = new String(&quot;abc&quot;);</code> 。</li>
+</ol>
+<p>使用第一种方式创建字符串对象时，JVM 首先会检查该对象是否在字符串常量池中，如果在，就返回该对象引用，否则新的字符串将在常量池中被创建。这种方式可以减少同一个值的字符串对象的重复创建，节约内存。</p>
+<p>而使用第二种方式创建时，首先在变异文件时，<code>abc</code> 常量字符串将会放到常量结构中，在类加载的时候，<code>abc</code> 将会在常量池(方法区中的运行时常量池)中创建；其次，在调用 <code>new</code> 时，JVM 命令将会调用 <code>String</code> 的构造函数，同时引用常量池中的 <code>abc</code> 字符串，在堆中创建一个 <code>String</code> 对象；最后 <code>str</code> 将会引用 <code>String</code> 对象。</p>
+<p>永远注意一点：<strong>String对象一旦被创建就是固定不变的了，对String对象的任何改变都不影响到原对象，相关的任何change操作都会生成新的对象</strong></p>
+<p>具体如下图所示：
+<img src="/images/String/%E8%BF%90%E8%A1%8C%E6%97%B6%E5%B8%B8%E9%87%8F%E6%B1%A0.png" alt=""></p>
+<h1 id="三string-的性能考量">三、String 的性能考量</h1>
+<h2 id="31-字符串拼接">3.1 字符串拼接</h2>
+<p><strong>字符串常量的拼接，编译器会将其优化为一个常量字符串。</strong>
+【示例】字符串常量拼接</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// 本行代码在 class 文件中，会被编译器直接优化为：
+</span><span class="c1"></span>    <span class="c1">// String str = &#34;abc&#34;;
+</span><span class="c1"></span>    <span class="n">String</span> <span class="n">str</span> <span class="o">=</span> <span class="s">&#34;a&#34;</span> <span class="o">+</span> <span class="s">&#34;b&#34;</span> <span class="o">+</span> <span class="s">&#34;c&#34;</span><span class="o">;</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;str = &#34;</span> <span class="o">+</span> <span class="n">str</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>字符串变量的拼接，编译器会优化成 <code>StringBuilder</code> 方式</strong>
+【示例】 字符串变量的拼接</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">String</span> <span class="n">str</span> <span class="o">=</span> <span class="s">&#34;&#34;</span><span class="o">;</span>
+    <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">1000</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+        <span class="c1">//本行代码会被编译器优化为：
+</span><span class="c1"></span>        <span class="c1">// str = （new StringBuilder(String.valueOf(str)).append(i).toString();
+</span><span class="c1"></span>        <span class="n">str</span> <span class="o">=</span> <span class="n">str</span> <span class="o">+</span> <span class="n">i</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>但是，每次循环都会生成一个新的 <code>StringBuilder</code> 实例，同样也会降低系统的性能。</p>
+<p>所以，字符串拼接的正确方案：</p>
+<ul>
+<li>如果需要用<strong>字符串拼接，应该优先考虑 <code>StringBuilder</code> 的 <code>append</code> 方法替代 + 号</strong></li>
+<li>如果在并发编程中，<code>String</code> 对象的拼接涉及到线程安全，可以使用 <code>StringBuffer</code> 。 但是要注意，由于 <code>StringBuffer</code> 是线程安全的，涉及到锁竞争，所以从性能上来说，要比 <code>StringBuilder</code> 差一些。</li>
+</ul>
+<h2 id="32-字符串分割">3.2 字符串分割</h2>
+<p><strong><code>String</code> 的 <code>split()</code> 方法使用正则表达式实现其强大的分割功能。</strong> 而正则表达式的性能非常不稳定，使用不恰当会引起回溯问题，很可能导致 CPU 居高不下。</p>
+<p>所以，慎重使用 <code>split()</code> 方法，可以考虑用 <code>String.indexOf()</code> 代替 <code>split()</code> 方法完成字符串的分割。如果实在无法满足需求，就在使用 <code>split()</code> 方法时，对回溯问题加以重视即可。</p>
+<p><strong>回溯</strong>：涉及到正则表达式引擎：DFA 自动机-确定有限状态自动机 和 NFA 自动机-非确定有限状态自动机；而后者在匹配过程中存在大量的分支回溯，算法复杂度相对前者高, java 的正则表达式则是采用 NFA 引擎,它是一种基于贪婪模式尽可能多匹配。<strong>避免回溯的方法就是：使用懒惰模式和独占模式。</strong> 具体说明参考<a href="https://zhuanlan.zhihu.com/p/362763588">如下</a></p>
+<h2 id="33-stringintern">3.3 String.intern()</h2>
+<p><strong>在每次赋值的时候使用 String 的 intern 方法，如果常量池中有相同值，就会重复使用该对象，返回对象引用，这样一开始的对象就可以被回收掉。</strong></p>
+<p>在字符串常量中，默认会将对象放入常量池；在字符串变量中，对象是会创建在堆内存中，同时也会在常量池中创建一个字符串对象，复制到堆内存对象中，并返回堆内存对象引用。</p>
+<p>如果调用 <code>intern</code> 方法，会去查看字符串常量池中是否有等于该对象的字符串，如果没有，就在常量池中新增该对象，并返回该对象引用；如果有，就返回常量池中的字符串引用。堆内存中原有的对象由于没有引用指向它，将会通过垃圾回收器回收。</p>
+<p>【示例】</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">//该行为 intern() 方法的源码
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">native</span> <span class="n">String</span> <span class="nf">intern</span><span class="o">();</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SharedLocation</span><span class="o">{</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">city</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">region</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">countryCode</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="n">SharedLoaction</span> <span class="n">sharedLocation</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SharedLocation</span><span class="o">();</span>
+<span class="n">sharedLocation</span><span class="o">.</span><span class="na">setCity</span><span class="o">(</span><span class="n">messageInfo</span><span class="o">.</span><span class="na">getCity</span><span class="o">().</span><span class="na">intern</span><span class="o">());</span>
+<span class="n">sharedLocation</span><span class="o">.</span><span class="na">setRegion</span><span class="o">(</span><span class="n">messageInfo</span><span class="o">.</span><span class="na">getRegion</span><span class="o">().</span><span class="na">intern</span><span class="o">());</span>
+<span class="n">sharedLocation</span><span class="o">.</span><span class="na">setCountryCode</span><span class="o">(</span><span class="n">messageInfo</span><span class="o">.</span><span class="na">getCountryCode</span><span class="o">().</span><span class="na">intern</span><span class="o">());</span>
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>使用 <code>intern()</code> 方法要注意：一定要结合实际场景。因为常量池的实现是类似于一个 <code>HashTable</code> 的实现方式，<code>HashTable</code> 存储的数据越多，遍历的时间就会越长。如果数据过大，会增加整个字符串常量池的负担。</p>
+</blockquote>
+<h1 id="三-stringstringbufferstringbuilder-的区别">三、 String、StringBuffer、StringBuilder 的区别</h1>
+<p><code>String</code> 是 Java 语言非常基础和重要的类，提供了构造和管理字符串的各种基本逻辑。它是典型的 Immutable 类，被声明成 <code>final class</code>，所有属性，方法也都是 <code>final</code> 的。也由于它的不可变性，类似拼接、裁剪字符串等动作，都会产生新的 <code>String</code> 对象。由于字符串操作的普遍性，所以相关操作的效率往往对应用性能有明显影响。</p>
+<p><code>StringBuffer</code> 是为了解决上面提到拼接产生太多中间对象的问题而提供的一个类，我们可以用 <code>append</code> 或者 <code>add</code> 方法，把字符串添加到已有序列的末尾或者制定位置。<code>StringBuffer</code> 是一个<strong>线程安全</strong>的可修改字符序列。<code>StringBuffer</code> 的线程安全是通过修改数据的方法上使用 <code>Synchronized</code> 关键字修饰实现的。</p>
+<p><code>StringBuilder</code> 是 Java 1.5 中新增的，在能力上和 <code>StringBuffer</code> 没有本质区别，但是它去掉了线程安全的部分，有效减小了开销，是绝大部分情况下进行字符串拼接的首选。</p>
+<p><code>StringBuffer</code> 和 <code>StringBuilder</code> 底层都是利用可修改的（char，JDK 9 以后是 byte）数组，二者都继承了 <code>AbstractStringBuilder</code>，里面包含了基本操作，区别仅在于最终的方法是否加了 <code>synchronized</code>。构建时初始字符串长度加 16（这意味着，如果没有构建对象时输入最初的字符串，那么初始值就是 16）。我们如果确定拼接会发生非常多次，而且大概是可预计的，那么就可以指定合适的大小，避免很多次扩容的开销。扩容会产生多重开销，因为要抛弃原有数组，创建新的（可以简单认为是倍数）数组，还要进行 <code>arraycopy</code>。</p>
+<p><strong>除非有线程安全的需要，不然一般都使用 StringBuilder。</strong></p>
+<h1 id="四string-的一些常用方法">四、String 的一些常用方法</h1>
+<h2 id="41-构造器">4.1 构造器</h2>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>方法说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>public String()</td>
+<td>无参构造函数，创建 ”“ 的字符串</td>
+</tr>
+<tr>
+<td>public String(String original)</td>
+<td>用已知的字符串value创建一个String对象</td>
+</tr>
+<tr>
+<td>public String(char value[])</td>
+<td>用字符数组value创建一个String对象。</td>
+</tr>
+<tr>
+<td>public String(byte value[])</td>
+<td>用比特数组values创建一个String对象。</td>
+</tr>
+<tr>
+<td>public String(char value[], int offset, int count)</td>
+<td>用字符数组 char 的 offset 开始的 count 个字符创建一个 String 对象。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="42-常用方法">4.2 常用方法</h2>
+<ol>
+<li>求字符串某一位置字符(<strong>charAt</strong>)</li>
+</ol>
+<p><code>public char charAt(int index)</code>: 获取下标为 index 的字符。下标超出范围则抛出异常。</p>
+<ol start="2">
+<li>求字符串长度(<strong>length</strong>)</li>
+</ol>
+<p><code>public int length()</code>: 得到字符串长度。</p>
+<ol start="3">
+<li>提取子串(<strong>subString</strong>)</li>
+</ol>
+<ul>
+<li>
+<p><code>public String substring(int beginIndex)</code>: 从beginIndex位置起，从当前字符串中取出剩余的字符作为一个新的字符串返回。</p>
+</li>
+<li>
+<p><code>public String subString(int beginIndex, int endIndex)</code>: 取 [beginIndex, endIndex) 范围的字串</p>
+</li>
+</ul>
+<ol start="4">
+<li>字符串比较(<strong>compareTo</strong>)</li>
+</ol>
+<ul>
+<li>
+<p><code>public int compareTo(String anotherString)</code>: 该方法是对字符串内容按字典顺序进行大小比较，通过返回的整数值指明当前字符串与参数字符串的大小关系。若当前对象比参数大则返回正整数，反之返回负整数，相等返回 0。</p>
+</li>
+<li>
+<p><code>public int compareToIgnoreCase(String str)</code>: 与 compareTo 方法类似，但忽略大小写。</p>
+</li>
+<li>
+<p><code>public boolean equals(Object anotherObject)</code>: 比较当前字符串和参数字符串内容，在两个字符串相等的时候返回true，否则返回false。</p>
+</li>
+<li>
+<p><code>public boolean contentEquals(CharSequence cs)</code>: 通常参数为 StringBuilder 与 StringBuffer，比较此 String 与 其内容是否相同。</p>
+</li>
+</ul>
+<ol start="5">
+<li>字符串连接(<strong>concat</strong>)</li>
+</ol>
+<ul>
+<li><code>public String concat(String str)</code>: 将参数中的字符串str连接到当前字符串的后面，效果等价于&quot;+&quot;。</li>
+</ul>
+<ol start="6">
+<li>字符串中单个字符查找(<strong>indexOf</strong>)</li>
+</ol>
+<ul>
+<li>
+<p><code>public int indexOf(int ch / String str)</code>: 用于查找当前字符串中字符或子串，返回字符或子串在当前字符串中从左边起首次出现的位置，若没有出现则返回-1。</p>
+</li>
+<li>
+<p><code>public int indexOf(int ch / String str, int fromIndex)</code>: 方法与第一种类似，区别在于该方法从 fromIndex 位置(包括)向后查找。</p>
+</li>
+<li>
+<p><code>public int lastIndexOf(int ch/ String str)</code>: 该方法与第一种类似，区别在于该方法从字符串的末尾位置向前查找。等同于<code>lastIndexOf(ch, value.length - 1);</code>。</p>
+</li>
+<li>
+<p><code>public int lastIndexOf(int ch, int fromIndex)</code>: 该方法与第二种方法类似，区别于该方法从 fromIndex 位置(包括)向前查找。</p>
+</li>
+</ul>
+<ol start="7">
+<li>字符串中字符的大小写转换(<strong>toLowerCase</strong>)</li>
+</ol>
+<ul>
+<li>
+<p><code>public String toLowerCase()</code>: 返回将当前字符串中所有字符转换成小写后的新串</p>
+</li>
+<li>
+<p><code>public String toUpperCase()</code>: 返回将当前字符串中所有字符转换成大写后的新串</p>
+</li>
+</ul>
+<ol start="8">
+<li>字符串中字符的替换(<strong>replace</strong>)</li>
+</ol>
+<ul>
+<li>
+<p><code>public String replace(char oldChar, char newChar)</code>: 用字符 newChar 替换当前字符串中所有的 oldChar 字符，并返回一个新的字符串。</p>
+</li>
+<li>
+<p><code>public String replace(CharSequence target, CharSequence replacement)</code>: 等同于 <code>Pattern.compile(target.toString(), Pattern.LITERAL).matcher(this).replaceAll(Matcher.quoteReplacement(replacement.toString()));</code> 该方法将第一个匹配到的 target 内容替换为 replacement 内容。</p>
+</li>
+<li>
+<p><code>public String replaceFirst(String regex, String replacement)</code>: 等同于 <code>Pattern.compile(regex).matcher(this).replaceFirst(replacement)</code>  该方法用字符 replacement 的内容替换当前字符串中遇到的<em>第一个</em>和字符串 regex 相匹配的子串，应将新的字符串返回。</p>
+</li>
+<li>
+<p><code>public String replaceAll(String regex, String replacement)</code>: 等同于 <code>Pattern.compile(regex).matcher(this).replaceAll(replacement);</code> 该方法用字符replacement的内容替换当前字符串中遇到的所有和字符串regex相匹配的子串，应将新的字符串返回。</p>
+</li>
+</ul>
+<ol start="9">
+<li>其他类方法</li>
+</ol>
+<ul>
+<li>
+<p><code>String trim()</code>: 截去字符串两端的空格，但对于中间的空格不处理。</p>
+</li>
+<li>
+<p><code>boolean startsWith(String prefix)或boolean endWith(String suffix)</code>: 用于判断起始或终止字符串是否与当前字符串相同。</p>
+</li>
+<li>
+<p><code>public boolean startsWith(String prefix, int toffset)</code>: 上面方法的实现。从第 toffset 开始的字串是否与源字符串匹配。</p>
+</li>
+<li>
+<p><code>regionMatches(boolean b, int firstStart, String other, int otherStart, int length)</code>: 从当前字符串的firstStart位置开始比较，取长度为length的一个子字符串，other字符串从otherStart位置开始，指定另外一个长度为length的字符串，两字符串比较，当b为true时字符串不区分大小写。</p>
+</li>
+<li>
+<p><code>public String[] split(String regex, int limit)</code>: 以正则表达式 regex 为分隔符分割字符串，limit 参数控制匹配的次数，当 limit &gt; 0，表示分割得到的字符串数组最多含有 limit - 1 个元素；当 limit == 0，说明匹配最多次数且结尾的空字符串会舍去；当 limit &lt; 0，表示尽可能多地匹配字符串分割。</p>
+</li>
+</ul>
+<h2 id="43-与基本类型的转换">4.3 与基本类型的转换</h2>
+<ol>
+<li>字符串转换为基本类型</li>
+</ol>
+<p>java.lang 包中有 Byte、Short、Integer、Float、Double类的调用方法：</p>
+<ul>
+<li>
+<p><code>public static byte parseByte(String s)</code></p>
+</li>
+<li>
+<p><code>public static short parseShort(String s)</code></p>
+</li>
+<li>
+<p><code>public static short parseInt(String s)</code></p>
+</li>
+<li>
+<p><code>public static long parseLong(String s)</code></p>
+</li>
+<li>
+<p><code>public static float parseFloat(String s)</code></p>
+</li>
+<li>
+<p><code>public static double parseDouble(String s)</code></p>
+</li>
+</ul>
+<ol start="2">
+<li>基本类型转换为字符串类型</li>
+</ol>
+<p>String类中提供了String valueOf()放法，用作基本类型转换为字符串类型。</p>
+<ul>
+<li>
+<p><code>static String valueOf(char data[])</code></p>
+</li>
+<li>
+<p><code>static String valueOf(char data[])</code></p>
+</li>
+<li>
+<p><code>static String valueOf(boolean/char/int/long/double b)</code></p>
+</li>
+</ul>
+<ol>
+<li>进制转换</li>
+</ol>
+<p>使用Long类中的方法得到整数之间的各种进制转换的方法：</p>
+<ul>
+<li>
+<p><code>Long.toBinaryString(long l)</code></p>
+</li>
+<li>
+<p><code>Long.toOctalString(long l)</code></p>
+</li>
+<li>
+<p><code>Long.toHexString(long l)</code></p>
+</li>
+<li>
+<p><code>Long.toString(long l, int p)//p作为任意进制</code></p>
+</li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">拾光</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2021-09-23
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/string/">String</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/2021/08/css%E5%B8%B8%E8%A7%81%E6%A0%B7%E5%BC%8F/">
+            <span class="next-text nav-default">CSS常见样式</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="yang_95@126.com" class="iconfont icon-email" title="email"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>Huan</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

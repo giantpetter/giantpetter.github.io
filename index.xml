@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>Huan</copyright>
-    <lastBuildDate>Sun, 29 Aug 2021 11:23:11 +0800</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 23 Sep 2021 20:20:17 +0800</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>String 详解</title>
+      <link>http://localhost:1313/2021/09/string-%E8%AF%A6%E8%A7%A3/</link>
+      <pubDate>Thu, 23 Sep 2021 20:20:17 +0800</pubDate>
+      
+      <guid>http://localhost:1313/2021/09/string-%E8%AF%A6%E8%A7%A3/</guid>
+      <description>一、简介 String 类型可能是 Java 中应用最频繁的引用类型，但它的性能问题却常常被忽略。高效的使用字符串，可以提升系统的整体性能。当然，要做到高效使用字符</description>
+    </item>
+    
     <item>
       <title>CSS常见样式</title>
       <link>http://localhost:1313/2021/08/css%E5%B8%B8%E8%A7%81%E6%A0%B7%E5%BC%8F/</link>
@@ -24,15 +33,6 @@
       
       <guid>http://localhost:1313/2021/08/html-%E4%B8%8E-css-%E5%88%9D%E8%AF%86/</guid>
       <description>一、概述 本文主要讲解本人对 html 与 css 初学的一些认识。适合作为入门级知识学习。 二、HTML 文件的概 HTML 是网页使用的语言，定义了网页的结构和内容。浏览</description>
-    </item>
-    
-    <item>
-      <title>浅析URL</title>
-      <link>http://localhost:1313/2021/07/%E6%B5%85%E6%9E%90url/</link>
-      <pubDate>Fri, 23 Jul 2021 15:56:49 +0800</pubDate>
-      
-      <guid>http://localhost:1313/2021/07/%E6%B5%85%E6%9E%90url/</guid>
-      <description>一、概述 URL 是“统一资源定位符”（ Uniform Resource Locator ）的首字母缩写，中文译为“网址”，表示各种资源的互联网地址。下面就是一个典型的 URL。 https://www.example.com/path/index.html 只要资源可以通</description>
     </item>
     
     <item>
