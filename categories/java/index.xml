@@ -7,7 +7,25 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>Huan</copyright>
-    <lastBuildDate>Thu, 23 Sep 2021 20:20:17 +0800</lastBuildDate><atom:link href="http://localhost:1313/categories/java/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 11 Dec 2021 10:44:02 +0800</lastBuildDate><atom:link href="http://localhost:1313/categories/java/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>JVM之内存模型</title>
+      <link>http://localhost:1313/2021/12/jvm%E4%B9%8B%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/</link>
+      <pubDate>Sat, 11 Dec 2021 10:44:02 +0800</pubDate>
+      
+      <guid>http://localhost:1313/2021/12/jvm%E4%B9%8B%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/</guid>
+      <description>Java与C++之间有一堵由内存动态分配和垃圾收集技术所围成的高墙，墙外面的人想进去，墙里面的人却想出来。 一、内存简介 1.1 内核空间与用户空间 一</description>
+    </item>
+    
+    <item>
+      <title>JVM之体系结构</title>
+      <link>http://localhost:1313/2021/12/jvm%E4%B9%8B%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/</link>
+      <pubDate>Fri, 10 Dec 2021 20:55:00 +0800</pubDate>
+      
+      <guid>http://localhost:1313/2021/12/jvm%E4%B9%8B%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/</guid>
+      <description>一、JVM 是什么？ JVM全称Java Virtual Machine（Java虚拟机），是一个虚构出来的计算机，它屏蔽了与具体操作系统平台相关的信息，使得J</description>
+    </item>
+    
     <item>
       <title>String 详解</title>
       <link>http://localhost:1313/2021/09/string-%E8%AF%A6%E8%A7%A3/</link>

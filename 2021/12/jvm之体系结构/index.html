@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Maven与包管理的浅解 - 拾光的博客</title>
+  <title>JVM之体系结构 - 拾光的博客</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="拾光" /><meta name="description" content="一、maven是什么 1.Maven 翻译为&amp;quot;专家&amp;quot;、&amp;ldquo;内行&amp;rdquo;，是 Apache 下的一个纯 Java 开发的开源项目。 Maven 是一个项目管理" /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="拾光" /><meta name="description" content="一、JVM 是什么？ JVM全称Java Virtual Machine（Java虚拟机），是一个虚构出来的计算机，它屏蔽了与具体操作系统平台相关的信息，使得J" /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
@@ -26,7 +26,7 @@
 <meta name="generator" content="Hugo 0.83.0 with theme even" />
 
 
-<link rel="canonical" href="http://localhost:1313/2021/05/maven%E4%B8%8E%E5%8C%85%E7%AE%A1%E7%90%86%E7%9A%84%E6%B5%85%E8%A7%A3/" />
+<link rel="canonical" href="http://localhost:1313/2021/12/jvm%E4%B9%8B%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -39,20 +39,20 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
-<meta property="og:title" content="Maven与包管理的浅解" />
-<meta property="og:description" content="一、maven是什么 1.Maven 翻译为&quot;专家&quot;、&ldquo;内行&rdquo;，是 Apache 下的一个纯 Java 开发的开源项目。 Maven 是一个项目管理" />
+<meta property="og:title" content="JVM之体系结构" />
+<meta property="og:description" content="一、JVM 是什么？ JVM全称Java Virtual Machine（Java虚拟机），是一个虚构出来的计算机，它屏蔽了与具体操作系统平台相关的信息，使得J" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://localhost:1313/2021/05/maven%E4%B8%8E%E5%8C%85%E7%AE%A1%E7%90%86%E7%9A%84%E6%B5%85%E8%A7%A3/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2021-05-08T19:10:26&#43;08:00" />
-<meta property="article:modified_time" content="2021-06-11T09:46:27&#43;08:00" />
+<meta property="og:url" content="http://localhost:1313/2021/12/jvm%E4%B9%8B%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-12-10T20:55:00&#43;08:00" />
+<meta property="article:modified_time" content="2021-12-10T20:55:00&#43;08:00" />
 
-<meta itemprop="name" content="Maven与包管理的浅解">
-<meta itemprop="description" content="一、maven是什么 1.Maven 翻译为&quot;专家&quot;、&ldquo;内行&rdquo;，是 Apache 下的一个纯 Java 开发的开源项目。 Maven 是一个项目管理"><meta itemprop="datePublished" content="2021-05-08T19:10:26&#43;08:00" />
-<meta itemprop="dateModified" content="2021-06-11T09:46:27&#43;08:00" />
-<meta itemprop="wordCount" content="633">
-<meta itemprop="keywords" content="Maven," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Maven与包管理的浅解"/>
-<meta name="twitter:description" content="一、maven是什么 1.Maven 翻译为&quot;专家&quot;、&ldquo;内行&rdquo;，是 Apache 下的一个纯 Java 开发的开源项目。 Maven 是一个项目管理"/>
+<meta itemprop="name" content="JVM之体系结构">
+<meta itemprop="description" content="一、JVM 是什么？ JVM全称Java Virtual Machine（Java虚拟机），是一个虚构出来的计算机，它屏蔽了与具体操作系统平台相关的信息，使得J"><meta itemprop="datePublished" content="2021-12-10T20:55:00&#43;08:00" />
+<meta itemprop="dateModified" content="2021-12-10T20:55:00&#43;08:00" />
+<meta itemprop="wordCount" content="829">
+<meta itemprop="keywords" content="JVM," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="JVM之体系结构"/>
+<meta name="twitter:description" content="一、JVM 是什么？ JVM全称Java Virtual Machine（Java虚拟机），是一个虚构出来的计算机，它屏蔽了与具体操作系统平台相关的信息，使得J"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -125,14 +125,14 @@
           <article class="post">
     
     <header class="post-header">
-      <h1 class="post-title">Maven与包管理的浅解</h1>
+      <h1 class="post-title">JVM之体系结构</h1>
 
       <div class="post-meta">
-        <span class="post-time"> 2021-05-08 </span>
+        <span class="post-time"> 2021-12-10 </span>
         <div class="post-category">
             <a href="/categories/java/"> Java </a>
             </div>
-          <span class="more-meta"> 633 words </span>
+          <span class="more-meta"> 829 words </span>
           <span class="more-meta"> 2 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -143,91 +143,53 @@
   <div class="post-toc-content">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#一maven是什么">一、maven是什么</a></li>
-    <li><a href="#二包冲突以及解决办法">二、包冲突以及解决办法</a></li>
-    <li><a href="#三maven的进阶功能自动化构建工具">三、maven的进阶功能————自动化构建工具</a></li>
-    <li><a href="#四坐标和依赖生命周期聚合和继承仓库等功能待以后扩展">四、坐标和依赖、生命周期、聚合和继承、仓库等功能待以后扩展</a></li>
+    <li><a href="#一jvm-是什么">一、JVM 是什么？</a></li>
+    <li><a href="#二计算机体系结构与-jvm-体系结构简介">二、计算机体系结构与 JVM 体系结构简介</a>
+      <ul>
+        <li><a href="#21-计算机体系结构">2.1 计算机体系结构</a></li>
+        <li><a href="#22-jvm-体系结构">2.2 JVM 体系结构</a></li>
+      </ul>
+    </li>
+    <li><a href="#三hotspot-架构">三、Hotspot 架构</a></li>
   </ul>
 </nav>
   </div>
 </div>
     <div class="post-content">
-      <h1 id="一maven是什么">一、maven是什么</h1>
-<p>1.Maven 翻译为&quot;专家&quot;、&ldquo;内行&rdquo;，是 Apache 下的一个纯 Java 开发的开源项目。
-Maven 是一个项目管理工具，可以对 Java 项目进行构建、依赖管理。Maven 也可被用于构建和管理各种项目，例如 C#，Ruby，Scala 和其他语言编写的项目。</p>
-<p>2.约定配置:maven基于项目固定的结构文件名使其能够很好地实现跨平台的使用。</p>
-<blockquote>
-<p>当你需要使用第三方类的时候，总要告诉JVM这些所需的第三方类库，并且能够解决包冲突问题</p>
-</blockquote>
-<p>3.约定：</p>
-<table>
-<thead>
-<tr>
-<th>约定结构</th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>&lt; groupID&gt;</td>
-<td>组织</td>
-</tr>
-<tr>
-<td>&lt; artifactID&gt;</td>
-<td>功能</td>
-</tr>
-<tr>
-<td>&lt; version&gt;</td>
-<td>版本</td>
-</tr>
-<tr>
-<td>&lt; scope&gt;</td>
-<td>作用域   ｜</td>
-</tr>
-<tr>
-<td>test(仅测试有效)/compile(test和main都有效)/provided(只在编译时有效，运行时无效)</td>
-<td></td>
-</tr>
-<tr>
-<td>&lt; optimal&gt;</td>
-<td>可选</td>
-</tr>
-</tbody>
-</table>
-<p>4.仓库：</p>
-<p>中央仓库：按照第3点中约定存储包<a href="https://repo1.maven.org/maven2">地址一</a> 、 <a href="https://repo.maven.apache.org/maven2/">地址二</a></p>
-<p>本地仓库：下载第三方包在此缓存（～/.m2)</p>
-<h1 id="二包冲突以及解决办法">二、包冲突以及解决办法</h1>
-<p>1.包冲突：
-一般出现以下异常：</p>
-<pre><code>AbstractMethodError/NoClassDefFoundError/ClassNotFoundException/LinkageError
-</code></pre>
-<p>2.maven的默认解决办法：</p>
-<blockquote>
-<p>maven绝对不允许最终的classpath中出现<em><strong>同名不同版本</strong></em>的jar包～</p>
-</blockquote>
-<blockquote>
-<p>默认解决包冲突的原则是：<em><strong>最近的胜出</strong></em>。</p>
-</blockquote>
-<p>3.有时maven默认的包冲突解决原则并不能很好实现自己想要的功能，并且冲突有时并不能解决，
-需要人手动排除，有两个方式：</p>
-<blockquote>
-<p>强行在pom.xml中手动添加所需版本的依赖，覆盖掉之后的子依赖.</p>
-</blockquote>
-<blockquote>
-<p>直接告诉maven排除某个特定的传递性依赖，如下代码：</p>
-</blockquote>
-<pre><code>```xml
-&lt;exlusions&gt;
-    &lt;exclusion&gt; 
-        &lt;groupID&gt;
-        &lt;artifactID&gt;
-    &lt;exclusion&gt;
-&lt;exlusions&gt;
-```
-</code></pre>
-<h1 id="三maven的进阶功能自动化构建工具">三、maven的进阶功能————自动化构建工具</h1>
-<h1 id="四坐标和依赖生命周期聚合和继承仓库等功能待以后扩展">四、坐标和依赖、生命周期、聚合和继承、仓库等功能待以后扩展</h1>
+      <h1 id="一jvm-是什么">一、JVM 是什么？</h1>
+<p>JVM全称Java Virtual Machine（Java虚拟机），是一个虚构出来的计算机，它屏蔽了与具体操作系统平台相关的信息，使得Java程序只需生成在Java虚拟机上运行的目标代码（字节码，ByteCode）, 就可以在多种平台上不加修改地运行。这背后其实就是JVM把字节码翻译成具体平台上的机器指令，从而实现“一次编写，到处运行（Write Once, Run Anywhere）”。</p>
+<p><img src="/images/JVM/structure/jdk.png" alt=""></p>
+<p>上图为 JVM 在 java 体系结构中的地位图，从上图可以看出：</p>
+<ul>
+<li>JVM 只是 JRE 的一部分</li>
+<li>JRE(java runtime environment, java 运行环境)，包含了 Java 虚拟机、Java 基础类库，是使用 Java 语言编写的程序运行时所需要的软件环境，是提供给想要运行 Java 程序的用户使用，普通用户只是运行已经开发好的 Java 程序的话，安装 JRE 即可</li>
+<li>JDK(java development kit，java 开发工具包)，Java 程序设计语言、Java虚拟机、Java API 类库这三个部分统称为 JDK。</li>
+</ul>
+<h1 id="二计算机体系结构与-jvm-体系结构简介">二、计算机体系结构与 JVM 体系结构简介</h1>
+<h2 id="21-计算机体系结构">2.1 计算机体系结构</h2>
+<p>计算机体系结构的核心包含：</p>
+<ul>
+<li>指令集</li>
+<li>计算单元(CPU)</li>
+<li>寻址单元</li>
+<li>寄存器</li>
+<li>存储单元</li>
+</ul>
+<h2 id="22-jvm-体系结构">2.2 JVM 体系结构</h2>
+<p>JVM 体系结构与计算机体系结构相似，核心部分包括：</p>
+<ul>
+<li>JVM 指令集</li>
+<li>类加载器</li>
+<li>执行引擎 &ndash; JVM 的 CPU</li>
+<li>内存区 &ndash; JVM 的存储</li>
+<li>本地方法调用 &ndash; 调用 C / C++ 实现的本地方法</li>
+</ul>
+<h1 id="三hotspot-架构">三、Hotspot 架构</h1>
+<p>虽然 Java 虚拟机有很多种，但是 Hotspot 虚拟机是目前最流行常用的虚拟机，所以有必要了解 Hotspot 虚拟机的一些基本架构。</p>
+<p>Java 虚拟机的主要组件，包括<strong>类加载器</strong>、<strong>运行时数据区</strong>和<strong>执行引擎</strong>。</p>
+<p>如下图是 Hotspot 虚拟机的基本架构。Hotspot 虚拟机拥有一个架构，它支持强大特性和能力的基础平台，支持实现高性能和强大的可伸缩性的能力。举个例子，Hotspot 虚拟机 JIT 编译器生成动态的优化，换句话说，它们在 Java 应用执行期做出优化，为底层系统架构生成高性能的本地机器指令。另外，经过它的运行时环境和多线程垃圾回收成熟的进化和连续的设计， Hotspot 虚拟机在高可用计算系统上产出了高伸缩性。</p>
+<p><img src="/images/JVM/structure/hotspot.png" alt=""></p>
+<p>以上为本人对 JVM 的一些记忆与理解，接下来本系列关于 JVM 博客将在 JVM 内存管理、 垃圾回收以及类加载三个部分进行记录总结。</p>
 
     </div>
 
@@ -239,7 +201,7 @@ Maven 是一个项目管理工具，可以对 Java 项目进行构建、依赖�
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
     <span class="item-content">
-        2021-06-11
+        2021-12-10
         
     </span>
   </p>
@@ -248,16 +210,16 @@ Maven 是一个项目管理工具，可以对 Java 项目进行构建、依赖�
 </div>
 <footer class="post-footer">
       <div class="post-tags">
-          <a href="/tags/maven/">Maven</a>
+          <a href="/tags/jvm/">JVM</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/2021/05/collection%E5%88%9D%E4%BA%86%E8%A7%A3/">
+        <a class="prev" href="/2021/12/jvm%E4%B9%8B%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/">
             <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">Collection初了解</span>
+            <span class="prev-text nav-default">JVM之内存模型</span>
             <span class="prev-text nav-mobile">Prev</span>
           </a>
-        <a class="next" href="/2021/05/%E5%A6%82%E4%BD%95%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">
-            <span class="next-text nav-default">如何用hugo搭建个人博客</span>
+        <a class="next" href="/2021/09/string-%E8%AF%A6%E8%A7%A3/">
+            <span class="next-text nav-default">String 详解</span>
             <span class="next-text nav-mobile">Next</span>
             <i class="iconfont icon-right"></i>
           </a>
