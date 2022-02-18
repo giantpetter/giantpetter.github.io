@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>JVM之垃圾收集(一) - 拾光的博客</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="拾光" /><meta name="description" content="一、概述 垃圾回收主要包括三个问题： 哪些内存需要回收 什么时候回收 如何回收 前文讲述Java内存运行时区域的各个部分，其中程序计数器、虚拟机栈、本" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.83.0 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/2022/02/jvm%E4%B9%8B%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E4%B8%80/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="JVM之垃圾收集(一)" />
+<meta property="og:description" content="一、概述 垃圾回收主要包括三个问题： 哪些内存需要回收 什么时候回收 如何回收 前文讲述Java内存运行时区域的各个部分，其中程序计数器、虚拟机栈、本" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/2022/02/jvm%E4%B9%8B%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E4%B8%80/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-02-18T17:58:51&#43;08:00" />
+<meta property="article:modified_time" content="2022-02-18T17:58:51&#43;08:00" />
+
+<meta itemprop="name" content="JVM之垃圾收集(一)">
+<meta itemprop="description" content="一、概述 垃圾回收主要包括三个问题： 哪些内存需要回收 什么时候回收 如何回收 前文讲述Java内存运行时区域的各个部分，其中程序计数器、虚拟机栈、本"><meta itemprop="datePublished" content="2022-02-18T17:58:51&#43;08:00" />
+<meta itemprop="dateModified" content="2022-02-18T17:58:51&#43;08:00" />
+<meta itemprop="wordCount" content="7574">
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="JVM之垃圾收集(一)"/>
+<meta name="twitter:description" content="一、概述 垃圾回收主要包括三个问题： 哪些内存需要回收 什么时候回收 如何回收 前文讲述Java内存运行时区域的各个部分，其中程序计数器、虚拟机栈、本"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">拾光</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">拾光</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">JVM之垃圾收集(一)</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2022-02-18 </span>
+        <div class="post-category">
+            <a href="/categories/java/"> Java </a>
+            </div>
+          <span class="more-meta"> 7574 words </span>
+          <span class="more-meta"> 16 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一概述">一、概述</a></li>
+    <li><a href="#二哪些内存需要回收----对象还活着吗">二、哪些内存需要回收&mdash;-对象还活着吗？</a>
+      <ul>
+        <li><a href="#21-引用计数器算法">2.1 引用计数器算法</a></li>
+        <li><a href="#22-可达性分析算法">2.2 可达性分析算法</a></li>
+        <li><a href="#23-引用类型">2.3 引用类型</a></li>
+        <li><a href="#24-方法区的回收">2.4 方法区的回收</a></li>
+        <li><a href="#25-finalize">2.5 finalize()</a></li>
+      </ul>
+    </li>
+    <li><a href="#二垃圾收集算法----如何回收">二、垃圾收集算法&mdash;-&gt;如何回收?</a>
+      <ul>
+        <li><a href="#21-垃圾收集性能">2.1 垃圾收集性能</a></li>
+        <li><a href="#22-标记---清除算法mark-sweep">2.2 标记 - 清除算法（Mark-Sweep）</a></li>
+        <li><a href="#23-标记---整理算法mark-compact">2.3 标记 - 整理算法（Mark-Compact）</a></li>
+        <li><a href="#24-标记---复制算法mark-coping">2.4 标记 - 复制算法（Mark-Coping）</a></li>
+        <li><a href="#25-分代收集理论">2.5 分代收集理论</a></li>
+      </ul>
+    </li>
+    <li><a href="#三垃圾收集器">三、垃圾收集器</a>
+      <ul>
+        <li><a href="#31-串行收集器">3.1 串行收集器</a>
+          <ul>
+            <li><a href="#serial-收集器"><strong>Serial 收集器</strong></a></li>
+            <li><a href="#serial-old-收集器"><strong>Serial Old 收集器</strong></a></li>
+          </ul>
+        </li>
+        <li><a href="#32-并行收集器">3.2 并行收集器</a>
+          <ul>
+            <li><a href="#parallel-scavenge-收集器"><strong>Parallel Scavenge 收集器</strong></a></li>
+            <li><a href="#parallel-old-收集器"><strong>Parallel Old 收集器</strong></a></li>
+          </ul>
+        </li>
+        <li><a href="#33-并发标记-清除收集器cms">3.3 并发标记-清除收集器(CMS)</a>
+          <ul>
+            <li><a href="#cms-收集器"><strong>CMS 收集器</strong></a></li>
+            <li><a href="#parnew-收集器"><strong>ParNew 收集器</strong></a></li>
+          </ul>
+        </li>
+        <li><a href="#34-g1-收集器">3.4 G1 收集器</a></li>
+      </ul>
+    </li>
+    <li><a href="#四内存分配与回收策略">四、内存分配与回收策略</a>
+      <ul>
+        <li><a href="#41-minor-gc">4.1 Minor GC</a></li>
+        <li><a href="#42-full-gc">4.2 Full GC</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="一概述">一、概述</h1>
+<p>垃圾回收主要包括三个问题：</p>
+<ul>
+<li>哪些内存需要回收</li>
+<li>什么时候回收</li>
+<li>如何回收</li>
+</ul>
+<p>前文讲述<code>Java</code>内存运行时区域的各个部分，其中<strong>程序计数器、虚拟机栈、本地方法栈</strong>3个区域随线程而生，随线程而灭，栈中的栈帧随着方法的进入和退出而有条不紊地执行着出栈和入栈操作。每一个栈帧中分配多少内存基本上是在类结构确定下来时就已知的。因此这几个区域的内存分配和回收都具备确定性，在这几个区域内就不需要过多考虑如何回收的问题，当方法结束或者线程结束时，内存自然就跟随着回收了。</p>
+<p>而<strong>Java堆和方法区</strong>这两个区域则有着很显著的不确定性:一个接口的多个实现类需要的内存可能会不一样，一个方法所执行的不同条件分支所需要的内存也可能不一样，只有处于运行期间，我们才能知道程序究竟会创建哪些对象，创建多少个对象，这部分内存的分配和回收是动态的。垃圾收集器所关注的正是这部分内存该如何管理。后续所讲的“内存”分配与回收也仅仅特指这一部分内存。</p>
+<h1 id="二哪些内存需要回收----对象还活着吗">二、哪些内存需要回收&mdash;-对象还活着吗？</h1>
+<p>在堆里面存放着Java世界中几乎所有的对象实例，垃圾收集器在对堆进行回收前，第一件事情就 是要确定这些对象之中哪些还“存活”着，哪些已经“死去”</p>
+<h2 id="21-引用计数器算法">2.1 引用计数器算法</h2>
+<p>引用计数是垃圾收集器中的早期策略。简单来说就是：在对象中添加一个引用计数器，每当有一个地方引用它时，计数器值就加1;当引用失效时，计数器值就减1;任何时刻计数器为0的对象就是不可能再被使用的。</p>
+<p>**优点：**引用计数收集器可以很快的执行，交织在程序运行中。对程序需要不被长时间打断的实时环境比较有利。
+**弊端：**两个对象出现循环引用的情况下，此时引用计数器永远不为 0，导致无法对它们进行回收。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ReferenceCountingGC</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">Object</span> <span class="n">instance</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">ReferenceCountingGC</span> <span class="n">objectA</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ReferenceCountingGC</span><span class="o">();</span>
+        <span class="n">ReferenceCountingGC</span> <span class="n">objectB</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ReferenceCountingGC</span><span class="o">();</span>
+        <span class="n">objectA</span><span class="o">.</span><span class="na">instance</span> <span class="o">=</span> <span class="n">objectB</span><span class="o">;</span>
+        <span class="n">objectB</span><span class="o">.</span><span class="na">instance</span> <span class="o">=</span> <span class="n">objectA</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>如上所示，因为循环引用的存在，所以 <strong>Java 虚拟机不适用引用计数算法</strong></p>
+<h2 id="22-可达性分析算法">2.2 可达性分析算法</h2>
+<p>程序把所有的引用关系看作一张图（来自离散数学的图论），从一个节点<code>GC ROOT</code>开始，寻找对应的引用节点，找到这个节点以后，继续寻找这个节点的引用节点，当所有的引用节点寻找完毕之后，剩余的节点则被认为是没有被引用到的节点，即无用的节点，无用的节点将会被判定为是可回收的对象。
+<img src="/images/JVM/gc/%E5%8F%AF%E8%BE%BE%E6%80%A7%E5%88%86%E6%9E%90.png" alt="">
+可作为 <strong>GC Roots</strong> 的对象包括下面几种：</p>
+<ul>
+<li>虚拟机栈中引用的对象（栈帧中的本地变量表）</li>
+<li>本地方法栈中引用的对象（<code>Native</code> 方法）</li>
+<li>方法区中，类静态属性引用的对象</li>
+<li>方法区中，常量引用的对象</li>
+<li>所有被同步锁(<code>synchronized</code>关键字)持有的对象。</li>
+<li>Java虚拟机内部的引用，如基本数据类型对应的Class对象，一些常驻的异常对象(比如
+NullPointExcepiton、OutOfMemoryError)等，还有系统类加载器。</li>
+<li>&hellip; &hellip;</li>
+</ul>
+<p><strong>可达性分析算法不会出现对象间循环引用问题：因为<code>GC Root</code>在对象图之外，是特别定义的“起点”，不可能被对象图内的对象所引用。</strong></p>
+<h2 id="23-引用类型">2.3 引用类型</h2>
+<p>无论是通过<strong>引用计算算法</strong>判断对象的引用数量，还是通过<strong>可达性分析算法</strong>判断对象的引用链是否可达，判定对象是否可被回收都与引用有关。
+<code>Java</code>具有四种强度不同的引用类型。</p>
+<p><strong>1. 强引用</strong></p>
+<p>程序中最普遍存在的，被 <strong>强引用（Strong Reference）</strong> 关联的对象不会被垃圾收集器回收。</p>
+<p>典型的类似如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="n">Object</span> <span class="n">object</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>2. 软引用</strong></p>
+<p>用来描述一些有用但并非必须的对象。被 <strong>软引用（Soft Reference）</strong> 关联的对象，只有在内存不够的情况下才会被回收。如果这次回收之后还没有足够的内容，才会抛出内存溢出异常。</p>
+<p>使用 <code>SoftReference</code> 类来创建软引用。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"> <span class="n">Object</span> <span class="n">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">();</span>
+ <span class="n">SoftReference</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;</span> <span class="n">wf</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SoftReference</span><span class="o">&lt;&gt;();</span>
+ <span class="n">obj</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>3. 弱引用</strong></p>
+<p>也是用来描述非必须对象，强度比软引用更弱，<strong>被弱引用（Weak Reference）关联的对象一定会被垃圾收集器回收，也就是说它只能存活到下一次垃圾收集发生之前。</strong></p>
+<p>使用 <code>WeakReference</code> 类来创建软引用。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"> <span class="n">Object</span> <span class="n">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">();</span>
+ <span class="n">WeakReference</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;</span> <span class="n">wf</span> <span class="o">=</span> <span class="k">new</span> <span class="n">WeakReference</span><span class="o">&lt;&gt;();</span>
+ <span class="n">obj</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>WeakHashMap</code> 的 <code>Entry</code> 继承自 <code>WeakReference</code>，主要用来实现缓存。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span><span class="n">V</span><span class="o">&gt;</span> <span class="kd">extends</span> <span class="n">WeakReference</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;</span> <span class="kd">implements</span> <span class="n">Map</span><span class="o">.</span><span class="na">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span><span class="n">V</span><span class="o">&gt;</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p><code>Tomcat</code> 中的 <code>ConcurrentCache</code> 就使用了 <code>WeakHashMap</code> <code>来实现缓存功能。ConcurrentCache</code> 采取的是分代缓存，经常使用的对象放入 <em>eden</em> 中，而不常用的对象放入 <em>longterm</em>。<em>eden</em> 使用 <code>ConcurrentHashMap</code> 实现，<em>longterm</em> 使用 <code>WeakHashMap</code>，保证了不常使用的对象容易被回收。如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">ConcurrentCache</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">size</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;</span> <span class="n">eden</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;</span> <span class="n">longterm</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">ConcurrentCache</span><span class="o">(</span><span class="kt">int</span> <span class="n">size</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">size</span> <span class="o">=</span> <span class="n">size</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">eden</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConcurrentHashMap</span><span class="o">&lt;&gt;(</span><span class="n">size</span><span class="o">);</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">longterm</span> <span class="o">=</span> <span class="k">new</span> <span class="n">WeakHashMap</span><span class="o">&lt;&gt;(</span><span class="n">size</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">V</span> <span class="nf">get</span><span class="o">(</span><span class="n">K</span> <span class="n">k</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">V</span> <span class="n">v</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">eden</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">k</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">v</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">longterm</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">k</span><span class="o">);</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">v</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+                <span class="k">this</span><span class="o">.</span><span class="na">eden</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">k</span><span class="o">,</span> <span class="n">v</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">v</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">put</span><span class="o">(</span><span class="n">K</span> <span class="n">k</span><span class="o">,</span> <span class="n">V</span> <span class="n">v</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">eden</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">&gt;=</span> <span class="n">size</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">longterm</span><span class="o">.</span><span class="na">putAll</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">eden</span><span class="o">);</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">eden</span><span class="o">.</span><span class="na">clear</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">eden</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">k</span><span class="o">,</span> <span class="n">v</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>4. 虚引用</strong></p>
+<p>又称为幽灵引用或者幻影引用，是最弱的一种引用关系。一个对象是否有虚引用的存在，完全不会对其生存时间构成影响，也无法通过虚引用取得一个对象实例。</p>
+<p><strong>为一个对象设置虚引用关联的唯一目的就是能在这个对象被收集器回收时收到一个系统通知。</strong></p>
+<p>使用 <code>PhantomReference</code> 来实现虚引用。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="n">Object</span> <span class="n">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">();</span>
+<span class="n">PhantomReference</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;</span> <span class="n">pf</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PhantomReference</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;(</span><span class="n">obj</span><span class="o">);</span>
+<span class="n">obj</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="24-方法区的回收">2.4 方法区的回收</h2>
+<p>因为方法区主要存放永久代对象，而永久代对象的回收率比年轻代差很多，因此在方法区上进行回收性价比不高。</p>
+<p>方法区的垃圾收集主要回收两部分内容:<strong>废弃的常量和不再使用的类型</strong>。</p>
+<ul>
+<li>回收废弃常量与回收 Java 堆中的对象非常类似。常量池中其他类(接 口)、方法、字段的符号引用也与此类似。例如：</li>
+</ul>
+<blockquote>
+<p>一个字符串<code>“java”</code>曾经进入常量池中，但是当前系统又没有任何一个字符串对象的值是<code>“java”</code>。如果在这时发生内存回收，而且垃圾收集器判断确有必要的话，这个<code>“java”</code>常量就将会被系统清理出常量池。</p>
+</blockquote>
+<ul>
+<li>而判断类为不再使用的类型在进行卸载，一般要求满足以下三个条件：</li>
+</ul>
+<blockquote>
+<p>1.该类所有的实例都已经被回收，也就是 Java 堆中不存在该类的任何实例。</p>
+<p>2.加载该类的 <code>ClassLoader</code> 已经被回收。</p>
+<p>3.该类对应的 <code>java.lang.Class</code> 对象没有在任何地方被引用，也就无法在任何地方通过反射访问该类方法。</p>
+</blockquote>
+<p>在大量使用反射、动态代理、CGLib 等字节码框架、动态生成 JSP 以及 OSGi 这类频繁自定义 ClassLoader 的场景都需要虚拟机具备类卸载功能，以保证不会出现内存溢出。</p>
+<h2 id="25-finalize">2.5 finalize()</h2>
+<p><code>finalize()</code> 类似 C++ 的析构函数，用来做关闭外部资源等工作。但是 <code>try-finally</code> 等方式可以做的更好，并且该方法运行代价高昂，不确定性大，无法保证各个对象的调用顺序，因此最好不要使用 <code>finalize()</code>。</p>
+<p>即使在可达性分析算法中判定为不可达的对象，也不是“非死不可”的，这时候它们暂时还处于“缓 刑”阶段，要真正宣告一个对象死亡，至少要经历两次标记过程:</p>
+<blockquote>
+<p>如果对象在进行可达性分析后发现没有与<code>GC Roots</code>相连接的引用链，那它将会被<em>第一次</em>标记；随后进行一次筛选，筛选的条件是此对象是否有必要执行<code>finalize()</code>方法。假如对象没有覆盖<code>finalize()</code>方法，或者<code>finalize()</code>方法已经被虚拟机调用过，那么虚拟机将这两种情况都视为“没有必要执行”。如果没有必要执行则该对象会被回收。</br>
+如果这个对象被判定为确有必要执行<code>finalize()</code>方法，那么该对象将会被放置在队列之中，并在稍后由一条由虚拟机自动建立的、低调度优先级的<code>Finalizer</code>线程去执行它们的<code>finalize()</code> 方法。</br>
+稍后收集器将对队列的对象进行第二次小规模的标记，如果对象要在<code>finalize()</code>中成功拯救自己——只要重新与引用链上的任何一个对象建立关联即可，譬如把自己 (<code>this</code>关键字)赋值给某个类变量或者对象的成员变量，那在第二次标记时它将被移出“即将回收”的集合;如果对象这时候还没有逃脱，那基本上它就真的要被回收了。</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java">
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">FinalizeEscapeGC</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">FinalizeEscapeGC</span> <span class="n">SAVE_HOOK</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">isAlive</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;yes, i am still alive :)&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">finalize</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Throwable</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">finalize</span><span class="o">();</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;finalize method executed!&#34;</span><span class="o">);</span> 
+        <span class="n">FinalizeEscapeGC</span><span class="o">.</span><span class="na">SAVE_HOOK</span> <span class="o">=</span> <span class="k">this</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Throwable</span> <span class="o">{</span> 
+        <span class="n">SAVE_HOOK</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FinalizeEscapeGC</span><span class="o">();</span>
+    <span class="c1">//对象第一次成功拯救自己
+</span><span class="c1"></span>        <span class="n">SAVE_HOOK</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">gc</span><span class="o">();</span>
+    <span class="c1">// 因为Finalizer方法优先级很低，暂停0.5秒，以等待它 Thread.sleep(500);
+</span><span class="c1"></span>        <span class="k">if</span> <span class="o">(</span><span class="n">SAVE_HOOK</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span> 
+            <span class="n">SAVE_HOOK</span><span class="o">.</span><span class="na">isAlive</span><span class="o">();</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;no, i am dead :(&#34;</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="c1">// 下面这段代码与上面的完全相同，但是这次自救却失败了
+</span><span class="c1"></span>    <span class="cm">/*
+</span><span class="cm">    *这是因为任何一个对象的finalize()方法都只会被系统自动调用一次，如果对象面临下一次回收，
+</span><span class="cm">    *它的finalize()方法不会被再次执行，因此第二段代码的自救行动失败了。
+</span><span class="cm">    */</span>
+        <span class="n">SAVE_HOOK</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">gc</span><span class="o">();</span>
+    <span class="c1">// 因为Finalizer方法优先级很低，暂停0.5秒，以等待它 Thread.sleep(500);
+</span><span class="c1"></span>        <span class="k">if</span> <span class="o">(</span><span class="n">SAVE_HOOK</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">SAVE_HOOK</span><span class="o">.</span><span class="na">isAlive</span><span class="o">();</span> 
+        <span class="o">}</span> 
+        <span class="k">else</span> <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;no, i am dead :(&#34;</span><span class="o">);</span> 
+        <span class="o">}</span>
+    <span class="o">}</span> 
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="二垃圾收集算法----如何回收">二、垃圾收集算法&mdash;-&gt;如何回收?</h1>
+<h2 id="21-垃圾收集性能">2.1 垃圾收集性能</h2>
+<p>垃圾回收性能指标主要有两点：</p>
+<ul>
+<li><strong>停顿时间</strong> - 停顿时间是因为 GC 而导致程序不能工作的时间长度。</li>
+<li><strong>吞吐量</strong> - 吞吐量关注在特定的时间周期内一个应用的工作量的最大值。对关注吞吐量的应用来说长暂停时间是可以接受的。由于高吞吐量的应用关注的基准在更长周期时间上，所以快速响应时间不在考虑之内。</li>
+</ul>
+<blockquote>
+<p>吞吐量 = 运行用户代码时间 / (运行用户代码时间 + 垃圾收集时间)
+从如何判定对象消亡的角度出发，垃圾收集算法可以划分为“引用计数式垃圾收集”(Reference Counting GC)和“追踪式垃圾收集”(Tracing GC)两大类，这两类也常被称作“直接垃圾收集”和“间接垃圾收集”。本文所讨论的算法都在追踪式垃圾收集的范畴。</p>
+</blockquote>
+<h2 id="22-标记---清除算法mark-sweep">2.2 标记 - 清除算法（Mark-Sweep）</h2>
+<p>标记-清除算法采用从根集合（GC Roots）进行扫描，对存活的对象进行标记，标记完毕后，再扫描整个空间中未被标记的对象，进行回收。这是一个基础算法，后期的算法都是基于该算法进行改进。如下图所示。
+<img src="/images/JVM/gc/%E6%A0%87%E8%AE%B0%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95.jpeg" alt=""></p>
+<blockquote>
+<p>特点：</br>
+1.第一个是执行效率不稳定，如果Java堆中包含大量对象，而且其中大部分是需要被回收的，这时必须进行大量标记和清除的动作，导致标记和清除两个过 程的执行效率都随对象数量增长而降低;<br/>
+2.第二个是内存空间的碎片化问题，不需要进行对象的移动，只需对不存活的对象进行处理。</p>
+</blockquote>
+<h2 id="23-标记---整理算法mark-compact">2.3 标记 - 整理算法（Mark-Compact）</h2>
+<p>让所有存活的对象都向一端移动，然后直接清理掉端边界以外的内存。
+<img src="/images/JVM/gc/%E6%A0%87%E8%AE%B0%E6%95%B4%E7%90%86%E7%AE%97%E6%B3%95.jpeg" alt=""></p>
+<blockquote>
+<p>特点：</br>
+这种做法能够解决内存碎片化的问题，但代价是压缩算法的性能开销。
+<strong>所以一般用于除以存活率较高的代&mdash;老年代</strong>，一般存活的老年代都是 100% 存活，比较适合概算法执行而不是复制算法，复制代价过大。</p>
+</blockquote>
+<h2 id="24-标记---复制算法mark-coping">2.4 标记 - 复制算法（Mark-Coping）</h2>
+<p>将内存划分为大小相等的两块，每次只使用其中一块，当这一块内存用完了就将还存活的对象复制到另一块上面，然后再把使用过的内存空间进行一次清理。
+<img src="/images/JVM/gc/%E6%A0%87%E8%AE%B0%E5%A4%8D%E5%88%B6%E7%AE%97%E6%B3%95.jpeg" alt=""></p>
+<blockquote>
+<p>特点：<br/>
+主要不足是只使用了内存的一半。耗费内存。
+该收集算法来<strong>回收年轻代</strong></p>
+</blockquote>
+<p>实际做法是：把新生代分为一块较大的Eden空间和两块较小的 Survivor空间，每次分配内存只使用Eden和其中一块Survivor。发生垃圾搜集时，将Eden和Survivor中仍 然存活的对象一次性复制到另外一块Survivor空间上，然后直接清理掉Eden和已用过的那块Survivor空间。</p>
+<p>HotSpot虚拟机默认Eden和Survivor的大小比例是8∶1，也即每次新生代中可用内存空间为整个新 生代容量的90%(Eden的80%加上一个Survivor的10%)，只有一个Survivor空间，即10%的新生代是会 被“浪费”的。</p>
+<h2 id="25-分代收集理论">2.5 分代收集理论</h2>
+<p>现在的商业虚拟机采用分代收集算法，它根据对象存活周期将内存划分为几块，不同块采用适当的收集算法。</br>
+收集器应该将Java堆划分出不同的区域，然后将回收对象依据其年龄(年龄即对象熬过垃圾收集过程的次数)分配到不同的区域之中存储。</p>
+<p>一般将 Java 堆分为年轻代和老年代。</p>
+<ul>
+<li>年轻代使用：<strong>标记-复制</strong> 算法</li>
+<li>老年代使用：<strong>标记-清理</strong> 或者 <strong>标记-整理</strong>算法
+<img src="/images/JVM/gc/%E5%88%86%E4%BB%A3%E6%94%B6%E9%9B%86%E7%90%86%E8%AE%BA.png" alt=""></li>
+</ul>
+<p><strong>新生代（Young Generation）</strong></br>
+新生代是大部分对象创建和销毁的区域，在通常的 Java 应用中，绝大部分对象生命周期都是很短暂的。</p>
+<p>其内部又分为 <code>Eden</code> 区域，作为对象初始分配的区域；两个 <code>Survivor</code>，有时候也叫 <code>from</code>、<code>to</code> 区域，被用来放置从 <code>Minor GC</code> 中保留下来的对象。</p>
+<p>JVM 会随意选取一个 <code>Survivor</code> 区域作为 <code>to</code>，然后会在 GC 过程中进行区域间拷贝，也就是将 Eden 中存活下来的对象和 <code>from</code> 区域的对象，拷贝到这个 <code>to</code> 区域。这种设计主要是为了防止内存的碎片化，并进一步清理无用对象。</p>
+<p>Java 虚拟机会记录 <code>Survivor</code> 区中的对象一共被来回复制了几次。如果一个对象被复制的次数为 15（对应虚拟机参数 <code>-XX:+MaxTenuringThreshold</code>），那么该对象将被晋升（promote）至老年代。另外，如果单个 <code>Survivor</code> 区已经被占用了 50%（对应虚拟机参数 <code>-XX:TargetSurvivorRatio</code>），那么较高复制次数的对象也会被晋升至老年代。</p>
+<blockquote>
+<p>注意：
+1.新生代发生的GC也叫做<code>Minor GC</code>，MinorGC发生频率比较高(不一定等Eden区满了才触发)。
+2.当survivor1区不足以存放 <code>eden</code> 和 survivor0 的存活对象时，就将存活对象直接存放到老年代。若是老年代也满了就会触发一次Full GC(<code>Major GC</code>)，也就是新生代、老年代都进行回收。</p>
+</blockquote>
+<p><strong>老年代（Old Generation）</strong>
+放置长生命周期的对象，通常都是从 Survivor 区域拷贝过来的对象。当然，也有特殊情况，如果对象较大，JVM 会试图直接分配在 Eden 其他位置上；如果对象太大，完全无法在新生代找到足够长的连续空闲空间，JVM 就会直接分配到老年代。
+<strong>永久代 -&gt; 持久代（Permanent Generation）</strong>
+这部分就是早期 Hotspot JVM 的方法区实现方式了，储存 Java 类元数据、常量池、Intern 字符串缓存。在 JDK 8 之后就不存在永久代这块儿了，在方法区。而方法区的回收则参照 2.4 节。</p>
+<h1 id="三垃圾收集器">三、垃圾收集器</h1>
+<p><img src="/images/JVM/gc/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8.jpeg" alt="">
+以上是 HotSpot 虚拟机中的 7 个垃圾收集器，连线表示垃圾收集器可以配合使用。</p>
+<blockquote>
+<p>注：G1 垃圾收集器既可以回收年轻代内存，也可以回收老年代内存。而其他垃圾收集器只能针对特定代的内存进行回收。</p>
+</blockquote>
+<h2 id="31-串行收集器">3.1 串行收集器</h2>
+<p>串行收集器（Serial）是最基本、发展历史最悠久的收集器，新生代单线程收集器，标记和清理都是单线程。</p>
+<p>串行收集器是 client 模式下的默认收集器配置。因为在客户端模式下，分配给虚拟机管理的内存一般来说不会很大。Serial 收集器收集几十兆甚至一两百兆的年轻代停顿时间可以控制在一百多毫秒以内，只要不是太频繁，这点停顿是可以接受的。</p>
+<p>串行收集器采用单线程 <code>stop-the-world</code> 的方式进行收集。当内存不足时，串行 GC 设置停顿标识，待所有线程都进入安全点（Safepoint）时，应用线程暂停，串行 GC 开始工作，采用单线程方式回收空间并整理内存。
+<img src="/images/JVM/gc/%E4%B8%B2%E8%A1%8C%E6%94%B6%E9%9B%86%E5%99%A8.jpeg" alt=""></p>
+<blockquote>
+<p>特点：</br>
+1.单线程意味着复杂度更低、占用内存更少，垃圾回收效率高；<br/>
+2.同时也意味着不能有效利用多核优势。<br/>
+3.事实上，串行收集器特别适合堆内存不高、单核甚至双核 CPU 的场合。<br/></p>
+</blockquote>
+<h3 id="serial-收集器"><strong>Serial 收集器</strong></h3>
+<blockquote>
+<p>开启选项：-XX:+UseSerialGC</p>
+</blockquote>
+<p>打开此开关后，使用 Serial + Serial Old 收集器组合来进行内存回收。</p>
+<h3 id="serial-old-收集器"><strong>Serial Old 收集器</strong></h3>
+<p>Serial Old 是 Serial 收集器的老年代版本，也是给 Client 模式下的虚拟机使用。如果用在 Server 模式下，它有两大用途：</p>
+<ul>
+<li>在 JDK 1.5 以及之前版本（Parallel Old 诞生以前）中与 Parallel Scavenge 收集器搭配使用。</li>
+<li>作为 CMS 收集器的后备预案，在并发收集发生 <code>Concurrent Mode Failure</code> 时使用。</li>
+</ul>
+<h2 id="32-并行收集器">3.2 并行收集器</h2>
+<blockquote>
+<p>开启选项：<code>-XX:+UseParallelGC</code></br>
+打开此开关后，使用 Parallel Scavenge + Serial Old 收集器组合来进行内存回收。</br>
+开启选项：<code>-XX:+UseParallelOldGC</code></br>
+打开此开关后，使用 Parallel Scavenge + Parallel Old 收集器组合来进行内存回收。</p>
+</blockquote>
+<p>其他收集器都是以关注停顿时间为目标，而<strong>并行收集器是以关注吞吐量（Throughput）为目标的垃圾收集器。</strong></p>
+<p><strong>并行收集器是 server 模式下的默认收集器。</strong></p>
+<p>并行收集器与串行收集器工作模式相似，都是 stop-the-world 方式，只是暂停时并行地进行垃圾收集。</p>
+<p>并行收集器年轻代采用<strong>复制算法</strong>，老年代采用<strong>标记-整理</strong>，在回收的同时还会对内存进行压缩。</p>
+<blockquote>
+<p>特点：</br>
+并行收集器适合对吞吐量要求远远高于延迟要求的场景。</br>
+并且在满足最差延时的情况下，并行收集器将提供最佳的吞吐量。</p>
+</blockquote>
+<p><img src="/images/JVM/gc/%E5%B9%B6%E8%A1%8C%E6%94%B6%E9%9B%86%E5%99%A8.jpeg" alt=""></p>
+<h3 id="parallel-scavenge-收集器"><strong>Parallel Scavenge 收集器</strong></h3>
+<p>Parallel Scavenge 收集器提供了两个参数用于精确控制吞吐量，分别是：</p>
+<ul>
+<li><code>-XX:MaxGCPauseMillis</code> - 控制最大垃圾收集停顿时间，收集器将尽可能保证内存回收时间不超过设定值。</li>
+<li><code>-XX:GCTimeRatio</code> - 直接设置吞吐量大小的（值为大于 0 且小于 100 的整数）。</li>
+</ul>
+<p>缩短停顿时间是以牺牲吞吐量和年轻代空间来换取的：年轻代空间变小，垃圾回收变得频繁，导致吞吐量下降。</p>
+<p>Parallel Scavenge 收集器还提供了一个参数 <code>-XX:+UseAdaptiveSizePolicy</code>，这是一个开关参数，打开参数后，就不需要手工指定年轻代的大小（-Xmn）、<code>Eden</code> 和 <code>Survivor</code> 区的比例（<code>-XX:SurvivorRatio</code>）、晋升老年代对象年龄（<code>-XX:PretenureSizeThreshold</code>）等细节参数了，虚拟机会根据当前系统的运行情况收集性能监控信息，动态调整这些参数以提供最合适的停顿时间或者最大的吞吐量，这种方式称为 GC 自适应的调节策略（GC Ergonomics）。</p>
+<h3 id="parallel-old-收集器"><strong>Parallel Old 收集器</strong></h3>
+<p>是 Parallel Scavenge 收集器的老年代版本，使用<strong>多线程和 “标记-整理” 算法</strong>。</p>
+<h2 id="33-并发标记-清除收集器cms">3.3 并发标记-清除收集器(CMS)</h2>
+<blockquote>
+<p>开启选项：-XX:+UseConcMarkSweepGC
+打开此开关后，使用 CMS + ParNew + Serial Old 收集器组合来进行内存回收。</p>
+</blockquote>
+<p>并发标记清除收集器是以<code>获取最短停顿时间</code>为目标。</p>
+<p>开启后，年轻代使用 <code>ParNew</code> 收集器；老年代使用 <code>CMS</code> 收集器，如果 CMS 产生的碎片过多，导致无法存放浮动垃圾，JVM 会出现 <code>Concurrent Mode Failure</code> ，此时使用 <code>Serial Old</code> 收集器来替代 CMS 收集器清理碎片。</p>
+<h3 id="cms-收集器"><strong>CMS 收集器</strong></h3>
+<p>CMS（Concurrent Mark Sweep），Mark Sweep 指的是标记 - 清除算法。</p>
+<blockquote>
+<p>CMS 收集器运行步骤如下：<br/></p>
+<ol>
+<li><strong>初始标记：</strong> 仅仅只是标记一下 GC Roots 能直接关联到的对象，速度很快，需要停顿。<br/></li>
+<li><strong>并发标记：</strong> 进行 GC Roots Tracing 的过程，它在整个回收过程中耗时最长，不需要停顿。<br/></li>
+<li><strong>重新标记：</strong> 为了修正并发标记期间因用户程序继续运作而导致标记产生变动的那一部分对象的标记记录，需要停顿。</br></li>
+<li><strong>并发清除：</strong> 回收在标记阶段被鉴定为不可达的对象。不需要停顿。</li>
+</ol>
+</blockquote>
+<p><img src="/images/JVM/gc/%E5%B9%B6%E5%8F%91CMS%E6%94%B6%E9%9B%86%E5%99%A8.jpeg" alt=""></p>
+<blockquote>
+<p>缺点：</br>
+并发收集 - 并发指的是用户线程和 GC 线程同时运行。
+吞吐量低 - 低停顿时间是以牺牲吞吐量为代价的，导致 CPU 利用率不够高。
+无法处理浮动垃圾 - 可能出现 <code>Concurrent Mode Failure</code>。浮动垃圾是指并发清除阶段由于用户线程继续运行而产生的垃圾，这部分垃圾只能到下一次 GC 时才能进行回收。由于浮动垃圾的存在，因此需要预留出一部分内存，意味着 CMS 收集不能像其它收集器那样等待老年代快满的时候再回收。
+标记 - 清除算法导致的空间碎片，往往出现老年代空间剩余，但无法找到足够大连续空间来分配当前对象，不得不提前触发一次 Full GC。</p>
+</blockquote>
+<h3 id="parnew-收集器"><strong>ParNew 收集器</strong></h3>
+<blockquote>
+<p>开启选项：-XX:+UseParNewGC</p>
+</blockquote>
+<p>ParNew 收集器其实是 Serial 收集器的多线程版本。
+<img src="/images/JVM/gc/ParNew%E6%94%B6%E9%9B%86%E5%99%A8.jpeg" alt=""></p>
+<p>是 Server 模式下的虚拟机首选年轻代收集器，除了性能原因外，主要是因为除了 Serial 收集器，只有它能与 CMS 收集器配合工作。</p>
+<p>ParNew 收集器也是使用 <code>-XX:+UseConcMarkSweepGC</code> 后的默认年轻代收集器。</p>
+<p>ParNew 收集器默认开启的线程数量与 CPU 数量相同，可以使用 <code>-XX:ParallelGCThreads</code> 参数来设置线程数。</p>
+<h2 id="34-g1-收集器">3.4 G1 收集器</h2>
+<blockquote>
+<p>开启选项：-XX:+UseG1GC</p>
+</blockquote>
+<p>前面提到的垃圾收集器一般策略是关注吞吐量或停顿时间。而 G1 是一种<strong>兼顾吞吐量和停顿时间的 GC 收集器。</strong></p>
+<p>G1 最大的特点是引入分区的思路，弱化了分代的概念，合理利用垃圾收集各个周期的资源，解决了其他收集器甚至 CMS 的众多缺陷。</p>
+<h1 id="四内存分配与回收策略">四、内存分配与回收策略</h1>
+<h2 id="41-minor-gc">4.1 Minor GC</h2>
+<h2 id="42-full-gc">4.2 Full GC</h2>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">拾光</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2022-02-18
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        
+        <a class="next" href="/2021/12/jvm%E4%B9%8B%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/">
+            <span class="next-text nav-default">JVM之类加载机制</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="yang_95@126.com" class="iconfont icon-email" title="email"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2021 - 
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Huan</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+<script id="baidu_push">
+  (function(){
+    if (window.location.hostname === 'localhost') return;
+    var bp = document.createElement('script'); bp.async = true;
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+  })();
+</script>
+
+
+
+
+</body>
+</html>
