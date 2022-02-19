@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>JVM之垃圾收集(二) - 拾光的博客</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="拾光" /><meta name="description" content="本文继《垃圾收集（一）》总结垃圾收集器与内存分配与回收策略 一、垃圾收集器 以上是 HotSpot 虚拟机中的 7 个垃圾收集器，连线表示垃圾收集器可以配合使用。 注" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.83.0 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/2022/02/jvm%E4%B9%8B%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E4%BA%8C/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="JVM之垃圾收集(二)" />
+<meta property="og:description" content="本文继《垃圾收集（一）》总结垃圾收集器与内存分配与回收策略 一、垃圾收集器 以上是 HotSpot 虚拟机中的 7 个垃圾收集器，连线表示垃圾收集器可以配合使用。 注" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/2022/02/jvm%E4%B9%8B%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E4%BA%8C/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-02-19T01:48:30&#43;08:00" />
+<meta property="article:modified_time" content="2022-02-19T01:48:30&#43;08:00" />
+
+<meta itemprop="name" content="JVM之垃圾收集(二)">
+<meta itemprop="description" content="本文继《垃圾收集（一）》总结垃圾收集器与内存分配与回收策略 一、垃圾收集器 以上是 HotSpot 虚拟机中的 7 个垃圾收集器，连线表示垃圾收集器可以配合使用。 注"><meta itemprop="datePublished" content="2022-02-19T01:48:30&#43;08:00" />
+<meta itemprop="dateModified" content="2022-02-19T01:48:30&#43;08:00" />
+<meta itemprop="wordCount" content="4920">
+<meta itemprop="keywords" content="JVM," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="JVM之垃圾收集(二)"/>
+<meta name="twitter:description" content="本文继《垃圾收集（一）》总结垃圾收集器与内存分配与回收策略 一、垃圾收集器 以上是 HotSpot 虚拟机中的 7 个垃圾收集器，连线表示垃圾收集器可以配合使用。 注"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">拾光</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">拾光</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">JVM之垃圾收集(二)</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2022-02-19 </span>
+        <div class="post-category">
+            <a href="/categories/java/"> Java </a>
+            </div>
+          <span class="more-meta"> 4920 words </span>
+          <span class="more-meta"> 10 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一垃圾收集器">一、垃圾收集器</a>
+      <ul>
+        <li><a href="#11-串行收集器">1.1 串行收集器</a>
+          <ul>
+            <li><a href="#serial-收集器"><strong>Serial 收集器</strong></a></li>
+            <li><a href="#serial-old-收集器"><strong>Serial Old 收集器</strong></a></li>
+          </ul>
+        </li>
+        <li><a href="#12-并行收集器">1.2 并行收集器</a>
+          <ul>
+            <li><a href="#parallel-scavenge-收集器"><strong>Parallel Scavenge 收集器</strong></a></li>
+            <li><a href="#parallel-old-收集器"><strong>Parallel Old 收集器</strong></a></li>
+          </ul>
+        </li>
+        <li><a href="#13-并发标记-清除收集器cms">1.3 并发标记-清除收集器(CMS)</a>
+          <ul>
+            <li><a href="#cms-收集器"><strong>CMS 收集器</strong></a></li>
+            <li><a href="#parnew-收集器"><strong>ParNew 收集器</strong></a></li>
+          </ul>
+        </li>
+        <li><a href="#14-g1-收集器">1.4 <strong>G1 收集器</strong></a></li>
+        <li><a href="#15-总结">1.5 总结</a></li>
+      </ul>
+    </li>
+    <li><a href="#二内存分配与回收策略">二、内存分配与回收策略</a>
+      <ul>
+        <li><a href="#21-minor-gc">2.1 Minor GC</a></li>
+        <li><a href="#22-full-gc">2.2 Full GC</a></li>
+        <li><a href="#23-内存分配策略">2.3 内存分配策略</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>本文继《垃圾收集（一）》总结垃圾收集器与内存分配与回收策略</p>
+<h1 id="一垃圾收集器">一、垃圾收集器</h1>
+<p><img src="/images/JVM/gc/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8.jpeg" alt="">
+以上是 HotSpot 虚拟机中的 7 个垃圾收集器，连线表示垃圾收集器可以配合使用。</p>
+<blockquote>
+<p>注：G1 垃圾收集器既可以回收年轻代内存，也可以回收老年代内存。而其他垃圾收集器只能针对特定代的内存进行回收。</p>
+</blockquote>
+<h2 id="11-串行收集器">1.1 串行收集器</h2>
+<p>串行收集器（Serial）是最基本、发展历史最悠久的收集器，新生代单线程收集器，标记和清理都是单线程。</p>
+<p>串行收集器是 client 模式下的默认收集器配置。因为在客户端模式下，分配给虚拟机管理的内存一般来说不会很大。Serial 收集器收集几十兆甚至一两百兆的年轻代停顿时间可以控制在一百多毫秒以内，只要不是太频繁，这点停顿是可以接受的。</p>
+<p>串行收集器采用单线程 <code>stop-the-world</code> 的方式进行收集。当内存不足时，串行 GC 设置停顿标识，待所有线程都进入安全点（Safepoint）时，应用线程暂停，串行 GC 开始工作，采用单线程方式回收空间并整理内存。
+<img src="/images/JVM/gc/%E4%B8%B2%E8%A1%8C%E6%94%B6%E9%9B%86%E5%99%A8.jpeg" alt=""></p>
+<blockquote>
+<p>特点：</br>
+1.单线程意味着复杂度更低、占用内存更少，垃圾回收效率高；<br/>
+2.同时也意味着不能有效利用多核优势。<br/>
+3.事实上，串行收集器特别适合堆内存不高、单核甚至双核 CPU 的场合。<br/></p>
+</blockquote>
+<h3 id="serial-收集器"><strong>Serial 收集器</strong></h3>
+<blockquote>
+<p>开启选项：-XX:+UseSerialGC</p>
+</blockquote>
+<p>打开此开关后，使用 Serial + Serial Old 收集器组合来进行内存回收。</p>
+<h3 id="serial-old-收集器"><strong>Serial Old 收集器</strong></h3>
+<p>Serial Old 是 Serial 收集器的老年代版本，也是给 Client 模式下的虚拟机使用。如果用在 Server 模式下，它有两大用途：</p>
+<ul>
+<li>在 JDK 1.5 以及之前版本（Parallel Old 诞生以前）中与 Parallel Scavenge 收集器搭配使用。</li>
+<li>作为 CMS 收集器的后备预案，在并发收集发生 <code>Concurrent Mode Failure</code> 时使用。</li>
+</ul>
+<h2 id="12-并行收集器">1.2 并行收集器</h2>
+<blockquote>
+<p>开启选项：<code>-XX:+UseParallelGC</code></br>
+打开此开关后，使用 Parallel Scavenge + Serial Old 收集器组合来进行内存回收。</br>
+开启选项：<code>-XX:+UseParallelOldGC</code></br>
+打开此开关后，使用 Parallel Scavenge + Parallel Old 收集器组合来进行内存回收。</p>
+</blockquote>
+<p>其他收集器都是以关注停顿时间为目标，而<strong>并行收集器是以关注吞吐量（Throughput）为目标的垃圾收集器。</strong></p>
+<p><strong>并行收集器是 server 模式下的默认收集器。</strong></p>
+<p>并行收集器与串行收集器工作模式相似，都是 stop-the-world 方式，只是暂停时并行地进行垃圾收集。</p>
+<p>并行收集器年轻代采用<strong>复制算法</strong>，老年代采用<strong>标记-整理</strong>，在回收的同时还会对内存进行压缩。</p>
+<blockquote>
+<p>特点：</br>
+并行收集器适合对吞吐量要求远远高于延迟要求的场景。</br>
+并且在满足最差延时的情况下，并行收集器将提供最佳的吞吐量。</p>
+</blockquote>
+<p><img src="/images/JVM/gc/%E5%B9%B6%E8%A1%8C%E6%94%B6%E9%9B%86%E5%99%A8.jpeg" alt=""></p>
+<h3 id="parallel-scavenge-收集器"><strong>Parallel Scavenge 收集器</strong></h3>
+<p>Parallel Scavenge 收集器提供了两个参数用于精确控制吞吐量，分别是：</p>
+<ul>
+<li><code>-XX:MaxGCPauseMillis</code> - 控制最大垃圾收集停顿时间，收集器将尽可能保证内存回收时间不超过设定值。</li>
+<li><code>-XX:GCTimeRatio</code> - 直接设置吞吐量大小的（值为大于 0 且小于 100 的整数）。</li>
+</ul>
+<p>缩短停顿时间是以牺牲吞吐量和年轻代空间来换取的：年轻代空间变小，垃圾回收变得频繁，导致吞吐量下降。</p>
+<p>Parallel Scavenge 收集器还提供了一个参数 <code>-XX:+UseAdaptiveSizePolicy</code>，这是一个开关参数，打开参数后，就不需要手工指定年轻代的大小（-Xmn）、<code>Eden</code> 和 <code>Survivor</code> 区的比例（<code>-XX:SurvivorRatio</code>）、晋升老年代对象年龄（<code>-XX:PretenureSizeThreshold</code>）等细节参数了，虚拟机会根据当前系统的运行情况收集性能监控信息，动态调整这些参数以提供最合适的停顿时间或者最大的吞吐量，这种方式称为 GC 自适应的调节策略（GC Ergonomics）。</p>
+<h3 id="parallel-old-收集器"><strong>Parallel Old 收集器</strong></h3>
+<p>是 Parallel Scavenge 收集器的老年代版本，使用<strong>多线程和 “标记-整理” 算法</strong>。</p>
+<h2 id="13-并发标记-清除收集器cms">1.3 并发标记-清除收集器(CMS)</h2>
+<blockquote>
+<p>开启选项：-XX:+UseConcMarkSweepGC
+打开此开关后，使用 CMS + ParNew + Serial Old 收集器组合来进行内存回收。</p>
+</blockquote>
+<p>并发标记-清除收集器是以<code>获取最短停顿时间</code>为目标。</p>
+<p>开启后，年轻代使用 <code>ParNew</code> 收集器；老年代使用 <code>CMS</code> 收集器，如果 CMS 产生的碎片过多，导致无法存放浮动垃圾，JVM 会出现 <code>Concurrent Mode Failure</code> ，此时使用 <code>Serial Old</code> 收集器来替代 CMS 收集器清理碎片。</p>
+<h3 id="cms-收集器"><strong>CMS 收集器</strong></h3>
+<p>CMS（Concurrent Mark Sweep），Mark Sweep 指的是标记 - 清除算法。</p>
+<blockquote>
+<p>CMS 收集器运行步骤如下：<br/></p>
+<ol>
+<li><strong>初始标记：</strong> 仅仅只是标记一下 GC Roots 能直接关联到的对象，速度很快，需要停顿。<br/></li>
+<li><strong>并发标记：</strong> 进行 GC Roots Tracing 即遍历整个对象图的过程，它在整个回收过程中耗时最长，不需要停顿。<br/></li>
+<li><strong>重新标记：</strong> 为了修正并发标记期间因用户程序继续运作而导致标记产生变动的那一部分对象的标记记录，需要停顿。</br></li>
+<li><strong>并发清除：</strong> 回收在标记阶段被鉴定为不可达的对象。不需要停顿。</li>
+</ol>
+</blockquote>
+<p><img src="/images/JVM/gc/%E5%B9%B6%E5%8F%91CMS%E6%94%B6%E9%9B%86%E5%99%A8.jpeg" alt=""></p>
+<blockquote>
+<p>缺点：</br>
+并发收集 - 并发指的是用户线程和 GC 线程同时运行。
+吞吐量低 - 低停顿时间是以牺牲吞吐量为代价的，导致 CPU 利用率不够高。
+无法处理浮动垃圾 - 可能出现 <code>Concurrent Mode Failure</code>。浮动垃圾是指并发清除阶段由于用户线程继续运行而产生的垃圾，这部分垃圾只能到下一次 GC 时才能进行回收。由于浮动垃圾的存在，因此需要预留出一部分内存，意味着 CMS 收集不能像其它收集器那样等待老年代快满的时候再回收。
+标记 - 清除算法导致的空间碎片，往往出现老年代空间剩余，但无法找到足够大连续空间来分配当前对象，不得不提前触发一次 Full GC。</p>
+</blockquote>
+<h3 id="parnew-收集器"><strong>ParNew 收集器</strong></h3>
+<blockquote>
+<p>开启选项：-XX:+UseParNewGC</p>
+</blockquote>
+<p>ParNew 收集器其实是 Serial 收集器的多线程版本。多个垃圾收集器并行（parallel）运行
+<img src="/images/JVM/gc/ParNew%E6%94%B6%E9%9B%86%E5%99%A8.jpeg" alt=""></p>
+<p>是 Server 模式下的虚拟机首选年轻代收集器，除了性能原因外，主要是因为除了 Serial 收集器，只有它能与 CMS 收集器配合工作。</p>
+<p>ParNew 收集器也是使用 <code>-XX:+UseConcMarkSweepGC</code> 后的默认年轻代收集器。</p>
+<p>ParNew 收集器默认开启的线程数量与 CPU 数量相同，可以使用 <code>-XX:ParallelGCThreads</code> 参数来设置线程数。</p>
+<h2 id="14-g1-收集器">1.4 <strong>G1 收集器</strong></h2>
+<blockquote>
+<p>开启选项：-XX:+UseG1GC</p>
+</blockquote>
+<p>前面提到的垃圾收集器一般策略是关注吞吐量或停顿时间。而 G1 是一种<strong>兼顾吞吐量和停顿时间的 GC 收集器。</strong></p>
+<p>G1其实是Garbage First的意思，垃圾优先? 不是，是优先处理那些<strong>垃圾多的内存块</strong>的意思。</p>
+<p>G1 最大的特点是引入分区的思路，弱化了分代的概念，合理利用垃圾收集各个周期的资源，解决了其他收集器甚至 CMS 的众多缺陷。</p>
+<p><strong>分代和分区</strong></br>
+旧的垃圾收集器一般采取分代收集，Java 堆被分为年轻代、老年代和永久代。收集的范围都是整个年轻代或者整个老年代。<br/>
+G1 取消了永久代，并把年轻代和老年代划分成多个大小相等的独立区域（Region），年轻代和老年代不再物理隔离。G1 可以直接对年轻代和老年代一起回收。即面向堆内存任何部分来组成回收集(Collection Set，一般简称CSet)进行回收，衡量标准不再是它属于哪个分代，而是哪块内存中存放的垃圾数量最多，回收收益最大，这就是G1收集器的<code>Mixed GC</code>模式。</p>
+<p><img src="/images/JVM/gc/g1%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D.png" alt=""></p>
+<p>通过引入 Region 的概念，从而将原来的一整块内存空间划分成多个的小空间，使得每个小空间可以单独进行垃圾回收。这种划分方法带来了很大的灵活性，使得可预测的停顿时间模型成为可能。通过记录每个 Region 垃圾回收时间以及回收所获得的空间（这两个值是通过过去回收的经验获得），并维护一个优先列表，每次根据允许的收集时间，优先回收价值最大的 Region。</p>
+<p>每个 Region 都有一个 <code>Remembered Set</code>，用来记录该 Region 对象的引用对象所在的 Region。通过使用 <code>Remembered Set</code>，在做可达性分析的时候就可以避免全堆扫描。</p>
+<p><img src="/images/JVM/gc/g1%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6.jpeg" alt=""></p>
+<blockquote>
+<p>G1收集器的 运作过程大致可划分为以下四个步骤:</p>
+<ul>
+<li><strong>初始标记</strong>(Initial Marking): 仅仅只是标记一下GC Roots能直接关联到的对象，并且修改 TAMS 指针的值，让下一阶段用户线程并发运行时，能正确地在可用的Region中分配新对象。这个阶段需要<strong>停顿线程</strong>，但耗时很短，而且是借用进行Minor GC的时候同步完成的，所以G1收集器在这个阶段实际并没有额外的停顿。</li>
+<li><strong>并发标记</strong>(Concurrent Marking): 从GC Root开始对堆中对象进行可达性分析，递归扫描整个堆里的对象图，找出要回收的对象，这阶段耗时较长，但可<strong>与用户程序并发执行</strong>。当对象图扫描完成以后，还要重新处理 SATB 记录下的在并发时有引用变动的对象。</li>
+<li><strong>最终标记</strong>(Final Marking): 对用户线程做另一个短暂的暂停，用于处理并发阶段结束后仍遗留下来的最后那少量的SATB记录。</li>
+<li><strong>筛选回收</strong>(Live Data Counting and Evacuation): 负责更新 Region 的统计数据，对各个 Region 的回收价值和成本进行排序，根据用户所期望的停顿时间来制定回收计划，可以自由选择任意多个 Region 构成回收集，然后把决定回收的那一部分 Region 的存活对象复制到空的 Region 中，再清理掉整个旧 Region的全部空间。涉及存活对象的移动，是必须暂停用户线程，由多条收集器线程并行完成的。</br>
+特点：</br></li>
+</ul>
+<ol>
+<li>空间整合：整体来看是基于“标记 - 整理”算法实现的收集器，从局部（两个 Region 之间）上来看是基于“标记 - 复制”算法实现的，这意味着运行期间不会产生内存空间碎片。</li>
+<li>可预测的停顿：能让使用者明确指定在一个长度为 M 毫秒的时间片段内，消耗在 GC 上的时间不得超过 N 毫秒。</li>
+<li>垃圾回收过程是 stop the world 事件，所有应用线程都会因此操作暂停；并且使用多线程并行回收。</li>
+</ol>
+</blockquote>
+<h2 id="15-总结">1.5 总结</h2>
+<table>
+<thead>
+<tr>
+<th><strong>收集器</strong></th>
+<th><strong>串行/并发</strong></th>
+<th><strong>年轻代/老年代</strong></th>
+<th><strong>收集算法</strong></th>
+<th><strong>目标</strong></th>
+<th><strong>使用场景</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Serial</strong></td>
+<td>串行</td>
+<td>年轻代</td>
+<td>标记-复制</td>
+<td>响应速度优先</td>
+<td>单CPU下的 Client 模式</td>
+</tr>
+<tr>
+<td><strong>Serial Old</strong></td>
+<td>串行</td>
+<td>老年代</td>
+<td>标记-整理</td>
+<td>响应速度优先</td>
+<td>单 CPU 环境下的 Client 模式、CMS 的后备预案</td>
+</tr>
+<tr>
+<td><strong>ParNew</strong></td>
+<td>串行+并行</td>
+<td>年轻代</td>
+<td>标记-复制</td>
+<td>响应速度优先</td>
+<td>多 CPU 环境时在 Server 模式下与 CMS 配合</td>
+</tr>
+<tr>
+<td><strong>Parallel Scavenge</strong></td>
+<td>串行+并行</td>
+<td>年轻代</td>
+<td>标记-复制</td>
+<td>吞吐量优先</td>
+<td>在后台运算而不需要太多交互的任务</td>
+</tr>
+<tr>
+<td><strong>Parallel Old</strong></td>
+<td>串行+并行</td>
+<td>老年代</td>
+<td>标记-整理</td>
+<td>吞吐量优先</td>
+<td>在后台运算而不需要太多交互的任务</td>
+</tr>
+<tr>
+<td><strong>CMS</strong></td>
+<td>串行+并发</td>
+<td>老年代</td>
+<td>标记-清除</td>
+<td>响应速度优先</td>
+<td>集中在互联网站或 B/S 系统服务端上的 Java 应用</td>
+</tr>
+<tr>
+<td><strong>G1</strong></td>
+<td>串行+并发</td>
+<td>年轻代+老年代</td>
+<td>标记整理+标记复制</td>
+<td>响应速度优先</td>
+<td>面向服务端应用，将来替换 CMS</td>
+</tr>
+</tbody>
+</table>
+<h1 id="二内存分配与回收策略">二、内存分配与回收策略</h1>
+<p>对象的内存分配，也就是在堆上分配。主要分配在年轻代的 Eden 区上，少数情况下也可能直接分配在老年代中。</p>
+<h2 id="21-minor-gc">2.1 Minor GC</h2>
+<p><strong>当 <code>Eden</code> 区空间不足时，触发 Minor GC。</strong></p>
+<p><strong>Minor GC 发生在年轻代上</strong>，因为年轻代对象存活时间很短，因此 Minor GC 会频繁执行，执行的速度一般也会比较快。</p>
+<p><strong>Minor GC 工作流程：</strong></p>
+<ol>
+<li>Java 应用不断创建对象，通常都是分配在 <code>Eden</code> 区域，当其空间不足时（达到设定的阈值），触发 minor GC。仍然被引用的对象（绿色方块）存活下来，被复制到 JVM 选择的 <code>Survivor</code> 区域，而没有被引用的对象（黄色方块）则被回收。</li>
+<li>经过一次 Minor GC，<code>Eden</code> 就会空闲下来，直到再次达到 Minor GC 触发条件。这时候，另外一个 <code>Survivor</code> 区域则会成为 <code>To</code> <code>区域，Eden</code> 区域的存活对象和 <code>From</code> 区域对象，都会被复制到 <code>To</code> 区域，并且存活的年龄计数会被加 1。</li>
+<li>类似第二步的过程会发生很多次，直到有对象年龄计数达到阈值，这时候就会发生所谓的晋升（Promotion）过程，如下图所示，超过阈值的对象会被晋升到老年代。这个阈值是可以通过 <code>-XX:MaxTenuringThreshold</code> 参数指定。</li>
+</ol>
+<h2 id="22-full-gc">2.2 Full GC</h2>
+<p><strong>Full GC 发生在老年代上</strong>，老年代对象和年轻代的相反，其存活时间长，因此 Full GC 很少执行，而且执行速度会比 Minor GC 慢很多。</p>
+<p>Full GC 的触发条件:</p>
+<blockquote>
+<ol>
+<li>调用 <code>System.gc()</code></li>
+<li>老年代空间不足 如果清除后仍然不足则会有<code>OutOfMemoryError: Java heap space</code>异常</li>
+<li>方法区空间不足 如果清除后仍然不足则会有<code>OutOfMemoryError: PermGen space</code>异常</li>
+<li>Minor GC 的平均晋升空间大小大于老年代可用空间</li>
+<li>对象大小大于 To 区和老年代的可用内存</li>
+</ol>
+</blockquote>
+<h2 id="23-内存分配策略">2.3 内存分配策略</h2>
+<p><strong>(一) 对象优先在 <code>Eden</code>分配</strong></p>
+<p>大多数情况下，对象在年轻代 Eden 区分配，当 Eden 区空间不够时，发起 Minor GC。</p>
+<p><strong>(二) 大对象直接进入老年代</strong></p>
+<p>大对象是指需要连续内存空间的对象，最典型的大对象是那种很长的字符串以及数组。</p>
+<p>经常出现大对象会提前触发垃圾收集以获取足够的连续空间分配给大对象。</p>
+<p><code>-XX:PretenureSizeThreshold</code>，大于此值的对象直接在老年代分配，避免在 <code>Eden</code> 区和 <code>Survivor</code> 区之间的大量内存复制。</p>
+<p><strong>(三) 长期存活的对象进入老年代</strong></p>
+<p>为对象定义年龄计数器，对象在 Eden 出生并经过 Minor GC 依然存活，将移动到 Survivor 中，年龄就增加 1 岁，增加到一定年龄则移动到老年代中。</p>
+<p><code>-XX:MaxTenuringThreshold</code> 用来定义年龄的阈值。</p>
+<p><strong>(四) 动态对象年龄判定</strong></p>
+<p>虚拟机并不是永远地要求对象的年龄必须达到 MaxTenuringThreshold 才能晋升老年代，如果在 Survivor 区中相同年龄所有对象大小的总和大于 Survivor 空间的一半，则年龄大于或等于该年龄的对象可以直接进入老年代，无需等到 MaxTenuringThreshold 中要求的年龄。</p>
+<p><strong>(五) 空间分配担保</strong></p>
+<p>在发生 Minor GC 之前，虚拟机先检查老年代最大可用的连续空间是否大于年轻代所有对象总空间，如果条件成立的话，那么 Minor GC 可以确认是安全的；如果不成立的话虚拟机会查看 <code>HandlePromotionFailure</code> 设置值是否允许担保失败，如果允许那么就会继续检查老年代最大可用的连续空间是否大于历次晋升到老年代对象的平均大小，如果大于，将尝试着进行一次 <code>Minor GC</code>，尽管这次 Minor GC 是有风险的；如果小于，或者 HandlePro<code>motionFailure</code> 设置不允许冒险，那这时也要改为进行一次 <code>Full GC</code>。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">拾光</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2022-02-19
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/jvm/">JVM</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/2022/02/jvm%E4%B9%8B%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E4%B8%80/">
+            <span class="next-text nav-default">JVM之垃圾收集(一)</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="yang_95@126.com" class="iconfont icon-email" title="email"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2021 - 
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Huan</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+<script id="baidu_push">
+  (function(){
+    if (window.location.hostname === 'localhost') return;
+    var bp = document.createElement('script'); bp.async = true;
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+  })();
+</script>
+
+
+
+
+</body>
+</html>

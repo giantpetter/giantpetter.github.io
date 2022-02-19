@@ -49,8 +49,8 @@
 <meta itemprop="name" content="JVM之垃圾收集(一)">
 <meta itemprop="description" content="一、概述 垃圾回收主要包括三个问题： 哪些内存需要回收 什么时候回收 如何回收 前文讲述Java内存运行时区域的各个部分，其中程序计数器、虚拟机栈、本"><meta itemprop="datePublished" content="2022-02-18T17:58:51&#43;08:00" />
 <meta itemprop="dateModified" content="2022-02-18T17:58:51&#43;08:00" />
-<meta itemprop="wordCount" content="7574">
-<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta itemprop="wordCount" content="5341">
+<meta itemprop="keywords" content="JVM," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="JVM之垃圾收集(一)"/>
 <meta name="twitter:description" content="一、概述 垃圾回收主要包括三个问题： 哪些内存需要回收 什么时候回收 如何回收 前文讲述Java内存运行时区域的各个部分，其中程序计数器、虚拟机栈、本"/>
 
@@ -132,15 +132,15 @@
         <div class="post-category">
             <a href="/categories/java/"> Java </a>
             </div>
-          <span class="more-meta"> 7574 words </span>
-          <span class="more-meta"> 16 mins read </span>
+          <span class="more-meta"> 5341 words </span>
+          <span class="more-meta"> 11 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
     </header>
 
     <div class="post-toc" id="post-toc">
   <h2 class="post-toc-title">Contents</h2>
-  <div class="post-toc-content">
+  <div class="post-toc-content always-active">
     <nav id="TableOfContents">
   <ul>
     <li><a href="#一概述">一、概述</a></li>
@@ -160,35 +160,6 @@
         <li><a href="#23-标记---整理算法mark-compact">2.3 标记 - 整理算法（Mark-Compact）</a></li>
         <li><a href="#24-标记---复制算法mark-coping">2.4 标记 - 复制算法（Mark-Coping）</a></li>
         <li><a href="#25-分代收集理论">2.5 分代收集理论</a></li>
-      </ul>
-    </li>
-    <li><a href="#三垃圾收集器">三、垃圾收集器</a>
-      <ul>
-        <li><a href="#31-串行收集器">3.1 串行收集器</a>
-          <ul>
-            <li><a href="#serial-收集器"><strong>Serial 收集器</strong></a></li>
-            <li><a href="#serial-old-收集器"><strong>Serial Old 收集器</strong></a></li>
-          </ul>
-        </li>
-        <li><a href="#32-并行收集器">3.2 并行收集器</a>
-          <ul>
-            <li><a href="#parallel-scavenge-收集器"><strong>Parallel Scavenge 收集器</strong></a></li>
-            <li><a href="#parallel-old-收集器"><strong>Parallel Old 收集器</strong></a></li>
-          </ul>
-        </li>
-        <li><a href="#33-并发标记-清除收集器cms">3.3 并发标记-清除收集器(CMS)</a>
-          <ul>
-            <li><a href="#cms-收集器"><strong>CMS 收集器</strong></a></li>
-            <li><a href="#parnew-收集器"><strong>ParNew 收集器</strong></a></li>
-          </ul>
-        </li>
-        <li><a href="#34-g1-收集器">3.4 G1 收集器</a></li>
-      </ul>
-    </li>
-    <li><a href="#四内存分配与回收策略">四、内存分配与回收策略</a>
-      <ul>
-        <li><a href="#41-minor-gc">4.1 Minor GC</a></li>
-        <li><a href="#42-full-gc">4.2 Full GC</a></li>
       </ul>
     </li>
   </ul>
@@ -571,105 +542,6 @@ NullPointExcepiton、OutOfMemoryError)等，还有系统类加载器。</li>
 放置长生命周期的对象，通常都是从 Survivor 区域拷贝过来的对象。当然，也有特殊情况，如果对象较大，JVM 会试图直接分配在 Eden 其他位置上；如果对象太大，完全无法在新生代找到足够长的连续空闲空间，JVM 就会直接分配到老年代。
 <strong>永久代 -&gt; 持久代（Permanent Generation）</strong>
 这部分就是早期 Hotspot JVM 的方法区实现方式了，储存 Java 类元数据、常量池、Intern 字符串缓存。在 JDK 8 之后就不存在永久代这块儿了，在方法区。而方法区的回收则参照 2.4 节。</p>
-<h1 id="三垃圾收集器">三、垃圾收集器</h1>
-<p><img src="/images/JVM/gc/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8.jpeg" alt="">
-以上是 HotSpot 虚拟机中的 7 个垃圾收集器，连线表示垃圾收集器可以配合使用。</p>
-<blockquote>
-<p>注：G1 垃圾收集器既可以回收年轻代内存，也可以回收老年代内存。而其他垃圾收集器只能针对特定代的内存进行回收。</p>
-</blockquote>
-<h2 id="31-串行收集器">3.1 串行收集器</h2>
-<p>串行收集器（Serial）是最基本、发展历史最悠久的收集器，新生代单线程收集器，标记和清理都是单线程。</p>
-<p>串行收集器是 client 模式下的默认收集器配置。因为在客户端模式下，分配给虚拟机管理的内存一般来说不会很大。Serial 收集器收集几十兆甚至一两百兆的年轻代停顿时间可以控制在一百多毫秒以内，只要不是太频繁，这点停顿是可以接受的。</p>
-<p>串行收集器采用单线程 <code>stop-the-world</code> 的方式进行收集。当内存不足时，串行 GC 设置停顿标识，待所有线程都进入安全点（Safepoint）时，应用线程暂停，串行 GC 开始工作，采用单线程方式回收空间并整理内存。
-<img src="/images/JVM/gc/%E4%B8%B2%E8%A1%8C%E6%94%B6%E9%9B%86%E5%99%A8.jpeg" alt=""></p>
-<blockquote>
-<p>特点：</br>
-1.单线程意味着复杂度更低、占用内存更少，垃圾回收效率高；<br/>
-2.同时也意味着不能有效利用多核优势。<br/>
-3.事实上，串行收集器特别适合堆内存不高、单核甚至双核 CPU 的场合。<br/></p>
-</blockquote>
-<h3 id="serial-收集器"><strong>Serial 收集器</strong></h3>
-<blockquote>
-<p>开启选项：-XX:+UseSerialGC</p>
-</blockquote>
-<p>打开此开关后，使用 Serial + Serial Old 收集器组合来进行内存回收。</p>
-<h3 id="serial-old-收集器"><strong>Serial Old 收集器</strong></h3>
-<p>Serial Old 是 Serial 收集器的老年代版本，也是给 Client 模式下的虚拟机使用。如果用在 Server 模式下，它有两大用途：</p>
-<ul>
-<li>在 JDK 1.5 以及之前版本（Parallel Old 诞生以前）中与 Parallel Scavenge 收集器搭配使用。</li>
-<li>作为 CMS 收集器的后备预案，在并发收集发生 <code>Concurrent Mode Failure</code> 时使用。</li>
-</ul>
-<h2 id="32-并行收集器">3.2 并行收集器</h2>
-<blockquote>
-<p>开启选项：<code>-XX:+UseParallelGC</code></br>
-打开此开关后，使用 Parallel Scavenge + Serial Old 收集器组合来进行内存回收。</br>
-开启选项：<code>-XX:+UseParallelOldGC</code></br>
-打开此开关后，使用 Parallel Scavenge + Parallel Old 收集器组合来进行内存回收。</p>
-</blockquote>
-<p>其他收集器都是以关注停顿时间为目标，而<strong>并行收集器是以关注吞吐量（Throughput）为目标的垃圾收集器。</strong></p>
-<p><strong>并行收集器是 server 模式下的默认收集器。</strong></p>
-<p>并行收集器与串行收集器工作模式相似，都是 stop-the-world 方式，只是暂停时并行地进行垃圾收集。</p>
-<p>并行收集器年轻代采用<strong>复制算法</strong>，老年代采用<strong>标记-整理</strong>，在回收的同时还会对内存进行压缩。</p>
-<blockquote>
-<p>特点：</br>
-并行收集器适合对吞吐量要求远远高于延迟要求的场景。</br>
-并且在满足最差延时的情况下，并行收集器将提供最佳的吞吐量。</p>
-</blockquote>
-<p><img src="/images/JVM/gc/%E5%B9%B6%E8%A1%8C%E6%94%B6%E9%9B%86%E5%99%A8.jpeg" alt=""></p>
-<h3 id="parallel-scavenge-收集器"><strong>Parallel Scavenge 收集器</strong></h3>
-<p>Parallel Scavenge 收集器提供了两个参数用于精确控制吞吐量，分别是：</p>
-<ul>
-<li><code>-XX:MaxGCPauseMillis</code> - 控制最大垃圾收集停顿时间，收集器将尽可能保证内存回收时间不超过设定值。</li>
-<li><code>-XX:GCTimeRatio</code> - 直接设置吞吐量大小的（值为大于 0 且小于 100 的整数）。</li>
-</ul>
-<p>缩短停顿时间是以牺牲吞吐量和年轻代空间来换取的：年轻代空间变小，垃圾回收变得频繁，导致吞吐量下降。</p>
-<p>Parallel Scavenge 收集器还提供了一个参数 <code>-XX:+UseAdaptiveSizePolicy</code>，这是一个开关参数，打开参数后，就不需要手工指定年轻代的大小（-Xmn）、<code>Eden</code> 和 <code>Survivor</code> 区的比例（<code>-XX:SurvivorRatio</code>）、晋升老年代对象年龄（<code>-XX:PretenureSizeThreshold</code>）等细节参数了，虚拟机会根据当前系统的运行情况收集性能监控信息，动态调整这些参数以提供最合适的停顿时间或者最大的吞吐量，这种方式称为 GC 自适应的调节策略（GC Ergonomics）。</p>
-<h3 id="parallel-old-收集器"><strong>Parallel Old 收集器</strong></h3>
-<p>是 Parallel Scavenge 收集器的老年代版本，使用<strong>多线程和 “标记-整理” 算法</strong>。</p>
-<h2 id="33-并发标记-清除收集器cms">3.3 并发标记-清除收集器(CMS)</h2>
-<blockquote>
-<p>开启选项：-XX:+UseConcMarkSweepGC
-打开此开关后，使用 CMS + ParNew + Serial Old 收集器组合来进行内存回收。</p>
-</blockquote>
-<p>并发标记清除收集器是以<code>获取最短停顿时间</code>为目标。</p>
-<p>开启后，年轻代使用 <code>ParNew</code> 收集器；老年代使用 <code>CMS</code> 收集器，如果 CMS 产生的碎片过多，导致无法存放浮动垃圾，JVM 会出现 <code>Concurrent Mode Failure</code> ，此时使用 <code>Serial Old</code> 收集器来替代 CMS 收集器清理碎片。</p>
-<h3 id="cms-收集器"><strong>CMS 收集器</strong></h3>
-<p>CMS（Concurrent Mark Sweep），Mark Sweep 指的是标记 - 清除算法。</p>
-<blockquote>
-<p>CMS 收集器运行步骤如下：<br/></p>
-<ol>
-<li><strong>初始标记：</strong> 仅仅只是标记一下 GC Roots 能直接关联到的对象，速度很快，需要停顿。<br/></li>
-<li><strong>并发标记：</strong> 进行 GC Roots Tracing 的过程，它在整个回收过程中耗时最长，不需要停顿。<br/></li>
-<li><strong>重新标记：</strong> 为了修正并发标记期间因用户程序继续运作而导致标记产生变动的那一部分对象的标记记录，需要停顿。</br></li>
-<li><strong>并发清除：</strong> 回收在标记阶段被鉴定为不可达的对象。不需要停顿。</li>
-</ol>
-</blockquote>
-<p><img src="/images/JVM/gc/%E5%B9%B6%E5%8F%91CMS%E6%94%B6%E9%9B%86%E5%99%A8.jpeg" alt=""></p>
-<blockquote>
-<p>缺点：</br>
-并发收集 - 并发指的是用户线程和 GC 线程同时运行。
-吞吐量低 - 低停顿时间是以牺牲吞吐量为代价的，导致 CPU 利用率不够高。
-无法处理浮动垃圾 - 可能出现 <code>Concurrent Mode Failure</code>。浮动垃圾是指并发清除阶段由于用户线程继续运行而产生的垃圾，这部分垃圾只能到下一次 GC 时才能进行回收。由于浮动垃圾的存在，因此需要预留出一部分内存，意味着 CMS 收集不能像其它收集器那样等待老年代快满的时候再回收。
-标记 - 清除算法导致的空间碎片，往往出现老年代空间剩余，但无法找到足够大连续空间来分配当前对象，不得不提前触发一次 Full GC。</p>
-</blockquote>
-<h3 id="parnew-收集器"><strong>ParNew 收集器</strong></h3>
-<blockquote>
-<p>开启选项：-XX:+UseParNewGC</p>
-</blockquote>
-<p>ParNew 收集器其实是 Serial 收集器的多线程版本。
-<img src="/images/JVM/gc/ParNew%E6%94%B6%E9%9B%86%E5%99%A8.jpeg" alt=""></p>
-<p>是 Server 模式下的虚拟机首选年轻代收集器，除了性能原因外，主要是因为除了 Serial 收集器，只有它能与 CMS 收集器配合工作。</p>
-<p>ParNew 收集器也是使用 <code>-XX:+UseConcMarkSweepGC</code> 后的默认年轻代收集器。</p>
-<p>ParNew 收集器默认开启的线程数量与 CPU 数量相同，可以使用 <code>-XX:ParallelGCThreads</code> 参数来设置线程数。</p>
-<h2 id="34-g1-收集器">3.4 G1 收集器</h2>
-<blockquote>
-<p>开启选项：-XX:+UseG1GC</p>
-</blockquote>
-<p>前面提到的垃圾收集器一般策略是关注吞吐量或停顿时间。而 G1 是一种<strong>兼顾吞吐量和停顿时间的 GC 收集器。</strong></p>
-<p>G1 最大的特点是引入分区的思路，弱化了分代的概念，合理利用垃圾收集各个周期的资源，解决了其他收集器甚至 CMS 的众多缺陷。</p>
-<h1 id="四内存分配与回收策略">四、内存分配与回收策略</h1>
-<h2 id="41-minor-gc">4.1 Minor GC</h2>
-<h2 id="42-full-gc">4.2 Full GC</h2>
 
     </div>
 
@@ -689,9 +561,15 @@ NullPointExcepiton、OutOfMemoryError)等，还有系统类加载器。</li>
   
 </div>
 <footer class="post-footer">
-      
+      <div class="post-tags">
+          <a href="/tags/jvm/">JVM</a>
+          </div>
       <nav class="post-nav">
-        
+        <a class="prev" href="/2022/02/jvm%E4%B9%8B%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E4%BA%8C/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">JVM之垃圾收集(二)</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
         <a class="next" href="/2021/12/jvm%E4%B9%8B%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/">
             <span class="next-text nav-default">JVM之类加载机制</span>
             <span class="next-text nav-mobile">Next</span>
