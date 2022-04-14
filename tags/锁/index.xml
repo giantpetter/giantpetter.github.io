@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>锁 on 拾光的博客</title>
+    <link>http://localhost:1313/tags/%E9%94%81/</link>
+    <description>Recent content in 锁 on 拾光的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>Huan</copyright>
+    <lastBuildDate>Thu, 14 Apr 2022 19:56:47 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/%E9%94%81/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Java多线程之并发锁</title>
+      <link>http://localhost:1313/2022/04/java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B9%8B%E5%B9%B6%E5%8F%91%E9%94%81/</link>
+      <pubDate>Thu, 14 Apr 2022 19:56:47 +0800</pubDate>
+      
+      <guid>http://localhost:1313/2022/04/java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B9%8B%E5%B9%B6%E5%8F%91%E9%94%81/</guid>
+      <description>本文先阐述 Java 中各种锁的概念。然后，介绍锁的核心实现 AQS。 互斥，即同一时刻只允许一个线程访问共享资源； 同步，即线程之间如何通信、协作。 一、并</description>
+    </item>
+    
+  </channel>
+</rss>

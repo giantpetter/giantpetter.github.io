@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Java多线程之并发核心机制 - 拾光的博客</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="拾光" /><meta name="description" content="Java 对于并发的支持主要汇聚在 java.util.concurrent，即 J.U.C。 一、JUC 简介 Java 的 java.util.concurrent 包（简称 J.U.C）中提供了大量并发工" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.83.0 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/2022/04/java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B9%8B%E5%B9%B6%E5%8F%91%E6%A0%B8%E5%BF%83%E6%9C%BA%E5%88%B6/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Java多线程之并发核心机制" />
+<meta property="og:description" content="Java 对于并发的支持主要汇聚在 java.util.concurrent，即 J.U.C。 一、JUC 简介 Java 的 java.util.concurrent 包（简称 J.U.C）中提供了大量并发工" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/2022/04/java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B9%8B%E5%B9%B6%E5%8F%91%E6%A0%B8%E5%BF%83%E6%9C%BA%E5%88%B6/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-04-14T19:56:25&#43;08:00" />
+<meta property="article:modified_time" content="2022-04-14T20:38:21&#43;08:00" />
+
+<meta itemprop="name" content="Java多线程之并发核心机制">
+<meta itemprop="description" content="Java 对于并发的支持主要汇聚在 java.util.concurrent，即 J.U.C。 一、JUC 简介 Java 的 java.util.concurrent 包（简称 J.U.C）中提供了大量并发工"><meta itemprop="datePublished" content="2022-04-14T19:56:25&#43;08:00" />
+<meta itemprop="dateModified" content="2022-04-14T20:38:21&#43;08:00" />
+<meta itemprop="wordCount" content="5949">
+<meta itemprop="keywords" content="多线程," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Java多线程之并发核心机制"/>
+<meta name="twitter:description" content="Java 对于并发的支持主要汇聚在 java.util.concurrent，即 J.U.C。 一、JUC 简介 Java 的 java.util.concurrent 包（简称 J.U.C）中提供了大量并发工"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">拾光</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">拾光</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Java多线程之并发核心机制</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2022-04-14 </span>
+        <div class="post-category">
+            <a href="/categories/java/"> Java </a>
+            </div>
+          <span class="more-meta"> 5949 words </span>
+          <span class="more-meta"> 12 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一juc-简介">一、JUC 简介</a></li>
+    <li><a href="#二synchronized">二、Synchronized</a>
+      <ul>
+        <li><a href="#21-应用">2.1 应用</a></li>
+        <li><a href="#22-原理">2.2 原理</a></li>
+        <li><a href="#23-优化jdk-16">2.3 优化（jdk 1.6）</a>
+          <ul>
+            <li><a href="#231-java-对象头">2.3.1 Java 对象头</a></li>
+            <li><a href="#232-偏向锁">2.3.2 偏向锁</a></li>
+            <li><a href="#233-轻量级锁">2.3.3 轻量级锁</a></li>
+            <li><a href="#234-锁消除锁粗化">2.3.4 锁消除/锁粗化</a></li>
+            <li><a href="#235-自旋锁">2.3.5 自旋锁</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#三volatile">三、volatile</a>
+      <ul>
+        <li><a href="#31-要点">3.1 要点</a></li>
+        <li><a href="#32-应用">3.2 应用</a></li>
+        <li><a href="#33-原理">3.3 原理</a></li>
+      </ul>
+    </li>
+    <li><a href="#四cas">四、CAS</a>
+      <ul>
+        <li><a href="#41-要点">4.1 要点</a></li>
+        <li><a href="#42-应用">4.2 应用</a></li>
+        <li><a href="#43-原理">4.3 原理</a></li>
+        <li><a href="#44-问题">4.4 问题</a></li>
+      </ul>
+    </li>
+    <li><a href="#5-threadlocal">5. ThreadLocal</a>
+      <ul>
+        <li><a href="#51-应用">5.1 应用</a></li>
+        <li><a href="#52-原理">5.2 原理</a>
+          <ul>
+            <li><a href="#521-存储结构">5.2.1 存储结构</a></li>
+            <li><a href="#522-如何解决-hash-冲突">5.2.2 如何解决 Hash 冲突</a></li>
+            <li><a href="#523-内存泄漏问题">5.2.3 内存泄漏问题</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>Java 对于并发的支持主要汇聚在 java.util.concurrent，即 J.U.C。</p>
+<h1 id="一juc-简介">一、JUC 简介</h1>
+<p>Java 的 java.util.concurrent 包（简称 J.U.C）中提供了大量并发工具类，是 Java 并发能力的主要体现（注意，不是全部，有部分并发能力的支持在其他包中）。从功能上，大致可以分为：</p>
+<ul>
+<li>原子类 - 如：AtomicInteger、AtomicIntegerArray、AtomicReference、AtomicStampedReference 等。</li>
+<li>锁 - 如：ReentrantLock、ReentrantReadWriteLock 等。</li>
+<li>并发容器 - 如：ConcurrentHashMap、CopyOnWriteArrayList、CopyOnWriteArraySet 等。</li>
+<li>阻塞队列 - 如：ArrayBlockingQueue、LinkedBlockingQueue 等。</li>
+<li>非阻塞队列 - 如： ConcurrentLinkedQueue 、LinkedTransferQueue 等。</li>
+<li>Executor 框架（线程池）- 如：ThreadPoolExecutor、Executors 等。</li>
+</ul>
+<p><img src="/images/JUC/JUC-1.png" alt="">
+由 Java 并发框架图不难看出，J.U.C 包中的工具类是基于 synchronized、volatile、CAS、ThreadLocal 这样的并发核心机制打造的。所以，要想深入理解 J.U.C 工具类的特性、为什么具有这样那样的特性，就必须先理解这些核心机制。</p>
+<h1 id="二synchronized">二、Synchronized</h1>
+<blockquote>
+<p>synchronized 是 Java 中的关键字，是 利用锁的机制来实现互斥同步的。
+synchronized 可以保证在同一个时刻，只有一个线程可以执行某个方法或者某个代码块。
+如果不需要 Lock 、ReadWriteLock 所提供的高级同步特性，应该优先考虑使用 synchronized ，理由如下：</p>
+<ul>
+<li>Java 1.6 以后，synchronized 做了大量的优化，其性能已经与 Lock 、ReadWriteLock 基本上持平。从趋势来看，Java 未来仍将继续优化 synchronized ，而不是 ReentrantLock 。</li>
+<li>ReentrantLock 是 Oracle JDK 的 API，在其他版本的 JDK 中不一定支持；而 synchronized 是 JVM 的内置特性，所有 JDK 版本都提供支持。</li>
+</ul>
+</blockquote>
+<h2 id="21-应用">2.1 应用</h2>
+<p><code>synchronized</code> 有 3 种应用方式：</p>
+<ul>
+<li><strong>同步实例方法</strong> - 对于普通同步方法，锁是当前实例对象</li>
+<li><strong>同步静态方法</strong> - 对于静态同步方法，锁是当前类的 Class 对象</li>
+<li><strong>同步代码块</strong> - 对于同步方法块，锁是 synchonized 括号里配置的对象</li>
+</ul>
+<blockquote>
+<p>说明：</br>
+类似 Vector、Hashtable 这类同步类，就是使用 synchonized 修饰其重要方法，来保证其线程安全。</br>
+</br>
+事实上，这类同步容器也非绝对的线程安全，当执行迭代器遍历，根据条件删除元素这种场景下，就可能出现线程不安全的情况。此外，Java 1.6 针对 synchonized 进行优化前，由于阻塞，其性能不高。</br>
+综上，这类同步容器，在现代 Java 程序中，已经渐渐不用了。</p>
+</blockquote>
+<h2 id="22-原理">2.2 原理</h2>
+<p>synchronized 代码块是由一对 monitorenter 和 monitorexit 指令实现的，Monitor 对象是同步的基本实现单元。在 Java 6 之前，Monitor 的实现完全是依靠<strong>操作系统内部的互斥锁</strong>，因为需要进行用户态到内核态的切换，所以同步操作是一个无差别的重量级操作。</p>
+<p>synchronized 同步块对同一线程来说是<em>可重入的</em>，不会出现锁死问题。</p>
+<p>synchronized 同步块是<em>互斥的</em>，即已进入的线程执行完成前，会阻塞其他试图进入的线程。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">foo</span><span class="o">(</span><span class="n">Object</span> <span class="n">lock</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">synchronized</span> <span class="o">(</span><span class="n">lock</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">lock</span><span class="o">.</span><span class="na">hashCode</span><span class="o">();</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+  <span class="c1">// 上面的 Java 代码将编译为下面的字节码
+</span><span class="c1"></span>  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">foo</span><span class="o">(</span><span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">Object</span><span class="o">);</span>
+    <span class="n">Code</span><span class="o">:</span>
+       <span class="n">0</span><span class="o">:</span> <span class="n">aload_1</span>
+       <span class="n">1</span><span class="o">:</span> <span class="n">dup</span>
+       <span class="n">2</span><span class="o">:</span> <span class="n">astore_2</span>
+       <span class="n">3</span><span class="o">:</span> <span class="n">monitorenter</span>
+       <span class="n">4</span><span class="o">:</span> <span class="n">aload_1</span>
+       <span class="n">5</span><span class="o">:</span> <span class="n">invokevirtual</span> <span class="n">java</span><span class="o">/</span><span class="n">lang</span><span class="o">/</span><span class="n">Object</span><span class="o">.</span><span class="na">hashCode</span><span class="o">:()</span><span class="n">I</span>
+       <span class="n">8</span><span class="o">:</span> <span class="n">pop</span>
+       <span class="n">9</span><span class="o">:</span> <span class="n">aload_2</span>
+      <span class="n">10</span><span class="o">:</span> <span class="n">monitorexit</span>
+      <span class="n">11</span><span class="o">:</span> <span class="k">goto</span>          <span class="n">19</span>
+      <span class="n">14</span><span class="o">:</span> <span class="n">astore_3</span>
+      <span class="n">15</span><span class="o">:</span> <span class="n">aload_2</span>
+      <span class="n">16</span><span class="o">:</span> <span class="n">monitorexit</span>
+      <span class="n">17</span><span class="o">:</span> <span class="n">aload_3</span>
+      <span class="n">18</span><span class="o">:</span> <span class="n">athrow</span>
+      <span class="n">19</span><span class="o">:</span> <span class="k">return</span>
+    <span class="n">Exception</span> <span class="n">table</span><span class="o">:</span>
+       <span class="n">from</span>    <span class="n">to</span>  <span class="n">target</span> <span class="n">type</span>
+           <span class="n">4</span>    <span class="n">11</span>    <span class="n">14</span>   <span class="n">any</span>
+          <span class="n">14</span>    <span class="n">17</span>    <span class="n">14</span>   <span class="n">any</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>同步代码块</strong>
+<code>synchronized</code> 在修饰同步代码块时，是由 <code>monitorenter</code> 和 <code>monitorexit</code> 指令来实现同步的。进入 <code>monitorenter</code> 指令后，线程将持有 <code>Monitor</code> 对象，退出 <code>monitorenter</code> 指令后，线程将释放该 <code>Monitor</code> 对象。</p>
+<p><strong>同步方法</strong>
+<code>synchronized</code> 修饰同步方法时，会设置一个 <code>ACC_SYNCHRONIZED</code> 标志。当方法调用时，调用指令将会检查该方法是否被设置 <code>ACC_SYNCHRONIZED</code> 访问标志。如果设置了该标志，执行线程将先持有 <code>Monitor</code> 对象，然后再执行方法。在该方法运行期间，其它线程将无法获取到该 <code>Mointor</code> 对象，当方法执行完成后，再释放该 <code>Monitor</code> 对象。
+<strong>Monitor</strong>
+每个对象实例都会有一个 <code>Monitor</code>，<code>Monitor</code> 可以和对象一起创建、销毁。<code>Monitor</code> 是由 <code>ObjectMonitor</code> 实现，而 <code>ObjectMonitor</code> 是由 C++ 的 <code>ObjectMonitor.hpp</code> 文件实现。</p>
+<p>当多个线程同时访问一段同步代码时，多个线程会先被存放在 <code>EntryList</code> 集合中，处于 <code>block</code> 状态的线程，都会被加入到该列表。接下来当线程获取到对象的 <code>Monitor</code> <code>时，Monitor</code> 是依靠底层操作系统的 <code>Mutex Lock</code> 来实现互斥的，线程申请 <code>Mutex</code> 成功，则持有该 <code>Mutex</code>，其它线程将无法获取到该 <code>Mutex。</code></p>
+<p>如果线程调用 <code>wait()</code> 方法，就会释放当前持有的 Mutex，并且该线程会进入 WaitSet 集合中，等待下一次被唤醒。如果当前线程顺利执行完方法，也将释放 Mutex。</p>
+<h2 id="23-优化jdk-16">2.3 优化（jdk 1.6）</h2>
+<h3 id="231-java-对象头">2.3.1 Java 对象头</h3>
+<p>在 JDK1.6 JVM 中，对象实例在堆内存中被分为了三个部分：对象头、实例数据和对齐填充。其中 Java 对象头由 Mark Word、指向类的指针以及数组长度三部分组成。</p>
+<p>Mark Word 记录了对象和锁有关的信息。Mark Word 在 64 位 JVM 中的长度是 64bit，我们可以一起看下 64 位 JVM 的存储结构是怎么样的。如下图所示：
+<img src="/images/JUC/JUC-2.png" alt="">
+锁升级功能主要依赖于 Mark Word 中的锁标志位和是否偏向锁标志位，synchronized 同步锁就是从偏向锁开始的，随着竞争越来越激烈，偏向锁升级到轻量级锁，最终升级到重量级锁。</p>
+<p>Java 1.6 引入了偏向锁和轻量级锁，从而让 synchronized 拥有了四个状态：</p>
+<ul>
+<li><code>无锁状态（unlocked）</code></li>
+<li><code>偏向锁状态（biasble）</code></li>
+<li><code>轻量级锁状态（lightweight locked）</code></li>
+<li><code>重量级锁状态（inflated）</code></li>
+</ul>
+<p>当 JVM 检测到不同的竞争状况时，会自动切换到适合的锁实现。</p>
+<p>当没有竞争出现时，默认会使用偏向锁。JVM 会利用 CAS 操作（compare and swap），在对象头上的 Mark Word 部分设置线程 ID，以表示这个对象偏向于当前线程，所以并不涉及真正的互斥锁。这样做的假设是基于在很多应用场景中，大部分对象生命周期中最多会被一个线程锁定，使用偏斜锁可以降低无竞争开销。</p>
+<p>如果有另外的线程试图锁定某个已经被偏斜过的对象，JVM 就需要撤销（revoke）偏向锁，并切换到轻量级锁实现。轻量级锁依赖 CAS 操作 Mark Word 来试图获取锁，如果重试成功，就使用普通的轻量级锁；否则，进一步升级为重量级锁。</p>
+<h3 id="232-偏向锁">2.3.2 偏向锁</h3>
+<p>偏向锁的思想是偏向于第一个获取锁对象的线程，这个线程在之后获取该锁就不再需要进行同步操作，甚至连 CAS 操作也不再需要。
+<img src="/images/JUC/JUC-3.png" alt=""></p>
+<h3 id="233-轻量级锁">2.3.3 轻量级锁</h3>
+<p>轻量级锁是相对于传统的重量级锁而言，它 使用 <code>CAS</code> 操作来避免重量级锁使用互斥量的开销。对于绝大部分的锁，在整个同步周期内都是不存在竞争的，因此也就不需要都使用互斥量进行同步，可以先采用 <code>CAS</code> 操作进行同步，如果 CAS 失败了再改用<em>互斥量</em>进行同步。</p>
+<p>当尝试获取一个锁对象时，如果锁对象标记为 0|01，说明锁对象的锁未锁定（unlocked）状态。此时虚拟机在当前线程的虚拟机栈中创建 Lock Record，然后使用 CAS 操作将对象的 Mark Word 更新为 Lock Record 指针。如果 CAS 操作成功了，那么线程就获取了该对象上的锁，并且对象的 Mark Word 的锁标记变为 00，表示该对象处于轻量级锁状态。</p>
+<h3 id="234-锁消除锁粗化">2.3.4 锁消除/锁粗化</h3>
+<p>除了锁升级优化，Java 还使用了编译器对锁进行优化。
+<strong>（1）锁消除</strong>
+<strong>锁消除是指对于被检测出不可能存在竞争的共享数据的锁进行消除。</strong>
+JIT 编译器在动态编译同步块的时候，借助了一种被称为逃逸分析的技术，来判断同步块使用的锁对象是否只能够被一个线程访问，而没有被发布到其它线程。</p>
+<p>确认是的话，那么 JIT 编译器在编译这个同步块的时候不会生成 synchronized 所表示的锁的申请与释放的机器码，即消除了锁的使用。</p>
+<p>对于一些看起来没有加锁的代码，其实隐式的加了很多锁。例如下面的字符串拼接代码就隐式加了锁：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">concatString</span><span class="o">(</span><span class="n">String</span> <span class="n">s1</span><span class="o">,</span> <span class="n">String</span> <span class="n">s2</span><span class="o">,</span> <span class="n">String</span> <span class="n">s3</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">s1</span> <span class="o">+</span> <span class="n">s2</span> <span class="o">+</span> <span class="n">s3</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>String 是一个不可变的类，编译器会对 String 的拼接自动优化。在 Java 1.5 之前，会转化为 StringBuffer 对象的连续 <code>append()</code> 操作：</p>
+<p>每个 append() 方法中都有一个同步块。虚拟机观察变量 sb，很快就会发现它的动态作用域被限制在 concatString() 方法内部。也就是说，sb 的所有引用永远不会逃逸到 concatString() 方法之外，其他线程无法访问到它，因此可以进行消除。
+<strong>（2）锁粗化</strong>
+锁粗化同理，就是在 JIT 编译器动态编译时，如果发现几个相邻的同步块使用的是同一个锁实例，那么 JIT 编译器将会把这几个同步块合并为一个大的同步块，从而避免一个线程“反复申请、释放同一个锁“所带来的性能开销。</p>
+<h3 id="235-自旋锁">2.3.5 自旋锁</h3>
+<p>互斥同步进入阻塞状态的开销都很大，应该尽量避免。在许多应用中，共享数据的锁定状态只会持续很短的一段时间。自旋锁的思想是让一个线程在请求一个共享数据的锁时执行忙循环（自旋）一段时间，如果在这段时间内能获得锁，就可以避免进入阻塞状态。</p>
+<p>自旋锁虽然能避免进入阻塞状态从而减少开销，但是它需要进行忙循环操作占用 CPU 时间，它只适用于共享数据的锁定状态很短的场景。</p>
+<h1 id="三volatile">三、volatile</h1>
+<h2 id="31-要点">3.1 要点</h2>
+<p>volatile 是轻量级的 synchronized，它在多处理器开发中保证了共享变量的“可见性”。</p>
+<p>被 volatile 修饰的变量，具备以下特性：</p>
+<ul>
+<li><strong>线程可见性</strong> - 保证了不同线程对这个变量进行操作时的可见性，即一个线程修改了某个共享变量，另外一个线程能读到这个修改的值。</li>
+<li><strong>禁止指令重排序</strong></li>
+<li><strong>不保证原子性</strong>
+我们知道，线程安全需要具备：可见性、原子性、顺序性。volatile 不保证原子性，所以决定了它不能彻底地保证线程安全。</li>
+</ul>
+<h2 id="32-应用">3.2 应用</h2>
+<p>如果 <code>volatile</code> 变量修饰符使用恰当的话，它比 <code>synchronized</code> 的使用和执行成本更低，因为它不会引起线程上下文的切换和调度。但是，volatile 无法替代 synchronized ，因为 <code>volatile</code> 无法保证操作的原子性。</p>
+<p>通常来说，使用 volatile 必须具备以下 2 个条件：</p>
+<ul>
+<li><strong>对变量的写操作不依赖于当前值</strong></li>
+<li><strong>该变量没有包含在具有其他变量的表达式中</strong></li>
+</ul>
+<h2 id="33-原理">3.3 原理</h2>
+<p>观察加入 volatile 关键字和没有加入 <code>volatile</code> 关键字时所生成的汇编代码发现，加入 volatile 关键字时，会多出一个 lock 前缀指令。<code>lock</code> 前缀指令实际上相当于一个内存屏障（也成内存栅栏），内存屏障会提供 3 个功能：</p>
+<ul>
+<li>它确保指令重排序时不会把其后面的指令排到内存屏障之前的位置，也不会把前面的指令排到内存屏障的后面；即在执行到内存屏障这句指令时，在它前面的操作已经全部完成；</li>
+<li>它会强制将对缓存的修改操作立即写入主存；</li>
+<li>如果是写操作，它会导致其他 CPU 中对应的缓存行无效。</li>
+</ul>
+<h1 id="四cas">四、CAS</h1>
+<h2 id="41-要点">4.1 要点</h2>
+<p>互斥同步是最常见的并发正确性保障手段。</p>
+<p><em>互斥同步最主要的问题是线程阻塞和唤醒所带来的性能问题</em>，因此互斥同步也被称为阻塞同步。互斥同步属于一种悲观的并发策略，总是认为只要不去做正确的同步措施，那就肯定会出现问题。无论共享数据是否真的会出现竞争，它都要进行加锁（这里讨论的是概念模型，实际上虚拟机会优化掉很大一部分不必要的加锁）、用户态核心态转换、维护锁计数器和检查是否有被阻塞的线程需要唤醒等操作。</p>
+<p>随着硬件指令集的发展，我们可以使用基于冲突检测的乐观并发策略：先进行操作，如果没有其它线程争用共享数据，那操作就成功了，否则采取补偿措施（不断地重试，直到成功为止）。这种乐观的并发策略的许多实现都不需要将线程阻塞，因此这种同步操作称为非阻塞同步。</p>
+<p>为什么说乐观锁需要 <strong>硬件指令集的发展</strong> 才能进行？因为需要操作和冲突检测这两个步骤具备原子性。而这点是由硬件来完成，如果再使用互斥同步来保证就失去意义了。硬件支持的原子性操作最典型的是：CAS。</p>
+<p><strong>CAS（Compare and Swap），字面意思为比较并交换。CAS 有 3 个操作数，分别是：内存值 M，期望值 E，更新值 U。当且仅当内存值 M 和期望值 E 相等时，将内存值 M 修改为 U，否则什么都不做。</strong></p>
+<h2 id="42-应用">4.2 应用</h2>
+<p><strong>CAS 只适用于线程冲突较少的情况。</strong></p>
+<p>CAS 的典型应用场景是：</p>
+<ul>
+<li>原子类</li>
+<li>自旋锁</li>
+</ul>
+<blockquote>
+<p>自旋锁的应用：AtomicReference</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AtomicReferenceDemo2</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">ticket</span> <span class="o">=</span> <span class="n">10</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">threadSafeDemo</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">threadSafeDemo</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">SpinLock</span> <span class="n">lock</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SpinLock</span><span class="o">();</span>
+        <span class="n">ExecutorService</span> <span class="n">executorService</span> <span class="o">=</span> <span class="n">Executors</span><span class="o">.</span><span class="na">newFixedThreadPool</span><span class="o">(</span><span class="n">3</span><span class="o">);</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">5</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">executorService</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="k">new</span> <span class="n">MyThread</span><span class="o">(</span><span class="n">lock</span><span class="o">));</span>
+        <span class="o">}</span>
+        <span class="n">executorService</span><span class="o">.</span><span class="na">shutdown</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">static</span> <span class="kd">class</span> <span class="nc">SpinLock</span> <span class="o">{</span>
+
+        <span class="kd">private</span> <span class="n">AtomicReference</span><span class="o">&lt;</span><span class="n">Thread</span><span class="o">&gt;</span> <span class="n">atomicReference</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AtomicReference</span><span class="o">&lt;&gt;();</span>
+
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">lock</span><span class="o">()</span> <span class="o">{</span>
+            <span class="n">Thread</span> <span class="n">current</span> <span class="o">=</span> <span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">();</span>
+            <span class="k">while</span> <span class="o">(!</span><span class="n">atomicReference</span><span class="o">.</span><span class="na">compareAndSet</span><span class="o">(</span><span class="kc">null</span><span class="o">,</span> <span class="n">current</span><span class="o">))</span> <span class="o">{}</span>
+        <span class="o">}</span>
+
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">unlock</span><span class="o">()</span> <span class="o">{</span>
+            <span class="n">Thread</span> <span class="n">current</span> <span class="o">=</span> <span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">();</span>
+            <span class="n">atomicReference</span><span class="o">.</span><span class="na">compareAndSet</span><span class="o">(</span><span class="n">current</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+        <span class="o">}</span>
+
+    <span class="o">}</span>
+
+    <span class="kd">static</span> <span class="kd">class</span> <span class="nc">MyThread</span> <span class="kd">implements</span> <span class="n">Runnable</span> <span class="o">{</span>
+
+        <span class="kd">private</span> <span class="n">SpinLock</span> <span class="n">lock</span><span class="o">;</span>
+
+        <span class="kd">public</span> <span class="nf">MyThread</span><span class="o">(</span><span class="n">SpinLock</span> <span class="n">lock</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">lock</span> <span class="o">=</span> <span class="n">lock</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+            <span class="k">while</span> <span class="o">(</span><span class="n">ticket</span> <span class="o">&gt;</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">lock</span><span class="o">.</span><span class="na">lock</span><span class="o">();</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">ticket</span> <span class="o">&gt;</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getName</span><span class="o">()</span> <span class="o">+</span> <span class="s">&#34; 卖出了第 &#34;</span> <span class="o">+</span> <span class="n">ticket</span> <span class="o">+</span> <span class="s">&#34; 张票&#34;</span><span class="o">);</span>
+                    <span class="n">ticket</span><span class="o">--;</span>
+                <span class="o">}</span>
+                <span class="n">lock</span><span class="o">.</span><span class="na">unlock</span><span class="o">();</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="43-原理">4.3 原理</h2>
+<p>Java 主要利用 Unsafe 这个类提供的 CAS 操作。Unsafe 的 CAS 依赖的是 JVM 针对不同的操作系统实现的硬件指令 Atomic::cmpxchg。Atomic::cmpxchg 的实现使用了汇编的 CAS 操作，并使用 CPU 提供的 lock 信号保证其原子性。</p>
+<h2 id="44-问题">4.4 问题</h2>
+<p>一般情况下，CAS 比锁性能更高。因为 CAS 是一种非阻塞算法，所以其避免了线程阻塞和唤醒的等待时间。</p>
+<p>但是，事物总会有利有弊，CAS 也存在三大问题：</p>
+<ul>
+<li>ABA 问题 &mdash;&ndash;&gt; 带有标记的原子引用类 AtomicStampedReference</li>
+<li>循环时间长开销大 &mdash;-&gt;  延迟流水线执行指令</li>
+<li>只能保证一个共享变量的原子性 &mdash;-&gt; AtomicReference</li>
+</ul>
+<h1 id="5-threadlocal">5. ThreadLocal</h1>
+<blockquote>
+<p>ThreadLocal 是一个存储线程本地副本的工具类。</br>
+要保证线程安全，不一定非要进行同步。同步只是保证共享数据争用时的正确性，如果一个方法本来就<strong>不涉及共享数据</strong>，那么自然无须同步.</br>
+Java 中的 无同步方案 有：</p>
+<ul>
+<li><strong>可重入代码</strong> - 也叫纯代码。如果一个方法，它的返回结果是可以预测的，即只要输入了相同的数据，就能返回相同的结果，那它就满足可重入性，当然也是线程安全的。</li>
+<li><strong>线程本地存储 - 使用 ThreadLocal 为共享变量在每个线程中都创建了一个本地副本</strong>，这个副本只能被当前线程访问，其他线程无法访问，那么自然是线程安全的。</li>
+</ul>
+</blockquote>
+<h2 id="51-应用">5.1 应用</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ThreadLocal</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">T</span> <span class="nf">get</span><span class="o">()</span> <span class="o">{}</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">set</span><span class="o">(</span><span class="n">T</span> <span class="n">value</span><span class="o">)</span> <span class="o">{}</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">remove</span><span class="o">()</span> <span class="o">{}</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="o">&lt;</span><span class="n">S</span><span class="o">&gt;</span> <span class="n">ThreadLocal</span><span class="o">&lt;</span><span class="n">S</span><span class="o">&gt;</span> <span class="nf">withInitial</span><span class="o">(</span><span class="n">Supplier</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="n">S</span><span class="o">&gt;</span> <span class="n">supplier</span><span class="o">)</span> <span class="o">{}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>说明：</p>
+<ul>
+<li>get - 用于获取 ThreadLocal 在当前线程中保存的变量副本。</li>
+<li>set - 用于设置当前线程中变量的副本。</li>
+<li>remove - 用于删除当前线程中变量的副本。如果此线程局部变量随后被当前线程读取，则其值将通过调用其 initialValue 方法重新初始化，除非其值由中间线程中的当前线程设置。 这可能会导致当前线程中多次调用 initialValue 方法。</li>
+<li>initialValue - 为 ThreadLocal 设置默认的 get 初始值，需要重写 initialValue 方法 。</li>
+</ul>
+</blockquote>
+<p>ThreadLocal 常用于防止对可变的单例（Singleton）变量或全局变量进行共享。典型应用场景有：管理数据库连接、Session。</p>
+<h2 id="52-原理">5.2 原理</h2>
+<h3 id="521-存储结构">5.2.1 存储结构</h3>
+<p><code>Thread</code> 类中维护着一个 <code>ThreadLocal.ThreadLocalMap</code> 类型的成员 <code>threadLocals</code>。这个成员就是用来存储当前线程独占的变量副本。</p>
+<p><code>ThreadLocalMap</code> 是 <code>ThreadLocal</code> 的内部类，它维护着一个 <code>Entry</code> <code>数组，Entry</code> 继承了 <code>WeakReference</code> ，所以是弱引用。 <code>Entry</code> 用于保存键值对，其中：</p>
+<ul>
+<li>key 是 ThreadLocal 对象；</li>
+<li>value 是传递进来的对象（变量副本）。</li>
+</ul>
+<h3 id="522-如何解决-hash-冲突">5.2.2 如何解决 Hash 冲突</h3>
+<p><code>ThreadLocalMap</code> 虽然是类似 <code>Map</code> 结构的数据结构，但它并没有实现 Map 接口。它不支持 Map 接口中的 next 方法，这意味着 <code>ThreadLocalMap</code> 中解决 Hash 冲突的方式并非拉链表方式。</p>
+<p>实际上，<code>ThreadLocalMap</code> 采用线性探测的方式来解决 <code>Hash</code> 冲突。所谓线性探测，就是根据初始 key 的 hashcode 值确定元素在 <code>table</code> 数组中的位置，如果发现这个位置上已经被其他的 <code>key</code> 值占用，则利用固定的算法寻找一定步长的下个位置，依次判断，直至找到能够存放的位置。</p>
+<h3 id="523-内存泄漏问题">5.2.3 内存泄漏问题</h3>
+<p><code>ThreadLocalMap</code> 的 Entry 继承了 <code>WeakReference</code>，所以它的 key （<code>ThreadLocal</code> 对象）是弱引用，而 value （变量副本）是强引用。</p>
+<ul>
+<li>如果 ThreadLocal 对象没有外部强引用来引用它，那么 ThreadLocal 对象会在下次 GC 时被回收。</li>
+<li>此时，Entry 中的 key 已经被回收，但是 value 由于是强引用不会被垃圾收集器回收。如果创建 ThreadLocal 的线程一直持续运行，那么 value 就会一直得不到回收，产生内存泄露。</li>
+</ul>
+<p>那么如何避免内存泄漏呢？方法就是：**使用 ThreadLocal 的 set 方法后，显示的调用 remove 方法 。**清除为null的键值对。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="n">ThreadLocal</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">threadLocal</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ThreadLocal</span><span class="o">();</span>
+<span class="k">try</span> <span class="o">{</span>
+    <span class="n">threadLocal</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="s">&#34;xxx&#34;</span><span class="o">);</span>
+    <span class="c1">// ...
+</span><span class="c1"></span><span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+    <span class="n">threadLocal</span><span class="o">.</span><span class="na">remove</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">拾光</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2022-04-14
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/2022/04/java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B9%8B%E5%B9%B6%E5%8F%91%E9%94%81/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Java多线程之并发锁</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/2022/02/jvm%E4%B9%8B%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E4%BA%8C/">
+            <span class="next-text nav-default">JVM之垃圾收集(二)</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="yang_95@126.com" class="iconfont icon-email" title="email"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2021 - 
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Huan</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+<script id="baidu_push">
+  (function(){
+    if (window.location.hostname === 'localhost') return;
+    var bp = document.createElement('script'); bp.async = true;
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+  })();
+</script>
+
+
+
+
+</body>
+</html>
