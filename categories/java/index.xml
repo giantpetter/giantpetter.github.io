@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>Huan</copyright>
-    <lastBuildDate>Fri, 15 Apr 2022 19:54:56 +0800</lastBuildDate><atom:link href="http://localhost:1313/categories/java/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 16 Apr 2022 17:10:24 +0800</lastBuildDate><atom:link href="http://localhost:1313/categories/java/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Java多线程之并发工具类</title>
+      <link>http://localhost:1313/2022/04/java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B9%8B%E5%B9%B6%E5%8F%91%E5%B7%A5%E5%85%B7%E7%B1%BB/</link>
+      <pubDate>Sat, 16 Apr 2022 17:10:24 +0800</pubDate>
+      
+      <guid>http://localhost:1313/2022/04/java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B9%8B%E5%B9%B6%E5%8F%91%E5%B7%A5%E5%85%B7%E7%B1%BB/</guid>
+      <description>一、 Semaphore 字面意思为 信号量。Semaphore 用来控制某段代码块的并发数。 Semaphore 管理着一组虚拟的许可（permit），permit 的初始数量可通过构</description>
+    </item>
+    
     <item>
       <title>Java多线程之线程池</title>
       <link>http://localhost:1313/2022/04/java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B9%8B%E7%BA%BF%E7%A8%8B%E6%B1%A0/</link>
