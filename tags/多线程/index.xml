@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>Huan</copyright>
-    <lastBuildDate>Thu, 14 Apr 2022 19:56:47 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 15 Apr 2022 19:54:56 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Java多线程之线程池</title>
+      <link>http://localhost:1313/2022/04/java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B9%8B%E7%BA%BF%E7%A8%8B%E6%B1%A0/</link>
+      <pubDate>Fri, 15 Apr 2022 19:54:56 +0800</pubDate>
+      
+      <guid>http://localhost:1313/2022/04/java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B9%8B%E7%BA%BF%E7%A8%8B%E6%B1%A0/</guid>
+      <description>一、线程池简介 1.1 什么是线程池 线程池是一种多线程处理形式，处理过程中将任务添加到队列，然后在创建线程后自动启动这些任务。 1.2 为什么要用线程池 如果</description>
+    </item>
+    
     <item>
       <title>Java多线程之并发锁</title>
       <link>http://localhost:1313/2022/04/java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B9%8B%E5%B9%B6%E5%8F%91%E9%94%81/</link>
