@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.83.0 with theme even" />
+<meta name="generator" content="Hugo 0.100.2 with theme even" />
 
 
 <link rel="canonical" href="http://localhost:1313/2021/08/css%E5%B8%B8%E8%A7%81%E6%A0%B7%E5%BC%8F/" />
@@ -43,12 +43,12 @@
 <meta property="og:description" content="一、概述 本文继前文简要介绍 CSS 的常用样式，包括：文本样式、列表样式、背景边框、常见特效、展示隐藏等效果。 二、文本样式 首先介绍文本样式,我们通过" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://localhost:1313/2021/08/css%E5%B8%B8%E8%A7%81%E6%A0%B7%E5%BC%8F/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2021-08-29T11:23:11&#43;08:00" />
-<meta property="article:modified_time" content="2021-08-29T11:23:11&#43;08:00" />
+<meta property="article:published_time" content="2021-08-29T11:23:11+08:00" />
+<meta property="article:modified_time" content="2021-08-29T11:23:11+08:00" />
 
 <meta itemprop="name" content="CSS常见样式">
-<meta itemprop="description" content="一、概述 本文继前文简要介绍 CSS 的常用样式，包括：文本样式、列表样式、背景边框、常见特效、展示隐藏等效果。 二、文本样式 首先介绍文本样式,我们通过"><meta itemprop="datePublished" content="2021-08-29T11:23:11&#43;08:00" />
-<meta itemprop="dateModified" content="2021-08-29T11:23:11&#43;08:00" />
+<meta itemprop="description" content="一、概述 本文继前文简要介绍 CSS 的常用样式，包括：文本样式、列表样式、背景边框、常见特效、展示隐藏等效果。 二、文本样式 首先介绍文本样式,我们通过"><meta itemprop="datePublished" content="2021-08-29T11:23:11+08:00" />
+<meta itemprop="dateModified" content="2021-08-29T11:23:11+08:00" />
 <meta itemprop="wordCount" content="2447">
 <meta itemprop="keywords" content="CSS," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="CSS常见样式"/>
@@ -182,7 +182,7 @@
 <p>首先介绍文本样式,我们通过以下代码例子即备注来介绍：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -199,22 +199,22 @@
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-css" data-lang="css"><span class="p">.</span><span class="nc">text</span><span class="p">{</span>
-    <span class="k">color</span><span class="p">:</span> <span class="kc">red</span><span class="p">;</span><span class="c">/*字体颜色，还可以设置为：#fof、#fc34de、red、rgb(255,100,30)、rgba...、hls...等*/</span>
-    <span class="k">font-size</span><span class="p">:</span><span class="mi">20</span><span class="kt">px</span><span class="p">;</span> <span class="c">/*字体大小 */</span>
-    <span class="k">line-height</span><span class="p">:</span> <span class="mf">1.5</span><span class="p">;</span> <span class="c">/* ⾏⾼, font-size的倍数 */</span>
-    <span class="k">font-family</span><span class="p">:</span> <span class="n">Arial</span><span class="p">,</span> <span class="n">Helvetica</span><span class="p">,</span> <span class="kc">sans-serif</span><span class="p">;</span><span class="c">/*设置文本的字体系列,如宋体等*/</span>
-    <span class="k">font-weight</span><span class="p">:</span> <span class="kc">bold</span><span class="p">;</span> <span class="c">/* 粗细 bold、normal */</span>
-    <span class="k">font-style</span><span class="p">:</span> <span class="kc">italic</span><span class="p">;</span> <span class="c">/* 斜体 italic、 normal */</span>
-    <span class="k">text-decoration</span><span class="p">:</span> <span class="kc">underline</span><span class="p">;</span> <span class="c">/* 下划线 none、underline、line-through */</span>
-    <span class="k">text-align</span><span class="p">:</span> <span class="kc">center</span><span class="p">;</span> <span class="c">/* ⽂字对⻬ center、left、right、justify(每一行被展开为宽度相等，左右外边距是对其) */</span>
-    <span class="k">text-indent</span><span class="p">:</span> <span class="mi">2</span><span class="kt">em</span><span class="p">;</span> <span class="c">/* 缩进当前font-size的2倍 */</span>
-    <span class="k">letter-spacing</span><span class="p">:</span> <span class="mi">3</span><span class="kt">px</span><span class="p">;</span> <span class="c">/* 单个字符⽔平间隔 */</span>
-    <span class="k">white-space</span><span class="p">:</span> <span class="kc">nowrap</span><span class="p">;</span> <span class="c">/* 这三⾏让⽂字单⾏展示超出展示... */</span>
-    <span class="k">overflow</span><span class="p">:</span> <span class="kc">hidden</span><span class="p">;</span><span class="c">/*如果单行文本溢出则 hidden 设置为隐藏 */</span>
-    <span class="k">text-overflow</span><span class="p">:</span> <span class="kc">ellipsis</span><span class="p">;</span><span class="c">/*同上，隐藏后更换为&#34;...&#34;符号显示，两者通常一起使用&#34;*/</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="p">.</span><span class="nc">text</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">color</span><span class="p">:</span> <span class="kc">red</span><span class="p">;</span><span class="c">/*字体颜色，还可以设置为：#fof、#fc34de、red、rgb(255,100,30)、rgba...、hls...等*/</span>
+</span></span><span class="line"><span class="cl">    <span class="k">font-size</span><span class="p">:</span><span class="mi">20</span><span class="kt">px</span><span class="p">;</span> <span class="c">/*字体大小 */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">line-height</span><span class="p">:</span> <span class="mf">1.5</span><span class="p">;</span> <span class="c">/* ⾏⾼, font-size的倍数 */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">font-family</span><span class="p">:</span> <span class="n">Arial</span><span class="p">,</span> <span class="n">Helvetica</span><span class="p">,</span> <span class="kc">sans-serif</span><span class="p">;</span><span class="c">/*设置文本的字体系列,如宋体等*/</span>
+</span></span><span class="line"><span class="cl">    <span class="k">font-weight</span><span class="p">:</span> <span class="kc">bold</span><span class="p">;</span> <span class="c">/* 粗细 bold、normal */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">font-style</span><span class="p">:</span> <span class="kc">italic</span><span class="p">;</span> <span class="c">/* 斜体 italic、 normal */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">text-decoration</span><span class="p">:</span> <span class="kc">underline</span><span class="p">;</span> <span class="c">/* 下划线 none、underline、line-through */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">text-align</span><span class="p">:</span> <span class="kc">center</span><span class="p">;</span> <span class="c">/* ⽂字对⻬ center、left、right、justify(每一行被展开为宽度相等，左右外边距是对其) */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">text-indent</span><span class="p">:</span> <span class="mi">2</span><span class="kt">em</span><span class="p">;</span> <span class="c">/* 缩进当前font-size的2倍 */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">letter-spacing</span><span class="p">:</span> <span class="mi">3</span><span class="kt">px</span><span class="p">;</span> <span class="c">/* 单个字符⽔平间隔 */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">white-space</span><span class="p">:</span> <span class="kc">nowrap</span><span class="p">;</span> <span class="c">/* 这三⾏让⽂字单⾏展示超出展示... */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">overflow</span><span class="p">:</span> <span class="kc">hidden</span><span class="p">;</span><span class="c">/*如果单行文本溢出则 hidden 设置为隐藏 */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">text-overflow</span><span class="p">:</span> <span class="kc">ellipsis</span><span class="p">;</span><span class="c">/*同上，隐藏后更换为&#34;...&#34;符号显示，两者通常一起使用&#34;*/</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><strong>注意：</strong> 设置字体大小时有两个单位</p>
 <ul>
@@ -226,7 +226,7 @@
 <p>列表属性布局主要有四个，通过实例展示说明：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -236,15 +236,15 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-css" data-lang="css"><span class="c">/* 列表 */</span>
-<span class="nt">ul</span><span class="o">,</span> <span class="nt">ol</span> <span class="p">{</span>
-  <span class="k">list-style</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span> <span class="c">/* 去掉前⾯的点或者数字 */</span>
-  
-  <span class="k">list-style-type</span><span class="p">:</span><span class="kc">circle</span><span class="p">;</span><span class="c">/*设置列表标记的类型，ol 有upper-roman、lower-roman等，ul 有circle、square等。*/</span>
-  <span class="n">list-style-img</span><span class="p">:</span><span class="nb">url</span><span class="p">(</span><span class="s1">&#39;***&#39;</span><span class="p">);</span><span class="c">/* 设置列表标记的图像，以 url 链接过来的为准*/</span>
-  <span class="n">list-style-positon</span><span class="p">:</span><span class="mi">0</span><span class="kt">px</span> <span class="mi">5</span><span class="kt">px</span><span class="p">;</span><span class="c">/* 设置列表标记的位置左 0px，上下 5px*/</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="c">/* 列表 */</span>
+</span></span><span class="line"><span class="cl"><span class="nt">ul</span><span class="o">,</span> <span class="nt">ol</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">list-style</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span> <span class="c">/* 去掉前⾯的点或者数字 */</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="k">list-style-type</span><span class="p">:</span><span class="kc">circle</span><span class="p">;</span><span class="c">/*设置列表标记的类型，ol 有upper-roman、lower-roman等，ul 有circle、square等。*/</span>
+</span></span><span class="line"><span class="cl">  <span class="n">list-style-img</span><span class="p">:</span><span class="nb">url</span><span class="p">(</span><span class="s1">&#39;***&#39;</span><span class="p">);</span><span class="c">/* 设置列表标记的图像，以 url 链接过来的为准*/</span>
+</span></span><span class="line"><span class="cl">  <span class="n">list-style-positon</span><span class="p">:</span><span class="mi">0</span><span class="kt">px</span> <span class="mi">5</span><span class="kt">px</span><span class="p">;</span><span class="c">/* 设置列表标记的位置左 0px，上下 5px*/</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="32-背景">3.2 背景</h2>
 <p>CSS 背景属性用于定义HTML元素的背景。
@@ -293,23 +293,23 @@ CSS 属性定义背景效果说明见下表：</p>
 <p>边框设置圆角和圆形，如下例：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-css" data-lang="css"><span class="p">.</span><span class="nc">box</span><span class="p">{</span>
-    <span class="k">border</span><span class="p">:</span><span class="mi">1</span><span class="kt">px</span> <span class="kc">solid</span> <span class="mh">#ccc</span><span class="p">;</span>
-    <span class="k">border-radius</span><span class="p">:</span><span class="mi">4</span><span class="kt">px</span><span class="p">;</span><span class="c">/*要设置成圆，可以设置值为50%或者边框高度(宽度)的一半*/</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="p">.</span><span class="nc">box</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">border</span><span class="p">:</span><span class="mi">1</span><span class="kt">px</span> <span class="kc">solid</span> <span class="mh">#ccc</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">border-radius</span><span class="p">:</span><span class="mi">4</span><span class="kt">px</span><span class="p">;</span><span class="c">/*要设置成圆，可以设置值为50%或者边框高度(宽度)的一半*/</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="42-常见特效阴影偏移过渡">4.2 常见特效：阴影、偏移、过渡</h2>
 <p>具体见下代码及其注释：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -327,30 +327,30 @@ CSS 属性定义背景效果说明见下表：</p>
 </span><span class="lnt">16
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-css" data-lang="css"><span class="c">/* 常⻅特效 */</span>
- <span class="p">.</span><span class="nc">box</span> <span class="p">{</span>
-    <span class="k">width</span><span class="p">:</span> <span class="mi">100</span><span class="kt">px</span><span class="p">;</span>
-    <span class="k">height</span><span class="p">:</span> <span class="mi">100</span><span class="kt">px</span><span class="p">;</span>
-    <span class="k">border</span><span class="p">:</span> <span class="mi">1</span><span class="kt">px</span> <span class="kc">solid</span> <span class="mh">#ccc</span><span class="p">;</span>
-    <span class="k">border-radius</span><span class="p">:</span> <span class="mi">50</span><span class="kt">px</span><span class="p">;</span>
-    <span class="k">transition</span><span class="p">:</span> <span class="kc">all</span> <span class="mf">.3</span><span class="kt">s</span><span class="p">;</span> <span class="c">/* 样式变化的时间持续0.3s */</span>
-    <span class="k">cursor</span><span class="p">:</span> <span class="kc">pointer</span><span class="p">;</span> <span class="c">/* ⿏标放置上去变成⼿指 */</span>
- <span class="p">}</span>
- <span class="p">.</span><span class="nc">box</span><span class="p">:</span><span class="nd">hover</span> <span class="p">{</span>
-    <span class="k">box-shadow</span><span class="p">:</span> <span class="kc">inset</span> <span class="mi">-10</span><span class="kt">px</span> <span class="mi">-10</span><span class="kt">px</span> <span class="mi">10</span><span class="kt">px</span> <span class="mh">#aaa</span><span class="p">,</span>
-    <span class="mi">2</span><span class="kt">px</span> <span class="mi">2</span><span class="kt">px</span> <span class="mi">4</span><span class="kt">px</span> <span class="mi">4</span><span class="kt">px</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">);</span>
-<span class="c">/* x偏移量 | y偏移量 | 阴影模糊半径 | 阴影扩散半径 | 阴影颜⾊ */</span>
-    <span class="k">opacity</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">;</span> <span class="c">/* 透明度为0.3， 1为不透明，0为全透明 */</span>
-    <span class="k">transform</span><span class="p">:</span> <span class="nb">translateX</span><span class="p">(</span><span class="mi">3</span><span class="kt">px</span><span class="p">);</span> <span class="c">/* ⽔平偏移3px */</span>
- <span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="c">/* 常⻅特效 */</span>
+</span></span><span class="line"><span class="cl"> <span class="p">.</span><span class="nc">box</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">width</span><span class="p">:</span> <span class="mi">100</span><span class="kt">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">height</span><span class="p">:</span> <span class="mi">100</span><span class="kt">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">border</span><span class="p">:</span> <span class="mi">1</span><span class="kt">px</span> <span class="kc">solid</span> <span class="mh">#ccc</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">border-radius</span><span class="p">:</span> <span class="mi">50</span><span class="kt">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">transition</span><span class="p">:</span> <span class="kc">all</span> <span class="mf">.3</span><span class="kt">s</span><span class="p">;</span> <span class="c">/* 样式变化的时间持续0.3s */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">cursor</span><span class="p">:</span> <span class="kc">pointer</span><span class="p">;</span> <span class="c">/* ⿏标放置上去变成⼿指 */</span>
+</span></span><span class="line"><span class="cl"> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> <span class="p">.</span><span class="nc">box</span><span class="p">:</span><span class="nd">hover</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">box-shadow</span><span class="p">:</span> <span class="kc">inset</span> <span class="mi">-10</span><span class="kt">px</span> <span class="mi">-10</span><span class="kt">px</span> <span class="mi">10</span><span class="kt">px</span> <span class="mh">#aaa</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">2</span><span class="kt">px</span> <span class="mi">2</span><span class="kt">px</span> <span class="mi">4</span><span class="kt">px</span> <span class="mi">4</span><span class="kt">px</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c">/* x偏移量 | y偏移量 | 阴影模糊半径 | 阴影扩散半径 | 阴影颜⾊ */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">opacity</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">;</span> <span class="c">/* 透明度为0.3， 1为不透明，0为全透明 */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">transform</span><span class="p">:</span> <span class="nb">translateX</span><span class="p">(</span><span class="mi">3</span><span class="kt">px</span><span class="p">);</span> <span class="c">/* ⽔平偏移3px */</span>
+</span></span><span class="line"><span class="cl"> <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="五水平居中均匀分布">五、水平居中、均匀分布</h1>
 <h2 id="51-两栏布局">5.1 两栏布局</h2>
 <p>设置成两栏布局，将侧边宽度固定，主要内容设置成变化，具体代码如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -362,23 +362,23 @@ CSS 属性定义背景效果说明见下表：</p>
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-css" data-lang="css"><span class="c">/* flex 两栏布局*/</span>
- <span class="p">.</span><span class="nc">container</span> <span class="p">{</span>
-    <span class="k">display</span><span class="p">:</span> <span class="kc">flex</span><span class="p">;</span>
- <span class="p">}</span>
- <span class="p">.</span><span class="nc">aside</span> <span class="p">{</span>
-    <span class="k">width</span><span class="p">:</span> <span class="mi">100</span><span class="kt">px</span><span class="p">;</span>
- <span class="p">}</span>
- <span class="p">.</span><span class="nc">main</span> <span class="p">{</span>
-    <span class="k">flex</span><span class="p">:</span><span class="mi">1</span><span class="p">;</span>
- <span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="c">/* flex 两栏布局*/</span>
+</span></span><span class="line"><span class="cl"> <span class="p">.</span><span class="nc">container</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">display</span><span class="p">:</span> <span class="kc">flex</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> <span class="p">.</span><span class="nc">aside</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">width</span><span class="p">:</span> <span class="mi">100</span><span class="kt">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> <span class="p">.</span><span class="nc">main</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">flex</span><span class="p">:</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"> <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="52-垂直水平居中">5.2 垂直水平居中</h2>
 <p>见下代码：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -386,13 +386,13 @@ CSS 属性定义背景效果说明见下表：</p>
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-css" data-lang="css"><span class="c">/* 垂直⽔平居中 */</span>
-<span class="p">.</span><span class="nc">box</span> <span class="p">{</span>
-   <span class="k">display</span><span class="p">:</span> <span class="kc">flex</span><span class="p">;</span>
-   <span class="k">align-items</span><span class="p">:</span> <span class="kc">center</span><span class="p">;</span>
-   <span class="k">justify-content</span><span class="p">:</span> <span class="kc">center</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="c">/* 垂直⽔平居中 */</span>
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nc">box</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">   <span class="k">display</span><span class="p">:</span> <span class="kc">flex</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">   <span class="k">align-items</span><span class="p">:</span> <span class="kc">center</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">   <span class="k">justify-content</span><span class="p">:</span> <span class="kc">center</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>说明如下：</p>
 <ul>
@@ -406,7 +406,7 @@ CSS 属性定义背景效果说明见下表：</p>
 <p>具体实现参考以下代码：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -424,30 +424,30 @@ CSS 属性定义背景效果说明见下表：</p>
 </span><span class="lnt">16
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-css" data-lang="css"><span class="o">*</span> <span class="p">{</span>
-   <span class="k">box-sizing</span><span class="p">:</span> <span class="kc">border-box</span><span class="p">;</span><span class="c">/*设置IE盒模型模式*/</span>
-<span class="p">}</span>
-<span class="p">.</span><span class="nc">ct</span> <span class="p">{</span>
-   <span class="k">width</span><span class="p">:</span> <span class="mi">900</span><span class="kt">px</span><span class="p">;</span>
-   <span class="k">border</span><span class="p">:</span> <span class="mi">1</span><span class="kt">px</span> <span class="kc">solid</span> <span class="mh">#ccc</span><span class="p">;</span>
-   <span class="k">display</span><span class="p">:</span> <span class="kc">flex</span><span class="p">;</span>
-   <span class="k">flex-wrap</span><span class="p">:</span> <span class="kc">wrap</span><span class="p">;</span><span class="c">/* 规定灵活的项目在必要的时候拆行或拆列。默认为 nowrap*/</span>
-   <span class="k">justify-content</span><span class="p">:</span> <span class="kc">space</span><span class="o">-</span><span class="n">between</span><span class="p">;</span><span class="c">/* 表明项目位于各行之间留有空白的容器内。*/</span>
-   <span class="k">margin</span><span class="p">:</span> <span class="mi">0</span> <span class="kc">auto</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="p">.</span><span class="nc">box</span> <span class="p">{</span>
-   <span class="k">height</span><span class="p">:</span> <span class="mi">80</span><span class="kt">px</span><span class="p">;</span>
-   <span class="k">width</span><span class="p">:</span> <span class="mi">31</span><span class="kt">%</span><span class="p">;</span>
-   <span class="k">border</span><span class="p">:</span> <span class="mi">1</span><span class="kt">px</span> <span class="kc">solid</span> <span class="kc">red</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="o">*</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">   <span class="k">box-sizing</span><span class="p">:</span> <span class="kc">border-box</span><span class="p">;</span><span class="c">/*设置IE盒模型模式*/</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nc">ct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">   <span class="k">width</span><span class="p">:</span> <span class="mi">900</span><span class="kt">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">   <span class="k">border</span><span class="p">:</span> <span class="mi">1</span><span class="kt">px</span> <span class="kc">solid</span> <span class="mh">#ccc</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">   <span class="k">display</span><span class="p">:</span> <span class="kc">flex</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">   <span class="k">flex-wrap</span><span class="p">:</span> <span class="kc">wrap</span><span class="p">;</span><span class="c">/* 规定灵活的项目在必要的时候拆行或拆列。默认为 nowrap*/</span>
+</span></span><span class="line"><span class="cl">   <span class="k">justify-content</span><span class="p">:</span> <span class="kc">space-between</span><span class="p">;</span><span class="c">/* 表明项目位于各行之间留有空白的容器内。*/</span>
+</span></span><span class="line"><span class="cl">   <span class="k">margin</span><span class="p">:</span> <span class="mi">0</span> <span class="kc">auto</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nc">box</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">   <span class="k">height</span><span class="p">:</span> <span class="mi">80</span><span class="kt">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">   <span class="k">width</span><span class="p">:</span> <span class="mi">31</span><span class="kt">%</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">   <span class="k">border</span><span class="p">:</span> <span class="mi">1</span><span class="kt">px</span> <span class="kc">solid</span> <span class="kc">red</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="六展示隐藏绝对定位">六、展示隐藏、绝对定位</h1>
 <h2 id="61-隐藏展示">6.1 隐藏展示</h2>
 <p>实现代码如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -456,20 +456,20 @@ CSS 属性定义背景效果说明见下表：</p>
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-css" data-lang="css"><span class="c">/* 隐藏/展示 */</span>
- <span class="p">.</span><span class="nc">box</span> <span class="p">{</span>
-    <span class="k">display</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span> <span class="c">/* none、block、flex ... */</span>
- <span class="p">}</span>
- <span class="p">.</span><span class="nc">box</span><span class="p">:</span><span class="nd">hover</span><span class="p">{</span><span class="c">/*表明鼠标移到元素区域后，该元素从隐藏变为显示*/</span>
-     <span class="k">display</span><span class="p">:</span> <span class="kc">block</span>
- <span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="c">/* 隐藏/展示 */</span>
+</span></span><span class="line"><span class="cl"> <span class="p">.</span><span class="nc">box</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">display</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span> <span class="c">/* none、block、flex ... */</span>
+</span></span><span class="line"><span class="cl"> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> <span class="p">.</span><span class="nc">box</span><span class="p">:</span><span class="nd">hover</span><span class="p">{</span><span class="c">/*表明鼠标移到元素区域后，该元素从隐藏变为显示*/</span>
+</span></span><span class="line"><span class="cl">     <span class="k">display</span><span class="p">:</span> <span class="kc">block</span>
+</span></span><span class="line"><span class="cl"> <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="62-绝对定位">6.2 绝对定位</h2>
 <p>将元素内容设置到容器内任意想要的位置，实现代码如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -480,16 +480,16 @@ CSS 属性定义背景效果说明见下表：</p>
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-css" data-lang="css"><span class="c">/* 绝对定位 */</span>
- <span class="p">.</span><span class="nc">father</span> <span class="p">{</span>
-    <span class="k">position</span><span class="p">:</span> <span class="kc">relative</span><span class="p">;</span>
- <span class="p">}</span>
- <span class="p">.</span><span class="nc">child</span> <span class="p">{</span>
-    <span class="k">position</span><span class="p">:</span> <span class="kc">absolute</span><span class="p">;</span>
-    <span class="k">left</span><span class="p">:</span> <span class="mi">10</span><span class="kt">px</span><span class="p">;</span>
-    <span class="k">top</span><span class="p">:</span> <span class="mi">10</span><span class="kt">px</span><span class="p">;</span>
- <span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="c">/* 绝对定位 */</span>
+</span></span><span class="line"><span class="cl"> <span class="p">.</span><span class="nc">father</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">position</span><span class="p">:</span> <span class="kc">relative</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> <span class="p">.</span><span class="nc">child</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">position</span><span class="p">:</span> <span class="kc">absolute</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">left</span><span class="p">:</span> <span class="mi">10</span><span class="kt">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">top</span><span class="p">:</span> <span class="mi">10</span><span class="kt">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"> <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><strong>说明：</strong><br>
 <strong>position</strong> :指定一个元素（静态的，相对的，绝对或固定）的定位方法的类型。它有以下几个常见属性：</p>
@@ -590,7 +590,7 @@ CSS 属性定义背景效果说明见下表：</p>
 
 
 
-<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+<script type="text/javascript" src="/js/main.min.191509a5c8442abdb6eb5020a332fd59bdd83a7e78a2d2241108df9113504292.js"></script>
 
 
 

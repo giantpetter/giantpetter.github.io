@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>Huan</copyright>
-    <lastBuildDate>Sun, 12 Jun 2022 19:39:34 +0800</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 13 Jun 2022 10:19:03 +0800</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Maven生命周期</title>
+      <link>http://localhost:1313/2022/06/maven%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</link>
+      <pubDate>Mon, 13 Jun 2022 10:19:03 +0800</pubDate>
+      
+      <guid>http://localhost:1313/2022/06/maven%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</guid>
+      <description>一、概述 本文将从约定配置、生命周期两个方面总结 Maven 这个 Java 包管理工具。 二、约定配置 目录 目的 ${basedir} 存放 pom.xml 和所有的子目录 ${basedir}/src/main/java 项目的源代码 ${basedir}/src/main/resources 项目的资源，比如</description>
+    </item>
+    
     <item>
       <title>Git之常用命令总结</title>
       <link>http://localhost:1313/2022/06/git%E4%B9%8B%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93/</link>

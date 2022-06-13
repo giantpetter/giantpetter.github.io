@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.83.0 with theme even" />
+<meta name="generator" content="Hugo 0.100.2 with theme even" />
 
 
 <link rel="canonical" href="http://localhost:1313/2021/12/jvm%E4%B9%8B%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/" />
@@ -43,12 +43,12 @@
 <meta property="og:description" content="Java与C&#43;&#43;之间有一堵由内存动态分配和垃圾收集技术所围成的高墙，墙外面的人想进去，墙里面的人却想出来。 一、内存简介 1.1 内核空间与用户空间 一" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://localhost:1313/2021/12/jvm%E4%B9%8B%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2021-12-11T10:44:02&#43;08:00" />
-<meta property="article:modified_time" content="2021-12-11T23:44:02&#43;08:00" />
+<meta property="article:published_time" content="2021-12-11T10:44:02+08:00" />
+<meta property="article:modified_time" content="2021-12-11T23:44:02+08:00" />
 
 <meta itemprop="name" content="JVM之内存模型">
-<meta itemprop="description" content="Java与C&#43;&#43;之间有一堵由内存动态分配和垃圾收集技术所围成的高墙，墙外面的人想进去，墙里面的人却想出来。 一、内存简介 1.1 内核空间与用户空间 一"><meta itemprop="datePublished" content="2021-12-11T10:44:02&#43;08:00" />
-<meta itemprop="dateModified" content="2021-12-11T23:44:02&#43;08:00" />
+<meta itemprop="description" content="Java与C&#43;&#43;之间有一堵由内存动态分配和垃圾收集技术所围成的高墙，墙外面的人想进去，墙里面的人却想出来。 一、内存简介 1.1 内核空间与用户空间 一"><meta itemprop="datePublished" content="2021-12-11T10:44:02+08:00" />
+<meta itemprop="dateModified" content="2021-12-11T23:44:02+08:00" />
 <meta itemprop="wordCount" content="5843">
 <meta itemprop="keywords" content="JVM," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="JVM之内存模型"/>
@@ -227,11 +227,11 @@
 可以通过 <code>-Xss</code> 这个虚拟机参数来指定一个程序的 Java 虚拟机栈内存大小：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java">  <span class="n">java</span> <span class="o">-</span><span class="n">Xss</span><span class="o">=</span><span class="n">512M</span> <span class="n">HackTheJava</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl">  <span class="n">java</span> <span class="o">-</span><span class="n">Xss</span><span class="o">=</span><span class="n">512M</span> <span class="n">HackTheJava</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div></blockquote>
 <h2 id="23-java-本地方法栈">2.3 Java 本地方法栈</h2>
@@ -262,11 +262,11 @@
 可以通过 <code>-Xms</code> 和 <code>-Xmx</code> 两个虚拟机参数来指定一个程序的 Java 堆内存大小，第一个参数设置初始值，第二个参数设置最大值。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java">  <span class="n">java</span> <span class="o">-</span><span class="n">Xms</span><span class="o">=</span><span class="n">1M</span> <span class="o">-</span><span class="n">Xmx</span><span class="o">=</span><span class="n">2M</span> <span class="n">HackTheJava</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl">  <span class="n">java</span> <span class="o">-</span><span class="n">Xms</span><span class="o">=</span><span class="n">1M</span> <span class="o">-</span><span class="n">Xmx</span><span class="o">=</span><span class="n">2M</span> <span class="n">HackTheJava</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div></blockquote>
 <h2 id="25-java-方法区">2.5 Java 方法区</h2>
@@ -347,7 +347,7 @@
 <h1 id="三jvm-运行原理">三、JVM 运行原理</h1>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -410,68 +410,68 @@
 </span><span class="lnt">61
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">JVMCase</span> <span class="o">{</span>
-
-	<span class="c1">// 常量
-</span><span class="c1"></span>	<span class="kd">public</span> <span class="kd">final</span> <span class="kd">static</span> <span class="n">String</span> <span class="n">MAN_SEX_TYPE</span> <span class="o">=</span> <span class="s">&#34;man&#34;</span><span class="o">;</span>
-
-	<span class="c1">// 静态变量
-</span><span class="c1"></span>	<span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="n">WOMAN_SEX_TYPE</span> <span class="o">=</span> <span class="s">&#34;woman&#34;</span><span class="o">;</span>
-
-	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-
-		<span class="n">Student</span> <span class="n">stu</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Student</span><span class="o">();</span>
-		<span class="n">stu</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="s">&#34;nick&#34;</span><span class="o">);</span>
-		<span class="n">stu</span><span class="o">.</span><span class="na">setSexType</span><span class="o">(</span><span class="n">MAN_SEX_TYPE</span><span class="o">);</span>
-		<span class="n">stu</span><span class="o">.</span><span class="na">setAge</span><span class="o">(</span><span class="n">20</span><span class="o">);</span>
-
-		<span class="n">JVMCase</span> <span class="n">jvmcase</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JVMCase</span><span class="o">();</span>
-
-		<span class="c1">// 调用静态方法
-</span><span class="c1"></span>		<span class="n">print</span><span class="o">(</span><span class="n">stu</span><span class="o">);</span>
-		<span class="c1">// 调用非静态方法
-</span><span class="c1"></span>		<span class="n">jvmcase</span><span class="o">.</span><span class="na">sayHello</span><span class="o">(</span><span class="n">stu</span><span class="o">);</span>
-	<span class="o">}</span>
-
-
-	<span class="c1">// 常规静态方法
-</span><span class="c1"></span>	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">print</span><span class="o">(</span><span class="n">Student</span> <span class="n">stu</span><span class="o">)</span> <span class="o">{</span>
-		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;name: &#34;</span> <span class="o">+</span> <span class="n">stu</span><span class="o">.</span><span class="na">getName</span><span class="o">()</span> <span class="o">+</span> <span class="s">&#34;; sex:&#34;</span> <span class="o">+</span> <span class="n">stu</span><span class="o">.</span><span class="na">getSexType</span><span class="o">()</span> <span class="o">+</span> <span class="s">&#34;; age:&#34;</span> <span class="o">+</span> <span class="n">stu</span><span class="o">.</span><span class="na">getAge</span><span class="o">());</span>
-	<span class="o">}</span>
-
-
-	<span class="c1">// 非静态方法
-</span><span class="c1"></span>	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">sayHello</span><span class="o">(</span><span class="n">Student</span> <span class="n">stu</span><span class="o">)</span> <span class="o">{</span>
-		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">stu</span><span class="o">.</span><span class="na">getName</span><span class="o">()</span> <span class="o">+</span> <span class="s">&#34;say: hello&#34;</span><span class="o">);</span>
-	<span class="o">}</span>
-<span class="o">}</span>
-
-<span class="kd">class</span> <span class="nc">Student</span><span class="o">{</span>
-	<span class="n">String</span> <span class="n">name</span><span class="o">;</span>
-	<span class="n">String</span> <span class="n">sexType</span><span class="o">;</span>
-	<span class="kt">int</span> <span class="n">age</span><span class="o">;</span>
-
-	<span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
-		<span class="k">return</span> <span class="n">name</span><span class="o">;</span>
-	<span class="o">}</span>
-	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setName</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
-		<span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
-	<span class="o">}</span>
-
-	<span class="kd">public</span> <span class="n">String</span> <span class="nf">getSexType</span><span class="o">()</span> <span class="o">{</span>
-		<span class="k">return</span> <span class="n">sexType</span><span class="o">;</span>
-	<span class="o">}</span>
-	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setSexType</span><span class="o">(</span><span class="n">String</span> <span class="n">sexType</span><span class="o">)</span> <span class="o">{</span>
-		<span class="k">this</span><span class="o">.</span><span class="na">sexType</span> <span class="o">=</span> <span class="n">sexType</span><span class="o">;</span>
-	<span class="o">}</span>
-	<span class="kd">public</span> <span class="kt">int</span> <span class="nf">getAge</span><span class="o">()</span> <span class="o">{</span>
-		<span class="k">return</span> <span class="n">age</span><span class="o">;</span>
-	<span class="o">}</span>
-	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setAge</span><span class="o">(</span><span class="kt">int</span> <span class="n">age</span><span class="o">)</span> <span class="o">{</span>
-		<span class="k">this</span><span class="o">.</span><span class="na">age</span> <span class="o">=</span> <span class="n">age</span><span class="o">;</span>
-	<span class="o">}</span>
-<span class="o">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">JVMCase</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">// 常量
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">public</span> <span class="kd">final</span> <span class="kd">static</span> <span class="n">String</span> <span class="n">MAN_SEX_TYPE</span> <span class="o">=</span> <span class="s">&#34;man&#34;</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">// 静态变量
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="n">WOMAN_SEX_TYPE</span> <span class="o">=</span> <span class="s">&#34;woman&#34;</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="n">Student</span> <span class="n">stu</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Student</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="n">stu</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="s">&#34;nick&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">stu</span><span class="o">.</span><span class="na">setSexType</span><span class="o">(</span><span class="n">MAN_SEX_TYPE</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">stu</span><span class="o">.</span><span class="na">setAge</span><span class="o">(</span><span class="n">20</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="n">JVMCase</span> <span class="n">jvmcase</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JVMCase</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="c1">// 调用静态方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">print</span><span class="o">(</span><span class="n">stu</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// 调用非静态方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">jvmcase</span><span class="o">.</span><span class="na">sayHello</span><span class="o">(</span><span class="n">stu</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">// 常规静态方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">print</span><span class="o">(</span><span class="n">Student</span> <span class="n">stu</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;name: &#34;</span> <span class="o">+</span> <span class="n">stu</span><span class="o">.</span><span class="na">getName</span><span class="o">()</span> <span class="o">+</span> <span class="s">&#34;; sex:&#34;</span> <span class="o">+</span> <span class="n">stu</span><span class="o">.</span><span class="na">getSexType</span><span class="o">()</span> <span class="o">+</span> <span class="s">&#34;; age:&#34;</span> <span class="o">+</span> <span class="n">stu</span><span class="o">.</span><span class="na">getAge</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">// 非静态方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">sayHello</span><span class="o">(</span><span class="n">Student</span> <span class="n">stu</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">stu</span><span class="o">.</span><span class="na">getName</span><span class="o">()</span> <span class="o">+</span> <span class="s">&#34;say: hello&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Student</span><span class="o">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">String</span> <span class="n">sexType</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">age</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">name</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setName</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="n">String</span> <span class="nf">getSexType</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">sexType</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setSexType</span><span class="o">(</span><span class="n">String</span> <span class="n">sexType</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">sexType</span> <span class="o">=</span> <span class="n">sexType</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">int</span> <span class="nf">getAge</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">age</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setAge</span><span class="o">(</span><span class="kt">int</span> <span class="n">age</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">age</span> <span class="o">=</span> <span class="n">age</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>运行以上代码时，JVM 处理过程如下：</p>
 <ol>
@@ -494,11 +494,11 @@
 <h2 id="42-java-堆空间溢出">4.2 Java 堆空间溢出</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">OutOfMemoryError</span><span class="o">:</span> <span class="n">Java</span> <span class="n">heap</span> <span class="n">space</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">OutOfMemoryError</span><span class="o">:</span> <span class="n">Java</span> <span class="n">heap</span> <span class="n">space</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>该错误意味着：<strong>对空间溢出</strong></p>
 <p>Java 堆内存已经达到 -Xmx 设置的最大值。Java 堆用于存储对象实例，只要不断地创建对象，并且保证 GC Roots 到对象之间有可达路径来避免垃圾收集器回收这些对象，那么当堆空间到达最大容量限制后就会产生 OOM。</p>
@@ -517,17 +517,17 @@
 <h2 id="43-gc-开销超过限制">4.3 GC 开销超过限制</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">OutOfMemoryError</span><span class="o">:</span> <span class="n">GC</span> <span class="n">overhead</span> <span class="n">limit</span> <span class="n">exceeded</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">OutOfMemoryError</span><span class="o">:</span> <span class="n">GC</span> <span class="n">overhead</span> <span class="n">limit</span> <span class="n">exceeded</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>即：**超过 98% 的时间用来做 GC 并且回收了不到 2% 的堆内存时会抛出此异常。**这意味着，发生在 GC 占用大量时间为释放很小空间的时候发生的，是一种保护机制。导致异常的原因：一般是因为堆太小，没有足够的内存。
 [示例]</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -547,36 +547,36 @@
 </span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="cm">/**
-</span><span class="cm"> * GC overhead limit exceeded 示例
-</span><span class="cm"> * 错误现象：java.lang.OutOfMemoryError: GC overhead limit exceeded
-</span><span class="cm"> * 发生在GC占用大量时间为释放很小空间的时候发生的，是一种保护机制。导致异常的原因：一般是因为堆太小，没有足够的内存。
-</span><span class="cm"> * 官方对此的定义：超过98%的时间用来做GC并且回收了不到2%的堆内存时会抛出此异常。
-</span><span class="cm"> * VM Args: -Xms10M -Xmx10M
-</span><span class="cm"> */</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">GcOverheadLimitExceededDemo</span> <span class="o">{</span>
-
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">List</span><span class="o">&lt;</span><span class="n">Double</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
-        <span class="kt">double</span> <span class="n">d</span> <span class="o">=</span> <span class="n">0</span><span class="o">.</span><span class="na">0</span><span class="o">;</span>
-        <span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">d</span><span class="o">++);</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-
-<span class="o">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * GC overhead limit exceeded 示例
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 错误现象：java.lang.OutOfMemoryError: GC overhead limit exceeded
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 发生在GC占用大量时间为释放很小空间的时候发生的，是一种保护机制。导致异常的原因：一般是因为堆太小，没有足够的内存。
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 官方对此的定义：超过98%的时间用来做GC并且回收了不到2%的堆内存时会抛出此异常。
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * VM Args: -Xms10M -Xmx10M
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">GcOverheadLimitExceededDemo</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">List</span><span class="o">&lt;</span><span class="n">Double</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">double</span> <span class="n">d</span> <span class="o">=</span> <span class="n">0</span><span class="o">.</span><span class="na">0</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">d</span><span class="o">++);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>[处理]
 与 <code>Java heap space</code> 错误处理方法类似，先判断是否存在内存泄漏。如果有，则修正代码；如果没有，则通过 -Xms 和 -Xmx 适当调整堆内存大小。</p>
 <h2 id="44-永久代空间不足">4.4 永久代空间不足</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">OutOfMemoryError</span><span class="o">:</span> <span class="n">PermGen</span> <span class="n">space</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">OutOfMemoryError</span><span class="o">:</span> <span class="n">PermGen</span> <span class="n">space</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>Perm （永久代）</code>空间(Java 方法区，Hotspot)主要用于存放 Class 和 Meta 信息，包括类的名称和字段，带有方法字节码的方法，常量池信息，与类关联的对象数组和类型数组以及即时编译器优化。GC 在主程序运行期间不会对永久代空间进行清理，默认是 64M 大小。</p>
 <p>根据上面的定义，可以得出 PermGen 大小要求取决于加载的类的数量以及此类声明的大小。因此，可以说造成该错误的主要原因是永久代中装入了太多的类或太大的类。</p>
@@ -584,31 +584,31 @@
 <h2 id="45-元数据区空间不足">4.5 元数据区空间不足</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">OutOfMemoryError</span><span class="o">:</span> <span class="n">Metaspace</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">OutOfMemoryError</span><span class="o">:</span> <span class="n">Metaspace</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>Java8 以后，JVM 内存空间发生了很大的变化。取消了永久代，转而变为元数据区。元数据区的内存不足，即 <strong>方法区和运行时常量池</strong> 的空间不足。</p>
 <p>方法区用于存放 Class 的相关信息，如类名、访问修饰符、常量池、字段描述、方法描述等。</p>
 <p>当由于元空间而面临 OutOfMemoryError 时，第一个解决方案应该是显而易见的。如果应用程序耗尽了内存中的 Metaspace 区域，则应增加 Metaspace 的大小。更改应用程序启动配置并增加以下内容：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="o">-</span><span class="n">XX</span><span class="o">:</span><span class="n">MaxMetaspaceSize</span><span class="o">=</span><span class="n">512m</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="o">-</span><span class="n">XX</span><span class="o">:</span><span class="n">MaxMetaspaceSize</span><span class="o">=</span><span class="n">512m</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="46-无法建立本地线程">4.6 无法建立本地线程</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">OutOfMemoryError</span><span class="o">:</span> <span class="n">Unable</span> <span class="n">to</span> <span class="n">create</span> <span class="k">new</span> <span class="kd">native</span> <span class="n">thread</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">OutOfMemoryError</span><span class="o">:</span> <span class="n">Unable</span> <span class="n">to</span> <span class="n">create</span> <span class="k">new</span> <span class="kd">native</span> <span class="n">thread</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这个错误意味着：Java 应用程序已达到其可以启动线程数的限制。</p>
 <p>当发起一个线程的创建时，虚拟机会在 JVM 内存创建一个 Thread 对象同时创建一个操作系统线程，而这个系统线程的内存用的不是 JVM 内存，而是系统中剩下的内存。那么，究竟能创建多少线程呢？这里有一个公式：</p>
@@ -634,7 +634,7 @@
 [示例]</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -655,26 +655,26 @@
 </span><span class="lnt">19
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="cm">/**
-</span><span class="cm"> * 本机直接内存溢出示例
-</span><span class="cm"> * 错误现象：java.lang.OutOfMemoryError
-</span><span class="cm"> * VM Args：-Xmx20M -XX:MaxDirectMemorySize=10M
-</span><span class="cm"> */</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">DirectOutOfMemoryDemo</span> <span class="o">{</span>
-
-    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">_1MB</span> <span class="o">=</span> <span class="n">1024</span> <span class="o">*</span> <span class="n">1024</span><span class="o">;</span>
-
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IllegalAccessException</span> <span class="o">{</span>
-        <span class="n">Field</span> <span class="n">unsafeField</span> <span class="o">=</span> <span class="n">Unsafe</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getDeclaredFields</span><span class="o">()[</span><span class="n">0</span><span class="o">];</span>
-        <span class="n">unsafeField</span><span class="o">.</span><span class="na">setAccessible</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
-        <span class="n">Unsafe</span> <span class="n">unsafe</span> <span class="o">=</span> <span class="o">(</span><span class="n">Unsafe</span><span class="o">)</span> <span class="n">unsafeField</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="kc">null</span><span class="o">);</span>
-        <span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">unsafe</span><span class="o">.</span><span class="na">allocateMemory</span><span class="o">(</span><span class="n">_1MB</span><span class="o">);</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-
-<span class="o">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 本机直接内存溢出示例
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 错误现象：java.lang.OutOfMemoryError
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * VM Args：-Xmx20M -XX:MaxDirectMemorySize=10M
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DirectOutOfMemoryDemo</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">_1MB</span> <span class="o">=</span> <span class="n">1024</span> <span class="o">*</span> <span class="n">1024</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IllegalAccessException</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Field</span> <span class="n">unsafeField</span> <span class="o">=</span> <span class="n">Unsafe</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getDeclaredFields</span><span class="o">()[</span><span class="n">0</span><span class="o">];</span>
+</span></span><span class="line"><span class="cl">        <span class="n">unsafeField</span><span class="o">.</span><span class="na">setAccessible</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Unsafe</span> <span class="n">unsafe</span> <span class="o">=</span> <span class="o">(</span><span class="n">Unsafe</span><span class="o">)</span> <span class="n">unsafeField</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="kc">null</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">unsafe</span><span class="o">.</span><span class="na">allocateMemory</span><span class="o">(</span><span class="n">_1MB</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="五stackoverflowerror">五、StackOverflowError</h1>
 <p>对于 HotSpot 虚拟机来说，栈容量只由 <code>-Xss</code>参数来决定如果线程请求的栈深度大于虚拟机所允许的最大深度，将抛出 <code>StackOverflowError</code> 异常。</p>
@@ -771,7 +771,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+<script type="text/javascript" src="/js/main.min.191509a5c8442abdb6eb5020a332fd59bdd83a7e78a2d2241108df9113504292.js"></script>
 
 
 

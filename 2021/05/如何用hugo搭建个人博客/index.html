@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.83.0 with theme even" />
+<meta name="generator" content="Hugo 0.100.2 with theme even" />
 
 
 <link rel="canonical" href="http://localhost:1313/2021/05/%E5%A6%82%E4%BD%95%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" />
@@ -43,13 +43,13 @@
 <meta property="og:description" content="如何用hugo搭建个人博客教程 一.建立本地hugo博客 hugo说明文档网址 前提：有一定的命令行知识，本文基于macOS系统使用创建 首先点击以" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://localhost:1313/2021/05/%E5%A6%82%E4%BD%95%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2021-05-07T16:03:03&#43;08:00" />
-<meta property="article:modified_time" content="2021-05-07T16:03:03&#43;08:00" />
+<meta property="article:published_time" content="2021-05-07T16:03:03+08:00" />
+<meta property="article:modified_time" content="2021-05-07T16:03:03+08:00" />
 
 <meta itemprop="name" content="如何用hugo搭建个人博客">
-<meta itemprop="description" content="如何用hugo搭建个人博客教程 一.建立本地hugo博客 hugo说明文档网址 前提：有一定的命令行知识，本文基于macOS系统使用创建 首先点击以"><meta itemprop="datePublished" content="2021-05-07T16:03:03&#43;08:00" />
-<meta itemprop="dateModified" content="2021-05-07T16:03:03&#43;08:00" />
-<meta itemprop="wordCount" content="896">
+<meta itemprop="description" content="如何用hugo搭建个人博客教程 一.建立本地hugo博客 hugo说明文档网址 前提：有一定的命令行知识，本文基于macOS系统使用创建 首先点击以"><meta itemprop="datePublished" content="2021-05-07T16:03:03+08:00" />
+<meta itemprop="dateModified" content="2021-05-07T16:03:03+08:00" />
+<meta itemprop="wordCount" content="894">
 <meta itemprop="keywords" content="Hugo," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="如何用hugo搭建个人博客"/>
 <meta name="twitter:description" content="如何用hugo搭建个人博客教程 一.建立本地hugo博客 hugo说明文档网址 前提：有一定的命令行知识，本文基于macOS系统使用创建 首先点击以"/>
@@ -132,7 +132,7 @@
         <div class="post-category">
             <a href="/categories/hugo/"> Hugo </a>
             </div>
-          <span class="more-meta"> 896 words </span>
+          <span class="more-meta"> 894 words </span>
           <span class="more-meta"> 2 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -167,13 +167,13 @@
 <p>安装hugo：命令行终端直接输入</br></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">  brew install hugo
-  hugo version
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">  brew install hugo
+</span></span><span class="line"><span class="cl">  hugo version
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>并验证是否已经安装完成</p>
 </li>
@@ -181,11 +181,11 @@
 <p>开始创建site：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">  hugo new site quickstart
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">  hugo new site quickstart
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>&ldquo;quickstart&quot;是文件夹名字，一般用github用户名替换使用。例如：</p>
 <blockquote>
@@ -193,11 +193,11 @@
 </blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">hugo new site frankfang.github.io-generator
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">hugo new site frankfang.github.io-generator
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
@@ -242,9 +242,6 @@
 <ol>
 <li></li>
 </ol>
-<blockquote>
-<p>hugo -D</p>
-</blockquote>
 <p>创建static pages，当前工作目录中出现public文件夹，首先创建<code>.gitignore</code>文件并编辑将  <code>/public/</code>
 写入其中后关闭(目的是防止public文件夹备份到github，public目录需要单独备份)
 将工作目录转移到public文件夹中</p>
@@ -254,15 +251,15 @@
 </ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">git remote add origin git@github.com:*********.github.io.git
-
-git push -u origin master
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git remote add origin git@github.com:*********.github.io.git
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">git push -u origin master
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>至此，已经将public中的本地仓库传递到远程github仓库中</p>
 <ol start="3">
@@ -359,7 +356,7 @@ git push -u origin master
 
 
 
-<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+<script type="text/javascript" src="/js/main.min.191509a5c8442abdb6eb5020a332fd59bdd83a7e78a2d2241108df9113504292.js"></script>
 
 
 

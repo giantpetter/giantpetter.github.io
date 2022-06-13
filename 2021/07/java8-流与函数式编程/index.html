@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.83.0 with theme even" />
+<meta name="generator" content="Hugo 0.100.2 with theme even" />
 
 
 <link rel="canonical" href="http://localhost:1313/2021/07/java8-%E6%B5%81%E4%B8%8E%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/" />
@@ -43,13 +43,13 @@
 <meta property="og:description" content="一、函数式编程 1.1 概述 目的： 为了提高效率，减少工作量，减少bug。 概念：首先需要清楚一个概念： 函数式接口；它指的是有且只有一个未实现的方法的接" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://localhost:1313/2021/07/java8-%E6%B5%81%E4%B8%8E%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2021-07-21T09:10:24&#43;08:00" />
-<meta property="article:modified_time" content="2021-06-11T09:46:27&#43;08:00" />
+<meta property="article:published_time" content="2021-07-21T09:10:24+08:00" />
+<meta property="article:modified_time" content="2021-06-11T09:46:27+08:00" />
 
 <meta itemprop="name" content="Java8 流与函数式编程">
-<meta itemprop="description" content="一、函数式编程 1.1 概述 目的： 为了提高效率，减少工作量，减少bug。 概念：首先需要清楚一个概念： 函数式接口；它指的是有且只有一个未实现的方法的接"><meta itemprop="datePublished" content="2021-07-21T09:10:24&#43;08:00" />
-<meta itemprop="dateModified" content="2021-06-11T09:46:27&#43;08:00" />
-<meta itemprop="wordCount" content="5372">
+<meta itemprop="description" content="一、函数式编程 1.1 概述 目的： 为了提高效率，减少工作量，减少bug。 概念：首先需要清楚一个概念： 函数式接口；它指的是有且只有一个未实现的方法的接"><meta itemprop="datePublished" content="2021-07-21T09:10:24+08:00" />
+<meta itemprop="dateModified" content="2021-06-11T09:46:27+08:00" />
+<meta itemprop="wordCount" content="5371">
 <meta itemprop="keywords" content="java8,函数式编程,流," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Java8 流与函数式编程"/>
 <meta name="twitter:description" content="一、函数式编程 1.1 概述 目的： 为了提高效率，减少工作量，减少bug。 概念：首先需要清楚一个概念： 函数式接口；它指的是有且只有一个未实现的方法的接"/>
@@ -132,7 +132,7 @@
         <div class="post-category">
             <a href="/categories/java/"> Java </a>
             </div>
-          <span class="more-meta"> 5372 words </span>
+          <span class="more-meta"> 5371 words </span>
           <span class="more-meta"> 11 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -186,16 +186,16 @@
 函数式接口是Java支持函数式编程的基础。这些接口都在java包中：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="n">java</span><span class="o">.</span><span class="na">util</span><span class="o">.</span><span class="na">function</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">java</span><span class="o">.</span><span class="na">util</span><span class="o">.</span><span class="na">function</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>具体简化实例（以Consumer为例子）</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -206,38 +206,38 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">//前
-</span><span class="c1"></span><span class="n">Consumer</span> <span class="n">c</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Consumer</span><span class="o">()</span> <span class="o">{</span>
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">accept</span><span class="o">(</span><span class="n">Object</span> <span class="n">o</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">o</span><span class="o">);</span>
-    <span class="o">}</span>
-<span class="o">};</span>
-<span class="c1">//后
-</span><span class="c1"></span><span class="n">Consumer</span> <span class="n">c</span> <span class="o">=</span> <span class="n">o</span> <span class="o">-&gt;</span> <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">o</span><span class="o">);</span>  
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">//前
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Consumer</span> <span class="n">c</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Consumer</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">accept</span><span class="o">(</span><span class="n">Object</span> <span class="n">o</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">o</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">};</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//后
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Consumer</span> <span class="n">c</span> <span class="o">=</span> <span class="n">o</span> <span class="o">-&gt;</span> <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">o</span><span class="o">);</span>  
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="12-常用接口及其介绍">1.2 常用接口及其介绍</h2>
 <h3 id="121-predicate">1.2.1 Predicate</h3>
 <p>predicate的中文意思是“断定”，即判断的意思，判断某个东西是否满足某种条件。源代码为：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@FunctionalInterface</span>
-<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Predicate</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">{</span>
-    <span class="kt">boolean</span> <span class="nf">test</span><span class="o">(</span><span class="n">T</span> <span class="n">t</span><span class="o">);</span>
-<span class="o">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@FunctionalInterface</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Predicate</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">boolean</span> <span class="nf">test</span><span class="o">(</span><span class="n">T</span> <span class="n">t</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>因此它包含test方法，根据输入值来做逻辑判断，其结果为True或者False。它的使用方法示例如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -260,35 +260,35 @@
 </span><span class="lnt">21
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="cm">/**
-</span><span class="cm"> * Predicate测试
-</span><span class="cm"> */</span>
-<span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">predicateTest</span><span class="o">()</span> <span class="o">{</span>
-        <span class="n">Predicate</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">p</span> <span class="o">=</span> <span class="n">o</span> <span class="o">-&gt;</span> <span class="n">o</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">&#34;test&#34;</span><span class="o">);</span>
-        <span class="n">Predicate</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">g</span> <span class="o">=</span> <span class="n">o</span> <span class="o">-&gt;</span> <span class="n">o</span><span class="o">.</span><span class="na">startsWith</span><span class="o">(</span><span class="s">&#34;t&#34;</span><span class="o">);</span>
-        <span class="cm">/**
-</span><span class="cm">         * negate: 用于对原来的Predicate做取反处理；
-</span><span class="cm">         * 如当调用p.test(&#34;test&#34;)为True时，调用p.negate().test(&#34;test&#34;)就会是False；
-</span><span class="cm">         */</span>
-        <span class="n">Assert</span><span class="o">.</span><span class="na">assertFalse</span><span class="o">(</span><span class="n">p</span><span class="o">.</span><span class="na">negate</span><span class="o">().</span><span class="na">test</span><span class="o">(</span><span class="s">&#34;test&#34;</span><span class="o">));</span>
-        <span class="cm">/**
-</span><span class="cm">         * and: 针对同一输入值，多个Predicate均返回True时返回True，否则返回False；
-</span><span class="cm">         */</span>
-        <span class="n">Assert</span><span class="o">.</span><span class="na">assertTrue</span><span class="o">(</span><span class="n">p</span><span class="o">.</span><span class="na">and</span><span class="o">(</span><span class="n">g</span><span class="o">).</span><span class="na">test</span><span class="o">(</span><span class="s">&#34;test&#34;</span><span class="o">));</span>
-
-        <span class="cm">/**
-</span><span class="cm">         * or: 针对同一输入值，多个Predicate只要有一个返回True则返回True，否则返回False
-</span><span class="cm">         */</span>
-        <span class="n">Assert</span><span class="o">.</span><span class="na">assertTrue</span><span class="o">(</span><span class="n">p</span><span class="o">.</span><span class="na">or</span><span class="o">(</span><span class="n">g</span><span class="o">).</span><span class="na">test</span><span class="o">(</span><span class="s">&#34;ta&#34;</span><span class="o">));</span>
-        <span class="o">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * Predicate测试
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">predicateTest</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Predicate</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">p</span> <span class="o">=</span> <span class="n">o</span> <span class="o">-&gt;</span> <span class="n">o</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">&#34;test&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Predicate</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">g</span> <span class="o">=</span> <span class="n">o</span> <span class="o">-&gt;</span> <span class="n">o</span><span class="o">.</span><span class="na">startsWith</span><span class="o">(</span><span class="s">&#34;t&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">         * negate: 用于对原来的Predicate做取反处理；
+</span></span></span><span class="line"><span class="cl"><span class="cm">         * 如当调用p.test(&#34;test&#34;)为True时，调用p.negate().test(&#34;test&#34;)就会是False；
+</span></span></span><span class="line"><span class="cl"><span class="cm">         */</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Assert</span><span class="o">.</span><span class="na">assertFalse</span><span class="o">(</span><span class="n">p</span><span class="o">.</span><span class="na">negate</span><span class="o">().</span><span class="na">test</span><span class="o">(</span><span class="s">&#34;test&#34;</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl">        <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">         * and: 针对同一输入值，多个Predicate均返回True时返回True，否则返回False；
+</span></span></span><span class="line"><span class="cl"><span class="cm">         */</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Assert</span><span class="o">.</span><span class="na">assertTrue</span><span class="o">(</span><span class="n">p</span><span class="o">.</span><span class="na">and</span><span class="o">(</span><span class="n">g</span><span class="o">).</span><span class="na">test</span><span class="o">(</span><span class="s">&#34;test&#34;</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">         * or: 针对同一输入值，多个Predicate只要有一个返回True则返回True，否则返回False
+</span></span></span><span class="line"><span class="cl"><span class="cm">         */</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Assert</span><span class="o">.</span><span class="na">assertTrue</span><span class="o">(</span><span class="n">p</span><span class="o">.</span><span class="na">or</span><span class="o">(</span><span class="n">g</span><span class="o">).</span><span class="na">test</span><span class="o">(</span><span class="s">&#34;ta&#34;</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="122-function">1.2.2 Function</h3>
 <p>Function也是一个函数式编程接口；它代表的含义是“函数”，而函数经常是有输入输出的，因此它含有一个apply方法，包含一个输入与一个输出；
 除apply方法外，它还有compose与andThen及indentity三个方法，其使用见下述示例；</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -321,38 +321,38 @@
 </span><span class="lnt">31
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="cm">/**
-</span><span class="cm"> * Function测试
-</span><span class="cm"> */</span>
-<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">functionTest</span><span class="o">()</span> <span class="o">{</span>
-    <span class="n">Function</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">f</span> <span class="o">=</span> <span class="n">s</span> <span class="o">-&gt;</span> <span class="o">++</span><span class="n">s</span><span class="o">;</span>
-    <span class="n">Function</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">g</span> <span class="o">=</span> <span class="n">s</span> <span class="o">-&gt;</span> <span class="n">s</span> <span class="o">*</span> <span class="n">2</span><span class="o">;</span>
-
-    <span class="cm">/**
-</span><span class="cm">     * 下面表示在执行F时，先执行G，并且执行F时使用G的输出当作输入。
-</span><span class="cm">     * 相当于以下代码：
-</span><span class="cm">     * Integer a = g.apply(1);
-</span><span class="cm">     * System.out.println(f.apply(a));
-</span><span class="cm">     * 结果为：3
-</span><span class="cm">     */</span>
-    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">f</span><span class="o">.</span><span class="na">compose</span><span class="o">(</span><span class="n">g</span><span class="o">).</span><span class="na">apply</span><span class="o">(</span><span class="n">1</span><span class="o">));</span>
-
-    <span class="cm">/**
-</span><span class="cm">     * 表示执行F的Apply后使用其返回的值当作输入再执行G的Apply；
-</span><span class="cm">     * 相当于以下代码
-</span><span class="cm">     * Integer a = f.apply(1);
-</span><span class="cm">     * System.out.println(g.apply(a));
-</span><span class="cm">     * 结果为：4
-</span><span class="cm">     */</span>
-    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">f</span><span class="o">.</span><span class="na">andThen</span><span class="o">(</span><span class="n">g</span><span class="o">).</span><span class="na">apply</span><span class="o">(</span><span class="n">1</span><span class="o">));</span>
-
-    <span class="cm">/**
-</span><span class="cm">     * identity方法会返回一个不进行任何处理的Function，即输出与输入值相等；
-</span><span class="cm">     * 结果为：a
-</span><span class="cm">     */</span>
-    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">Function</span><span class="o">.</span><span class="na">identity</span><span class="o">().</span><span class="na">apply</span><span class="o">(</span><span class="s">&#34;a&#34;</span><span class="o">));</span>
-<span class="o">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * Function测试
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">functionTest</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Function</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">f</span> <span class="o">=</span> <span class="n">s</span> <span class="o">-&gt;</span> <span class="o">++</span><span class="n">s</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Function</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">g</span> <span class="o">=</span> <span class="n">s</span> <span class="o">-&gt;</span> <span class="n">s</span> <span class="o">*</span> <span class="n">2</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 下面表示在执行F时，先执行G，并且执行F时使用G的输出当作输入。
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 相当于以下代码：
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * Integer a = g.apply(1);
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * System.out.println(f.apply(a));
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 结果为：3
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">f</span><span class="o">.</span><span class="na">compose</span><span class="o">(</span><span class="n">g</span><span class="o">).</span><span class="na">apply</span><span class="o">(</span><span class="n">1</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 表示执行F的Apply后使用其返回的值当作输入再执行G的Apply；
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 相当于以下代码
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * Integer a = f.apply(1);
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * System.out.println(g.apply(a));
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 结果为：4
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">f</span><span class="o">.</span><span class="na">andThen</span><span class="o">(</span><span class="n">g</span><span class="o">).</span><span class="na">apply</span><span class="o">(</span><span class="n">1</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * identity方法会返回一个不进行任何处理的Function，即输出与输入值相等；
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 结果为：a
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">Function</span><span class="o">.</span><span class="na">identity</span><span class="o">().</span><span class="na">apply</span><span class="o">(</span><span class="s">&#34;a&#34;</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="123-consumer-和-supplier">1.2.3 Consumer 和 Supplier</h3>
 <p>Consumer是一个函数式编程接口； 顾名思义，Consumer的意思就是消费，即针对某个东西我们来使用它，因此它包含有一个有输入而无输出的accept接口方法；
@@ -360,7 +360,7 @@
 Supplier是一个函数式编程接口；与Consumer相对，Supplier是生产者的意思，即凭空生产出一个东西，因此它包含一个没有输入而有输出的Get()接口方法；</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -372,17 +372,17 @@ Supplier是一个函数式编程接口；与Consumer相对，Supplier是生产�
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">consumerTest</span><span class="o">()</span> <span class="o">{</span>
-    <span class="n">Consumer</span> <span class="n">f</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">;</span>
-    <span class="n">Consumer</span> <span class="n">f2</span> <span class="o">=</span> <span class="n">n</span> <span class="o">-&gt;</span> <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">n</span> <span class="o">+</span> <span class="s">&#34;-F2&#34;</span><span class="o">);</span>
-
-    <span class="c1">//执行完F后再执行F2的Accept方法
-</span><span class="c1"></span>    <span class="n">f</span><span class="o">.</span><span class="na">andThen</span><span class="o">(</span><span class="n">f2</span><span class="o">).</span><span class="na">accept</span><span class="o">(</span><span class="s">&#34;test&#34;</span><span class="o">);</span>
-
-    <span class="c1">//连续执行F的Accept方法
-</span><span class="c1"></span>    <span class="n">f</span><span class="o">.</span><span class="na">andThen</span><span class="o">(</span><span class="n">f</span><span class="o">).</span><span class="na">andThen</span><span class="o">(</span><span class="n">f</span><span class="o">).</span><span class="na">andThen</span><span class="o">(</span><span class="n">f</span><span class="o">).</span><span class="na">accept</span><span class="o">(</span><span class="s">&#34;test1&#34;</span><span class="o">);</span>
-<span class="o">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">consumerTest</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Consumer</span> <span class="n">f</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Consumer</span> <span class="n">f2</span> <span class="o">=</span> <span class="n">n</span> <span class="o">-&gt;</span> <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">n</span> <span class="o">+</span> <span class="s">&#34;-F2&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//执行完F后再执行F2的Accept方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">f</span><span class="o">.</span><span class="na">andThen</span><span class="o">(</span><span class="n">f2</span><span class="o">).</span><span class="na">accept</span><span class="o">(</span><span class="s">&#34;test&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//连续执行F的Accept方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">f</span><span class="o">.</span><span class="na">andThen</span><span class="o">(</span><span class="n">f</span><span class="o">).</span><span class="na">andThen</span><span class="o">(</span><span class="n">f</span><span class="o">).</span><span class="na">andThen</span><span class="o">(</span><span class="n">f</span><span class="o">).</span><span class="na">accept</span><span class="o">(</span><span class="s">&#34;test1&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="124-其他接口">1.2.4 其他接口</h3>
 <p>以上四个接口为常用的基本函数式接口，除此之外还有一些扩展：</p>
@@ -406,26 +406,26 @@ DoubleToIntFunction、DoubleFunction、</li>
 </ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="n">Stream</span> <span class="n">stream</span> <span class="o">=</span> <span class="n">Stream</span><span class="o">().</span><span class="na">Empty</span><span class="o">();</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">Stream</span> <span class="n">stream</span> <span class="o">=</span> <span class="n">Stream</span><span class="o">().</span><span class="na">Empty</span><span class="o">();</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="2">
 <li>通过Stream中的of方法创建</li>
 </ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="s">&#34;a&#34;</span><span class="o">,</span> <span class="s">&#34;b&#34;</span><span class="o">,</span> <span class="s">&#34;c&#34;</span><span class="o">,</span> <span class="s">&#34;d&#34;</span><span class="o">);</span>
-<span class="n">Stream</span> <span class="n">listStream</span> <span class="o">=</span> <span class="n">list</span><span class="o">.</span><span class="na">stream</span><span class="o">();</span>                   <span class="c1">//获取串行的Stream对象
-</span><span class="c1"></span><span class="n">Stream</span> <span class="n">parallelListStream</span> <span class="o">=</span> <span class="n">list</span><span class="o">.</span><span class="na">parallelStream</span><span class="o">();</span>   <span class="c1">//获取并行的Stream对象  
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="s">&#34;a&#34;</span><span class="o">,</span> <span class="s">&#34;b&#34;</span><span class="o">,</span> <span class="s">&#34;c&#34;</span><span class="o">,</span> <span class="s">&#34;d&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">Stream</span> <span class="n">listStream</span> <span class="o">=</span> <span class="n">list</span><span class="o">.</span><span class="na">stream</span><span class="o">();</span>                   <span class="c1">//获取串行的Stream对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Stream</span> <span class="n">parallelListStream</span> <span class="o">=</span> <span class="n">list</span><span class="o">.</span><span class="na">parallelStream</span><span class="o">();</span>   <span class="c1">//获取并行的Stream对象  
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="3">
 <li>通过Stream中的iterate方法创建：
@@ -433,13 +433,13 @@ iterate方法有两个不同参数的方法</li>
 </ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">Stream</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="nf">iterate</span><span class="o">(</span><span class="kd">final</span> <span class="n">T</span> <span class="n">seed</span><span class="o">,</span> <span class="kd">final</span> <span class="n">UnaryOperator</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">f</span><span class="o">);</span>  
-<span class="kd">public</span> <span class="kd">static</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">Stream</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="nf">iterate</span><span class="o">(</span><span class="n">T</span> <span class="n">seed</span><span class="o">,</span> <span class="n">Predicate</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="n">T</span><span class="o">&gt;</span> <span class="n">hasNext</span><span class="o">,</span> <span class="n">UnaryOperator</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">next</span><span class="o">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">static</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">Stream</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="nf">iterate</span><span class="o">(</span><span class="kd">final</span> <span class="n">T</span> <span class="n">seed</span><span class="o">,</span> <span class="kd">final</span> <span class="n">UnaryOperator</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">f</span><span class="o">);</span>  
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">static</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">Stream</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="nf">iterate</span><span class="o">(</span><span class="n">T</span> <span class="n">seed</span><span class="o">,</span> <span class="n">Predicate</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="n">T</span><span class="o">&gt;</span> <span class="n">hasNext</span><span class="o">,</span> <span class="n">UnaryOperator</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">next</span><span class="o">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>其中第一个方法将会返回一个无限有序值的Stream对象：它的第一个元素是seed，第二个元素是f.apply(seed); 第N个元素是f.apply(n-1个元素的值)；生成无限值的方法实际上与Stream的中间方法类似，在遇到中止方法前一般是不真正的执行的。因此无限值的这个方法一般与limit等方法一起使用，来获取前多少个元素。
 当然获取前多少个元素也可以使用第二个方法。</p>
@@ -451,7 +451,7 @@ iterate方法有两个不同参数的方法</li>
 </ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -465,19 +465,19 @@ iterate方法有两个不同参数的方法</li>
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="cm">/**
-</span><span class="cm"> * 随机生成10个Double元素的Stream并将其打印
-</span><span class="cm"> */</span>
-<span class="n">Stream</span><span class="o">.</span><span class="na">generate</span><span class="o">(</span><span class="k">new</span> <span class="n">Supplier</span><span class="o">&lt;</span><span class="n">Double</span><span class="o">&gt;()</span> <span class="o">{</span>
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">Double</span> <span class="nf">get</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="n">Math</span><span class="o">.</span><span class="na">random</span><span class="o">();</span>
-    <span class="o">}</span>
-<span class="o">}).</span><span class="na">limit</span><span class="o">(</span><span class="n">10</span><span class="o">).</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
-
-<span class="c1">//上述写法可以简化成以下写法：
-</span><span class="c1"></span><span class="n">Stream</span><span class="o">.</span><span class="na">generate</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="n">Math</span><span class="o">.</span><span class="na">random</span><span class="o">()).</span><span class="na">limit</span><span class="o">(</span><span class="n">10</span><span class="o">).</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 随机生成10个Double元素的Stream并将其打印
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="n">Stream</span><span class="o">.</span><span class="na">generate</span><span class="o">(</span><span class="k">new</span> <span class="n">Supplier</span><span class="o">&lt;</span><span class="n">Double</span><span class="o">&gt;()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">Double</span> <span class="nf">get</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">Math</span><span class="o">.</span><span class="na">random</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}).</span><span class="na">limit</span><span class="o">(</span><span class="n">10</span><span class="o">).</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//上述写法可以简化成以下写法：
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Stream</span><span class="o">.</span><span class="na">generate</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="n">Math</span><span class="o">.</span><span class="na">random</span><span class="o">()).</span><span class="na">limit</span><span class="o">(</span><span class="n">10</span><span class="o">).</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="5">
 <li>通过Stream中的concat方法连接两个Stream对象生成新的Stream对象</li>
@@ -638,7 +638,7 @@ iterate方法有两个不同参数的方法</li>
 </ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -646,60 +646,58 @@ iterate方法有两个不同参数的方法</li>
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">//定义
-</span><span class="c1"></span>    <span class="n">Stream</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="nf">filter</span><span class="o">(</span><span class="n">Predicate</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="n">T</span><span class="o">&gt;</span> <span class="n">predicate</span><span class="o">);</span>
-        
-<span class="c1">//查找所有包含t的元素并进行打印
-</span><span class="c1"></span>    <span class="n">Stream</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">s</span> <span class="o">=</span> <span class="n">Stream</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&#34;test&#34;</span><span class="o">,</span> <span class="s">&#34;t1&#34;</span><span class="o">,</span> <span class="s">&#34;t2&#34;</span><span class="o">,</span> <span class="s">&#34;teeeee&#34;</span><span class="o">,</span> <span class="s">&#34;aaaa&#34;</span><span class="o">);</span>
-    <span class="n">s</span><span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">n</span> <span class="o">-&gt;</span> <span class="n">n</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="s">&#34;t&#34;</span><span class="o">)).</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">//定义
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">Stream</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="nf">filter</span><span class="o">(</span><span class="n">Predicate</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="n">T</span><span class="o">&gt;</span> <span class="n">predicate</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl"><span class="c1">//查找所有包含t的元素并进行打印
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">Stream</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">s</span> <span class="o">=</span> <span class="n">Stream</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&#34;test&#34;</span><span class="o">,</span> <span class="s">&#34;t1&#34;</span><span class="o">,</span> <span class="s">&#34;t2&#34;</span><span class="o">,</span> <span class="s">&#34;teeeee&#34;</span><span class="o">,</span> <span class="s">&#34;aaaa&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s</span><span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">n</span> <span class="o">-&gt;</span> <span class="n">n</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="s">&#34;t&#34;</span><span class="o">)).</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="2">
 <li>map</li>
 </ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
-</span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">//定义
-</span><span class="c1"></span>    <span class="o">&lt;</span><span class="n">R</span><span class="o">&gt;</span> <span class="n">Stream</span><span class="o">&lt;</span><span class="n">R</span><span class="o">&gt;</span> <span class="nf">map</span><span class="o">(</span><span class="n">Function</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="n">T</span><span class="o">,</span> <span class="o">?</span> <span class="kd">extends</span> <span class="n">R</span><span class="o">&gt;</span> <span class="n">mapper</span><span class="o">);</span>
-<span class="c1">//每个元素添加相同的后缀.txt
-</span><span class="c1"></span>    <span class="n">Stream</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">s</span> <span class="o">=</span> <span class="n">Stream</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&#34;test&#34;</span><span class="o">,</span> <span class="s">&#34;t1&#34;</span><span class="o">,</span> <span class="s">&#34;t2&#34;</span><span class="o">,</span> <span class="s">&#34;teeeee&#34;</span><span class="o">,</span> <span class="s">&#34;aaaa&#34;</span><span class="o">);</span>
-    <span class="n">s</span><span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">n</span> <span class="o">-&gt;</span> <span class="n">n</span><span class="o">.</span><span class="na">concat</span><span class="o">(</span><span class="s">&#34;.txt&#34;</span><span class="o">)).</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">//定义
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="o">&lt;</span><span class="n">R</span><span class="o">&gt;</span> <span class="n">Stream</span><span class="o">&lt;</span><span class="n">R</span><span class="o">&gt;</span> <span class="nf">map</span><span class="o">(</span><span class="n">Function</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="n">T</span><span class="o">,</span> <span class="o">?</span> <span class="kd">extends</span> <span class="n">R</span><span class="o">&gt;</span> <span class="n">mapper</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//每个元素添加相同的后缀.txt
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">Stream</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">s</span> <span class="o">=</span> <span class="n">Stream</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&#34;test&#34;</span><span class="o">,</span> <span class="s">&#34;t1&#34;</span><span class="o">,</span> <span class="s">&#34;t2&#34;</span><span class="o">,</span> <span class="s">&#34;teeeee&#34;</span><span class="o">,</span> <span class="s">&#34;aaaa&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s</span><span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">n</span> <span class="o">-&gt;</span> <span class="n">n</span><span class="o">.</span><span class="na">concat</span><span class="o">(</span><span class="s">&#34;.txt&#34;</span><span class="o">)).</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="3">
 <li>flatMap</li>
 </ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">//定义
-</span><span class="c1"></span>    <span class="o">&lt;</span><span class="n">R</span><span class="o">&gt;</span> <span class="n">Stream</span><span class="o">&lt;</span><span class="n">R</span><span class="o">&gt;</span> <span class="nf">flatMap</span><span class="o">(</span><span class="n">Function</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="n">T</span><span class="o">,</span> <span class="o">?</span> <span class="kd">extends</span> <span class="n">Stream</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="n">R</span><span class="o">&gt;&gt;</span> <span class="n">mapper</span><span class="o">);</span>
-<span class="c1">//将每一个元素的拆分成单个字母，并打印
-</span><span class="c1"></span>    <span class="n">Stream</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">s</span> <span class="o">=</span> <span class="n">Stream</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&#34;test&#34;</span><span class="o">,</span> <span class="s">&#34;t1&#34;</span><span class="o">,</span> <span class="s">&#34;t2&#34;</span><span class="o">,</span> <span class="s">&#34;teeeee&#34;</span><span class="o">,</span> <span class="s">&#34;aaaa&#34;</span><span class="o">);</span>
-    <span class="n">s</span><span class="o">.</span><span class="na">flatMap</span><span class="o">(</span><span class="n">n</span> <span class="o">-&gt;</span> <span class="n">Stream</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">n</span><span class="o">.</span><span class="na">split</span><span class="o">(</span><span class="s">&#34;&#34;</span><span class="o">))).</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">//定义
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="o">&lt;</span><span class="n">R</span><span class="o">&gt;</span> <span class="n">Stream</span><span class="o">&lt;</span><span class="n">R</span><span class="o">&gt;</span> <span class="nf">flatMap</span><span class="o">(</span><span class="n">Function</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="n">T</span><span class="o">,</span> <span class="o">?</span> <span class="kd">extends</span> <span class="n">Stream</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="n">R</span><span class="o">&gt;&gt;</span> <span class="n">mapper</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//将每一个元素的拆分成单个字母，并打印
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">Stream</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">s</span> <span class="o">=</span> <span class="n">Stream</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&#34;test&#34;</span><span class="o">,</span> <span class="s">&#34;t1&#34;</span><span class="o">,</span> <span class="s">&#34;t2&#34;</span><span class="o">,</span> <span class="s">&#34;teeeee&#34;</span><span class="o">,</span> <span class="s">&#34;aaaa&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s</span><span class="o">.</span><span class="na">flatMap</span><span class="o">(</span><span class="n">n</span> <span class="o">-&gt;</span> <span class="n">Stream</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">n</span><span class="o">.</span><span class="na">split</span><span class="o">(</span><span class="s">&#34;&#34;</span><span class="o">))).</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="4">
 <li>takeWhile</li>
 </ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -707,20 +705,20 @@ iterate方法有两个不同参数的方法</li>
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">//定义
-</span><span class="c1"></span>    <span class="k">default</span> <span class="n">Stream</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="nf">takeWhile</span><span class="o">(</span><span class="n">Predicate</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="n">T</span><span class="o">&gt;</span> <span class="n">predicate</span><span class="o">)</span>
-<span class="c1">//查找这几个元素中包含t的最长命中序列
-</span><span class="c1"></span>    <span class="n">Stream</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">s</span> <span class="o">=</span> <span class="n">Stream</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&#34;test&#34;</span><span class="o">,</span> <span class="s">&#34;t1&#34;</span><span class="o">,</span> <span class="s">&#34;t2&#34;</span><span class="o">,</span> <span class="s">&#34;teeeee&#34;</span><span class="o">,</span> <span class="s">&#34;aaaa&#34;</span><span class="o">,</span> <span class="s">&#34;taaa&#34;</span><span class="o">);</span>
-<span class="c1">//以下结果将打印： &#34;test&#34;, &#34;t1&#34;, &#34;t2&#34;, &#34;teeeee&#34;，最后的那个taaa不会进行打印 
-</span><span class="c1"></span>    <span class="n">s</span><span class="o">.</span><span class="na">takeWhile</span><span class="o">(</span><span class="n">n</span> <span class="o">-&gt;</span> <span class="n">n</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="s">&#34;t&#34;</span><span class="o">)).</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">//定义
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">default</span> <span class="n">Stream</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="nf">takeWhile</span><span class="o">(</span><span class="n">Predicate</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="n">T</span><span class="o">&gt;</span> <span class="n">predicate</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//查找这几个元素中包含t的最长命中序列
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">Stream</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">s</span> <span class="o">=</span> <span class="n">Stream</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&#34;test&#34;</span><span class="o">,</span> <span class="s">&#34;t1&#34;</span><span class="o">,</span> <span class="s">&#34;t2&#34;</span><span class="o">,</span> <span class="s">&#34;teeeee&#34;</span><span class="o">,</span> <span class="s">&#34;aaaa&#34;</span><span class="o">,</span> <span class="s">&#34;taaa&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//以下结果将打印： &#34;test&#34;, &#34;t1&#34;, &#34;t2&#34;, &#34;teeeee&#34;，最后的那个taaa不会进行打印 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">s</span><span class="o">.</span><span class="na">takeWhile</span><span class="o">(</span><span class="n">n</span> <span class="o">-&gt;</span> <span class="n">n</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="s">&#34;t&#34;</span><span class="o">)).</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="5">
 <li>dropWhile</li>
 </ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -728,13 +726,13 @@ iterate方法有两个不同参数的方法</li>
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">//定义
-</span><span class="c1"></span>    <span class="k">default</span> <span class="n">Stream</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="nf">dropWhile</span><span class="o">(</span><span class="n">Predicate</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="n">T</span><span class="o">&gt;</span> <span class="n">predicate</span><span class="o">)</span>
-<span class="c1">//删除这几个元素中包含t的最长命中序列
-</span><span class="c1"></span>    <span class="n">Stream</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">s</span> <span class="o">=</span> <span class="n">Stream</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&#34;test&#34;</span><span class="o">,</span> <span class="s">&#34;t1&#34;</span><span class="o">,</span> <span class="s">&#34;t2&#34;</span><span class="o">,</span> <span class="s">&#34;teeeee&#34;</span><span class="o">,</span> <span class="s">&#34;aaaa&#34;</span><span class="o">,</span> <span class="s">&#34;taaa&#34;</span><span class="o">);</span>
-<span class="c1">//以下结果将打印：&#34;aaaa&#34;, &#34;taaa&#34; 　
-</span><span class="c1"></span>    <span class="n">s</span><span class="o">.</span><span class="na">dropWhile</span><span class="o">(</span><span class="n">n</span> <span class="o">-&gt;</span> <span class="n">n</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="s">&#34;t&#34;</span><span class="o">)).</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">//定义
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">default</span> <span class="n">Stream</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="nf">dropWhile</span><span class="o">(</span><span class="n">Predicate</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="n">T</span><span class="o">&gt;</span> <span class="n">predicate</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//删除这几个元素中包含t的最长命中序列
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">Stream</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">s</span> <span class="o">=</span> <span class="n">Stream</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&#34;test&#34;</span><span class="o">,</span> <span class="s">&#34;t1&#34;</span><span class="o">,</span> <span class="s">&#34;t2&#34;</span><span class="o">,</span> <span class="s">&#34;teeeee&#34;</span><span class="o">,</span> <span class="s">&#34;aaaa&#34;</span><span class="o">,</span> <span class="s">&#34;taaa&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//以下结果将打印：&#34;aaaa&#34;, &#34;taaa&#34; 　
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">s</span><span class="o">.</span><span class="na">dropWhile</span><span class="o">(</span><span class="n">n</span> <span class="o">-&gt;</span> <span class="n">n</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="s">&#34;t&#34;</span><span class="o">)).</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="22-optional">2.2 Optional</h2>
 <p>用于简化Java中对空值的判断处理，以防止出现各种空指针异常。
@@ -746,11 +744,11 @@ Optional实际上是对一个变量进行封装，它包含有一个属性value�
 <p>用于创建一个空的Optional对象；其value属性为Null。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="n">Optional</span> <span class="n">o</span> <span class="o">=</span> <span class="n">Optional</span><span class="o">.</span><span class="na">empty</span><span class="o">();</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">Optional</span> <span class="n">o</span> <span class="o">=</span> <span class="n">Optional</span><span class="o">.</span><span class="na">empty</span><span class="o">();</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="2">
 <li>of</li>
@@ -759,11 +757,11 @@ Optional实际上是对一个变量进行封装，它包含有一个属性value�
 传入的值必须是非空值，否则如果传入的值为空值，则会抛出空指针异常。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="n">o</span> <span class="o">=</span> <span class="n">Optional</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&#34;test&#34;</span><span class="o">);</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">o</span> <span class="o">=</span> <span class="n">Optional</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&#34;test&#34;</span><span class="o">);</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="3">
 <li>ofNullable</li>
@@ -835,7 +833,7 @@ Optional实际上是对一个变量进行封装，它包含有一个属性value�
 </ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -846,23 +844,23 @@ Optional实际上是对一个变量进行封装，它包含有一个属性value�
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">//以前的做法
-</span><span class="c1"></span><span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="n">test</span><span class="o">();</span>
-<span class="k">if</span> <span class="o">(</span><span class="kc">null</span> <span class="o">!=</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">s</span><span class="o">);</span>
-<span class="o">}</span>
-
-<span class="c1">//现在做法
-</span><span class="c1"></span><span class="n">Optional</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">s</span> <span class="o">=</span> <span class="n">Optional</span><span class="o">.</span><span class="na">ofNullable</span><span class="o">(</span><span class="n">test</span><span class="o">());</span>
-<span class="n">s</span><span class="o">.</span><span class="na">ifPresent</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">//以前的做法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="n">test</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">(</span><span class="kc">null</span> <span class="o">!=</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">s</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//现在做法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Optional</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">s</span> <span class="o">=</span> <span class="n">Optional</span><span class="o">.</span><span class="na">ofNullable</span><span class="o">(</span><span class="n">test</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl"><span class="n">s</span><span class="o">.</span><span class="na">ifPresent</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="2">
 <li>变量为空时提供默认值</li>
 </ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -873,23 +871,23 @@ Optional实际上是对一个变量进行封装，它包含有一个属性value�
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">//以前的做法
-</span><span class="c1"></span><span class="k">if</span> <span class="o">(</span><span class="kc">null</span> <span class="o">==</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">s</span> <span class="o">=</span> <span class="s">&#34;test&#34;</span><span class="o">;</span>
-        <span class="o">}</span>
-<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">s</span><span class="o">);</span>
-
-<span class="c1">//现在做法
-</span><span class="c1"></span><span class="n">Optional</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">o</span> <span class="o">=</span> <span class="n">Optional</span><span class="o">.</span><span class="na">ofNullable</span><span class="o">(</span><span class="n">s</span><span class="o">);</span>
-<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">o</span><span class="o">.</span><span class="na">orElse</span><span class="o">(</span><span class="s">&#34;test&#34;</span><span class="o">));</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">//以前的做法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">if</span> <span class="o">(</span><span class="kc">null</span> <span class="o">==</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">s</span> <span class="o">=</span> <span class="s">&#34;test&#34;</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">s</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//现在做法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Optional</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">o</span> <span class="o">=</span> <span class="n">Optional</span><span class="o">.</span><span class="na">ofNullable</span><span class="o">(</span><span class="n">s</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">o</span><span class="o">.</span><span class="na">orElse</span><span class="o">(</span><span class="s">&#34;test&#34;</span><span class="o">));</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="3">
 <li>变量为空时抛出异常，否则使用</li>
 </ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -900,16 +898,16 @@ Optional实际上是对一个变量进行封装，它包含有一个属性value�
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">//以前的做法
-</span><span class="c1"></span><span class="k">if</span> <span class="o">(</span><span class="kc">null</span> <span class="o">==</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">throw</span> <span class="k">new</span> <span class="n">Exception</span><span class="o">(</span><span class="s">&#34;test&#34;</span><span class="o">);</span>
-        <span class="o">}</span>
-<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">s</span><span class="o">);</span>
-
-<span class="c1">//现在做法
-</span><span class="c1"></span><span class="n">Optional</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">o</span> <span class="o">=</span> <span class="n">Optional</span><span class="o">.</span><span class="na">ofNullable</span><span class="o">(</span><span class="n">s</span><span class="o">);</span>
-<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">o</span><span class="o">.</span><span class="na">orElseThrow</span><span class="o">(()-&gt;</span><span class="k">new</span> <span class="n">Exception</span><span class="o">(</span><span class="s">&#34;test&#34;</span><span class="o">)));</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">//以前的做法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">if</span> <span class="o">(</span><span class="kc">null</span> <span class="o">==</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">throw</span> <span class="k">new</span> <span class="n">Exception</span><span class="o">(</span><span class="s">&#34;test&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">s</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//现在做法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Optional</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">o</span> <span class="o">=</span> <span class="n">Optional</span><span class="o">.</span><span class="na">ofNullable</span><span class="o">(</span><span class="n">s</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">o</span><span class="o">.</span><span class="na">orElseThrow</span><span class="o">(()-&gt;</span><span class="k">new</span> <span class="n">Exception</span><span class="o">(</span><span class="s">&#34;test&#34;</span><span class="o">)));</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div>
     </div>
@@ -1001,7 +999,7 @@ Optional实际上是对一个变量进行封装，它包含有一个属性value�
 
 
 
-<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+<script type="text/javascript" src="/js/main.min.191509a5c8442abdb6eb5020a332fd59bdd83a7e78a2d2241108df9113504292.js"></script>
 
 
 

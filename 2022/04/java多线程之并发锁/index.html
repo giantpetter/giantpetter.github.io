@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.83.0 with theme even" />
+<meta name="generator" content="Hugo 0.100.2 with theme even" />
 
 
 <link rel="canonical" href="http://localhost:1313/2022/04/java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B9%8B%E5%B9%B6%E5%8F%91%E9%94%81/" />
@@ -43,12 +43,12 @@
 <meta property="og:description" content="本文先阐述 Java 中各种锁的概念。然后，介绍锁的核心实现 AQS。 互斥，即同一时刻只允许一个线程访问共享资源； 同步，即线程之间如何通信、协作。 一、并" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://localhost:1313/2022/04/java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B9%8B%E5%B9%B6%E5%8F%91%E9%94%81/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2022-04-14T19:56:47&#43;08:00" />
-<meta property="article:modified_time" content="2022-04-14T20:38:21&#43;08:00" />
+<meta property="article:published_time" content="2022-04-14T19:56:47+08:00" />
+<meta property="article:modified_time" content="2022-04-14T20:38:21+08:00" />
 
 <meta itemprop="name" content="Java多线程之并发锁">
-<meta itemprop="description" content="本文先阐述 Java 中各种锁的概念。然后，介绍锁的核心实现 AQS。 互斥，即同一时刻只允许一个线程访问共享资源； 同步，即线程之间如何通信、协作。 一、并"><meta itemprop="datePublished" content="2022-04-14T19:56:47&#43;08:00" />
-<meta itemprop="dateModified" content="2022-04-14T20:38:21&#43;08:00" />
+<meta itemprop="description" content="本文先阐述 Java 中各种锁的概念。然后，介绍锁的核心实现 AQS。 互斥，即同一时刻只允许一个线程访问共享资源； 同步，即线程之间如何通信、协作。 一、并"><meta itemprop="datePublished" content="2022-04-14T19:56:47+08:00" />
+<meta itemprop="dateModified" content="2022-04-14T20:38:21+08:00" />
 <meta itemprop="wordCount" content="3514">
 <meta itemprop="keywords" content="多线程,锁," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Java多线程之并发锁"/>
@@ -228,17 +228,17 @@
 获取、释放独享锁的主要 API 如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">final</span> <span class="kt">void</span> <span class="nf">acquire</span><span class="o">(</span><span class="kt">int</span> <span class="n">arg</span><span class="o">)</span>
-<span class="kd">public</span> <span class="kd">final</span> <span class="kt">void</span> <span class="nf">acquireInterruptibly</span><span class="o">(</span><span class="kt">int</span> <span class="n">arg</span><span class="o">)</span>
-<span class="kd">public</span> <span class="kd">final</span> <span class="kt">boolean</span> <span class="nf">tryAcquireNanos</span><span class="o">(</span><span class="kt">int</span> <span class="n">arg</span><span class="o">,</span> <span class="kt">long</span> <span class="n">nanosTimeout</span><span class="o">)</span>
-<span class="kd">public</span> <span class="kd">final</span> <span class="kt">boolean</span> <span class="nf">release</span><span class="o">(</span><span class="kt">int</span> <span class="n">arg</span><span class="o">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">final</span> <span class="kt">void</span> <span class="nf">acquire</span><span class="o">(</span><span class="kt">int</span> <span class="n">arg</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">final</span> <span class="kt">void</span> <span class="nf">acquireInterruptibly</span><span class="o">(</span><span class="kt">int</span> <span class="n">arg</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">final</span> <span class="kt">boolean</span> <span class="nf">tryAcquireNanos</span><span class="o">(</span><span class="kt">int</span> <span class="n">arg</span><span class="o">,</span> <span class="kt">long</span> <span class="n">nanosTimeout</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">final</span> <span class="kt">boolean</span> <span class="nf">release</span><span class="o">(</span><span class="kt">int</span> <span class="n">arg</span><span class="o">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li><code>acquire</code> - 获取独占锁。</li>
@@ -256,17 +256,17 @@
 获取、释放共享锁的主要 API 如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">final</span> <span class="kt">void</span> <span class="nf">acquireShared</span><span class="o">(</span><span class="kt">int</span> <span class="n">arg</span><span class="o">)</span>
-<span class="kd">public</span> <span class="kd">final</span> <span class="kt">void</span> <span class="nf">acquireSharedInterruptibly</span><span class="o">(</span><span class="kt">int</span> <span class="n">arg</span><span class="o">)</span>
-<span class="kd">public</span> <span class="kd">final</span> <span class="kt">boolean</span> <span class="nf">tryAcquireSharedNanos</span><span class="o">(</span><span class="kt">int</span> <span class="n">arg</span><span class="o">,</span> <span class="kt">long</span> <span class="n">nanosTimeout</span><span class="o">)</span>
-<span class="kd">public</span> <span class="kd">final</span> <span class="kt">boolean</span> <span class="nf">releaseShared</span><span class="o">(</span><span class="kt">int</span> <span class="n">arg</span><span class="o">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">final</span> <span class="kt">void</span> <span class="nf">acquireShared</span><span class="o">(</span><span class="kt">int</span> <span class="n">arg</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">final</span> <span class="kt">void</span> <span class="nf">acquireSharedInterruptibly</span><span class="o">(</span><span class="kt">int</span> <span class="n">arg</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">final</span> <span class="kt">boolean</span> <span class="nf">tryAcquireSharedNanos</span><span class="o">(</span><span class="kt">int</span> <span class="n">arg</span><span class="o">,</span> <span class="kt">long</span> <span class="n">nanosTimeout</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">final</span> <span class="kt">boolean</span> <span class="nf">releaseShared</span><span class="o">(</span><span class="kt">int</span> <span class="n">arg</span><span class="o">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>acquireShared - 获取共享锁。</li>
@@ -292,7 +292,7 @@
 <p>阅读 AQS 的源码，可以发现：AQS 继承自 AbstractOwnableSynchronize。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -305,18 +305,18 @@
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">AbstractQueuedSynchronizer</span>
-    <span class="kd">extends</span> <span class="n">AbstractOwnableSynchronizer</span>
-    <span class="kd">implements</span> <span class="n">java</span><span class="o">.</span><span class="na">io</span><span class="o">.</span><span class="na">Serializable</span> <span class="o">{</span>
-
-    <span class="cm">/** 等待队列的队头，懒加载。只能通过 setHead 方法修改。 */</span>
-    <span class="kd">private</span> <span class="kd">transient</span> <span class="kd">volatile</span> <span class="n">Node</span> <span class="n">head</span><span class="o">;</span>
-    <span class="cm">/** 等待队列的队尾，懒加载。只能通过 enq 方法添加新的等待节点。*/</span>
-    <span class="kd">private</span> <span class="kd">transient</span> <span class="kd">volatile</span> <span class="n">Node</span> <span class="n">tail</span><span class="o">;</span>
-    <span class="cm">/** 同步状态 */</span>
-    <span class="kd">private</span> <span class="kd">volatile</span> <span class="kt">int</span> <span class="n">state</span><span class="o">;</span>
-<span class="o">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">AbstractQueuedSynchronizer</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">extends</span> <span class="n">AbstractOwnableSynchronizer</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">implements</span> <span class="n">java</span><span class="o">.</span><span class="na">io</span><span class="o">.</span><span class="na">Serializable</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/** 等待队列的队头，懒加载。只能通过 setHead 方法修改。 */</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="kd">transient</span> <span class="kd">volatile</span> <span class="n">Node</span> <span class="n">head</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/** 等待队列的队尾，懒加载。只能通过 enq 方法添加新的等待节点。*/</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="kd">transient</span> <span class="kd">volatile</span> <span class="n">Node</span> <span class="n">tail</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/** 同步状态 */</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="kd">volatile</span> <span class="kt">int</span> <span class="n">state</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li><code>state</code> - AQS 使用一个整型的 volatile 变量来 维护同步状态。
@@ -327,7 +327,7 @@
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -352,30 +352,30 @@
 </span><span class="lnt">23
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">static</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">Node</span> <span class="o">{</span>
-    <span class="cm">/** 该等待同步的节点处于共享模式 */</span>
-    <span class="kd">static</span> <span class="kd">final</span> <span class="n">Node</span> <span class="n">SHARED</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="o">();</span>
-    <span class="cm">/** 该等待同步的节点处于独占模式 */</span>
-    <span class="kd">static</span> <span class="kd">final</span> <span class="n">Node</span> <span class="n">EXCLUSIVE</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-
-    <span class="cm">/** 线程等待状态，状态值有: 0、1、-1、-2、-3 */</span>
-    <span class="kd">volatile</span> <span class="kt">int</span> <span class="n">waitStatus</span><span class="o">;</span>
-    <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">CANCELLED</span> <span class="o">=</span>  <span class="n">1</span><span class="o">;</span>
-    <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">SIGNAL</span>    <span class="o">=</span> <span class="o">-</span><span class="n">1</span><span class="o">;</span>
-    <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">CONDITION</span> <span class="o">=</span> <span class="o">-</span><span class="n">2</span><span class="o">;</span>
-    <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">PROPAGATE</span> <span class="o">=</span> <span class="o">-</span><span class="n">3</span><span class="o">;</span>
-
-    <span class="cm">/** 前驱节点 */</span>
-    <span class="kd">volatile</span> <span class="n">Node</span> <span class="n">prev</span><span class="o">;</span>
-    <span class="cm">/** 后继节点 */</span>
-    <span class="kd">volatile</span> <span class="n">Node</span> <span class="n">next</span><span class="o">;</span>
-    <span class="cm">/** 等待锁的线程 */</span>
-    <span class="kd">volatile</span> <span class="n">Thread</span> <span class="n">thread</span><span class="o">;</span>
-
-  	<span class="cm">/** 和节点是否共享有关 */</span>
-    <span class="n">Node</span> <span class="n">nextWaiter</span><span class="o">;</span>
-<span class="o">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">static</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">Node</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/** 该等待同步的节点处于共享模式 */</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">static</span> <span class="kd">final</span> <span class="n">Node</span> <span class="n">SHARED</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/** 该等待同步的节点处于独占模式 */</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">static</span> <span class="kd">final</span> <span class="n">Node</span> <span class="n">EXCLUSIVE</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/** 线程等待状态，状态值有: 0、1、-1、-2、-3 */</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">volatile</span> <span class="kt">int</span> <span class="n">waitStatus</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">CANCELLED</span> <span class="o">=</span>  <span class="n">1</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">SIGNAL</span>    <span class="o">=</span> <span class="o">-</span><span class="n">1</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">CONDITION</span> <span class="o">=</span> <span class="o">-</span><span class="n">2</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">PROPAGATE</span> <span class="o">=</span> <span class="o">-</span><span class="n">3</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/** 前驱节点 */</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">volatile</span> <span class="n">Node</span> <span class="n">prev</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/** 后继节点 */</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">volatile</span> <span class="n">Node</span> <span class="n">next</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/** 等待锁的线程 */</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">volatile</span> <span class="n">Thread</span> <span class="n">thread</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  	<span class="cm">/** 和节点是否共享有关 */</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Node</span> <span class="n">nextWaiter</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>很显然，Node 是一个双链表结构。</p>
 <ul>
@@ -518,7 +518,7 @@ AQS 中使用 tryAcquireSharedNanos(int arg) 方法获取超时等待式的共�
 
 
 
-<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+<script type="text/javascript" src="/js/main.min.191509a5c8442abdb6eb5020a332fd59bdd83a7e78a2d2241108df9113504292.js"></script>
 
 
 
