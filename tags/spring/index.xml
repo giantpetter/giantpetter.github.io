@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>spring on 拾光的博客</title>
+    <link>http://localhost:1313/tags/spring/</link>
+    <description>Recent content in spring on 拾光的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>Huan</copyright>
+    <lastBuildDate>Tue, 14 Jun 2022 11:52:42 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/spring/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Spring基本原理之IoC</title>
+      <link>http://localhost:1313/2022/06/spring%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86%E4%B9%8Bioc/</link>
+      <pubDate>Tue, 14 Jun 2022 11:52:42 +0800</pubDate>
+      
+      <guid>http://localhost:1313/2022/06/spring%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86%E4%B9%8Bioc/</guid>
+      <description>一、概述 IoC：控制反转（Inversion of Control）容器,是一种设计思想。在 Java 开发中，IoC 意味着将定义好的对象交给容器管理，而不</description>
+    </item>
+    
+  </channel>
+</rss>

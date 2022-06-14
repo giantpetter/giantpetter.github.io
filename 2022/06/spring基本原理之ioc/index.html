@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Spring基本原理之IoC - 拾光的博客</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="拾光" /><meta name="description" content="一、概述 IoC：控制反转（Inversion of Control）容器,是一种设计思想。在 Java 开发中，IoC 意味着将定义好的对象交给容器管理，而不" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.100.2 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/2022/06/spring%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86%E4%B9%8Bioc/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Spring基本原理之IoC" />
+<meta property="og:description" content="一、概述 IoC：控制反转（Inversion of Control）容器,是一种设计思想。在 Java 开发中，IoC 意味着将定义好的对象交给容器管理，而不" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/2022/06/spring%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86%E4%B9%8Bioc/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-06-14T11:52:42+08:00" />
+<meta property="article:modified_time" content="2022-06-14T14:52:42+08:00" />
+
+<meta itemprop="name" content="Spring基本原理之IoC">
+<meta itemprop="description" content="一、概述 IoC：控制反转（Inversion of Control）容器,是一种设计思想。在 Java 开发中，IoC 意味着将定义好的对象交给容器管理，而不"><meta itemprop="datePublished" content="2022-06-14T11:52:42+08:00" />
+<meta itemprop="dateModified" content="2022-06-14T14:52:42+08:00" />
+<meta itemprop="wordCount" content="3854">
+<meta itemprop="keywords" content="spring," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Spring基本原理之IoC"/>
+<meta name="twitter:description" content="一、概述 IoC：控制反转（Inversion of Control）容器,是一种设计思想。在 Java 开发中，IoC 意味着将定义好的对象交给容器管理，而不"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">拾光</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">拾光</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Spring基本原理之IoC</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2022-06-14 </span>
+        <div class="post-category">
+            <a href="/categories/java/"> Java </a>
+            </div>
+          <span class="more-meta"> 3854 words </span>
+          <span class="more-meta"> 8 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一概述">一、概述</a></li>
+    <li><a href="#二bean-的创建">二、Bean 的创建</a>
+      <ul>
+        <li><a href="#21-ioc-容器的初始化">2.1 IoC 容器的初始化</a>
+          <ul>
+            <li><a href="#211-spring-ioc-的初始化主要有四个步骤">2.1.1 Spring IoC 的初始化主要有四个步骤：</a></li>
+            <li><a href="#212核心方法-refresh-">2.1.2核心方法 refresh() :</a></li>
+          </ul>
+        </li>
+        <li><a href="#22-bean的注入方式">2.2 Bean的注入方式</a></li>
+      </ul>
+    </li>
+    <li><a href="#三bean-生命周期以及创建过程">三、Bean 生命周期以及创建过程</a>
+      <ul>
+        <li><a href="#31-bean-生命周期">3.1 Bean 生命周期</a></li>
+        <li><a href="#32-bean-实例化流程">3.2 Bean 实例化流程</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="一概述">一、概述</h1>
+<p><strong>IoC：控制反转（Inversion of Control）容器</strong>,是一种设计思想。在 Java 开发中，IoC 意味着将定义好的对象交给容器管理，而不是交给自己控制。</p>
+<p><strong>DI：依赖注入（Dependency Injection）</strong>：组件之间的以来关系由容器在运行时期决定，即由容器动态的将某个依赖关系注入到组件之中。</p>
+<h1 id="二bean-的创建">二、Bean 的创建</h1>
+<h2 id="21-ioc-容器的初始化">2.1 IoC 容器的初始化</h2>
+<h3 id="211-spring-ioc-的初始化主要有四个步骤">2.1.1 Spring IoC 的初始化主要有四个步骤：</h3>
+<ol>
+<li>Bean 定义的定位，包括 xml 中，或者一个注解，或者文件其他形式。这些都被用Resource来定位，读取Resource获取BeanDefinition 注册到 Bean定义注册表中。</li>
+<li>第一次向容器getBean操作会触发Bean的创建过程,实列化一个Bean时 ,根据BeanDefinition中类信息等实列化Bean.</li>
+<li>将实列化的Bean放到单列Bean缓存内。</li>
+<li>此后再次获取向容器getBean就会从缓存中获取。</li>
+</ol>
+<h3 id="212核心方法-refresh-">2.1.2核心方法 refresh() :</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">refresh</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">BeansException</span><span class="o">,</span> <span class="n">IllegalStateException</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">synchronized</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">startupShutdownMonitor</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">StartupStep</span> <span class="n">contextRefresh</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">applicationStartup</span><span class="o">.</span><span class="na">start</span><span class="o">(</span><span class="s">&#34;spring.context.refresh&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Prepare this context for refreshing.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">prepareRefresh</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Tell the subclass to refresh the internal bean factory.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">ConfigurableListableBeanFactory</span> <span class="n">beanFactory</span> <span class="o">=</span> <span class="n">obtainFreshBeanFactory</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Prepare the bean factory for use in this context.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">prepareBeanFactory</span><span class="o">(</span><span class="n">beanFactory</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// Allows post-processing of the bean factory in context subclasses.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="n">postProcessBeanFactory</span><span class="o">(</span><span class="n">beanFactory</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="n">StartupStep</span> <span class="n">beanPostProcess</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">applicationStartup</span><span class="o">.</span><span class="na">start</span><span class="o">(</span><span class="s">&#34;spring.context.beans.post-process&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// Invoke factory processors registered as beans in the context.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="n">invokeBeanFactoryPostProcessors</span><span class="o">(</span><span class="n">beanFactory</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="c1">// Register bean processors that intercept bean creation.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="n">registerBeanPostProcessors</span><span class="o">(</span><span class="n">beanFactory</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">beanPostProcess</span><span class="o">.</span><span class="na">end</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="c1">// Initialize message source for this context.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="n">initMessageSource</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="c1">// Initialize event multicaster for this context.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="n">initApplicationEventMulticaster</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="c1">// Initialize other special beans in specific context subclasses.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="n">onRefresh</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="c1">// Check for listener beans and register them.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="n">registerListeners</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="c1">// Instantiate all remaining (non-lazy-init) singletons.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="n">finishBeanFactoryInitialization</span><span class="o">(</span><span class="n">beanFactory</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="c1">// Last step: publish corresponding event.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="n">finishRefresh</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">catch</span> <span class="o">(</span><span class="n">BeansException</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="o">(</span><span class="n">logger</span><span class="o">.</span><span class="na">isWarnEnabled</span><span class="o">())</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">logger</span><span class="o">.</span><span class="na">warn</span><span class="o">(</span><span class="s">&#34;Exception encountered during context initialization - &#34;</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">                    <span class="s">&#34;cancelling refresh attempt: &#34;</span> <span class="o">+</span> <span class="n">ex</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">      <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="c1">// Destroy already created singletons to avoid dangling resources.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="n">destroyBeans</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="c1">// Reset &#39;active&#39; flag.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="n">cancelRefresh</span><span class="o">(</span><span class="n">ex</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="c1">// Propagate exception to caller.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="k">throw</span> <span class="n">ex</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">finally</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// Reset common introspection caches in Spring&#39;s core, since we
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="c1">// might not ever need metadata for singleton beans anymore...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="n">resetCommonCaches</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">      <span class="n">contextRefresh</span><span class="o">.</span><span class="na">end</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>1.prepareRefresh 准备刷新</strong></p>
+<ul>
+<li>设置启动时间,设计容器激活标志(active=true);</li>
+<li>初始化 properties 资源，比如一些属性的占位符(@Value注解等)；</li>
+<li>验证必须存在的properties(validateRequiredProperties)；</li>
+<li>初始earlyApplicationEnvents.用于收集已经产生的ApplicationEnvents.</li>
+</ul>
+<p><strong>2.obtainFreshBeanFactory 获取容器</strong></p>
+<ul>
+<li>调用子类的refeshBeanFactory(), SpringBoot中采用默认的实现，设置BeanFactory的SerializationId,设置refreshed标志为true。</li>
+<li>获取BeanFactory;</li>
+<li>XmlWebApplicationContext ，AnnotationConfigApplicationContext 会在这一步加载BeanDefinition</li>
+</ul>
+<p><strong>3.prepareBeanFactory 为了接下来使用BeanFactory 做准备</strong></p>
+<ul>
+<li>为内部的BeanFactory设置类加载器</li>
+<li>设置表达式解析器，属性编辑器。</li>
+<li>注册:BeanPostProcessor(ApplicationContextAwareProcessor,ApplicationListenerDetector)
+<ul>
+<li>ApplicationContextAwareProcessor:对Spring 中各种Aware接口的支持,在初始化Bean前，调用Bean实现的Aware接口方法。</li>
+<li>ApplicationListenerDetector：用于收集实现了ApplicationListener接口的Bean</li>
+</ul>
+</li>
+<li>注册指定的依赖类型和对应的value
+<ul>
+<li>例如: beanFactory.registerResolvableDependency(ResourceLoader.class, this); 那么在类中自动注入ResourceLoader类型的对象，就会拿到当前IOC容器。</li>
+<li>例如：这里的 ApplicationContext 也会拿到 IoC 容器。</li>
+</ul>
+</li>
+<li>注入一些其它信息的bean，比如environment、systemProperties等</li>
+</ul>
+<p><strong>4.postProcessBeanFactory 后处理BeanFactory</strong></p>
+<p>用于在<code>BeanFactory</code> 完成标准的初始化之后修改BeanFactory。不同容器根据自己的需求添加特殊的后置处理器;</p>
+<p><code>EmbeddedWebApplicationContext</code> 容器在这里添加了对 <code>ServletContextAware</code>支持的 Bean 后置处理器(<code>WebApplicationContextServletContextAwareProcessor</code>)。(而ClassPathXml和AnnotationConfig都没有后置处理器)</p>
+<p><em>BeanFactoryPostProcessor是spring对外提供的接口，用来拓展spring，能够在spring容器加载了所有bean的信息之后、bean实例化之前执行，修改bean的定义属性</em>。常用场景包括spring中占位符的处理、我们自定义的敏感信息的解密处理。</p>
+<p><strong>5.postProcessBeanFactory 后处理BeanFactory</strong></p>
+<p>实例化并且执行所有已经注册到BeanFactory中的 BeanFactoryPostProcessor。支持按照Order排序。</p>
+<ul>
+<li>调用PostProcessorRegistrationDelegate的静态方法invokeBeanFactoryPostProcessors,执行顺序如下：</li>
+</ul>
+<blockquote>
+<p>1.执行ApplicationContext初始化器注册的BeanDefinitionRegistryPostProcessor类型的处理器</p>
+<p>2.执行实现了PriorityOrdered接口的BeanDefinitionRegistryPostProcessor。</p>
+<p>3.执行实现了Ordered的BeanDefinitionRegistryPostProcessor</p>
+<p>4.执行所有后置处理器的 BeanFactoryPostProcessor 的接口方法</p>
+<p>5.获取所有的BeanFactoryPostProcessor,排除已经执行过得后置处理器。</p>
+<p>6.按照2-4的顺序 执行所有未执行的BeanFactoryPostProcessor。</p>
+</blockquote>
+<ul>
+<li>BeanFactoryPostProcessor 接口</li>
+</ul>
+<blockquote>
+<p>针对BeanFactory 的处理,允许使用者修改容器中的bean definitions,例如：ServletComponentRegisteringPostProcessor提供对@WebFilter,@WebServlet,@WebListener注解的扫描，并注册到容器中。ConfigurationClassPostProcessor 对所有的@Configuration类进行动态代理的增强。<strong>注意使用时不能对任何BeanDefinition 进行实列化操作</strong></p>
+</blockquote>
+<ul>
+<li>BeanDefinitionRegistryPostProcessor 接口</li>
+</ul>
+<blockquote>
+<p>如图，继承自BeanFactoryPostProcessor,针对BeanDefinitionRegistry的后置处理器,会先于BeanFactoryPostProcessor 执行。</br></p>
+<p>同时，ConfigurationClassPostProcessor后置处理器实现了 PriorityOrdered 与 BeanDefinitionRegistryPostProcessor接口，优先级最高的后置处理器，在SpringBoot自动配置的实现中起到举足轻重的作用。对@Configuration,@Bean,@ComponentScan,@Import,@ImportResource,@PropertySource注解解析。</p>
+</blockquote>
+<p><img src="/images/spring/image-20220614115453886.png" alt="image-20220614115453886"></p>
+<p><strong>6.registerBeanPostProcessors 注册bean后置处理器</strong></p>
+<blockquote>
+<ol>
+<li>
+<p>委托给PostProcessorRegistrationDelegate的静态方法registerBeanPostProcessors执行</p>
+</li>
+<li>
+<p>BeanPostProcessors 接口,该接口在Bean的实例化过程中被调用,在对一个对象进行初始化前后被调用。</p>
+<p>实现了 EnvironmentAware,EmbeddedValueResolverAware，ResourceLoaderAware，ApplicationContextAware等Aware就是这个时候 被执行的。</p>
+</li>
+<li>
+<p>MergedBeanDefinitionPostProcessor 接口,该接口继承了BeanPostProcessors接口, 会在 bean 实列化 之后 属性注入前 执行。例如 对@Autowired @Resource @Value 注解的解析。</p>
+</li>
+</ol>
+</blockquote>
+<p><img src="/images/spring/image-20220614121315900.png" alt="image-20220614121315900"></p>
+<p><strong>7.initMessageSource 和 initApplicationEventMulticaster</strong></p>
+<p>在Spring容器中初始化一些国际化相关的属性；在容器中初始化Application事件广播器。</p>
+<p><strong>8.onRefresh</strong></p>
+<p>onRefresh是一个模板方法，留给子类容器扩赞，不同的容器做不同的事情。</p>
+<p>例如：容器<code>AnnotationConfigEmbeddedWebApplicationContext</code>中会调用<code>createEmbeddedServletContainer</code>方法去创建内置的<code>Servlet</code>容器。
+<code>EmbeddedServletContainerAutoConfiguration</code> 类中定义了 Spring boot 支持的三种 Servlet容器。Tomcat, Jetty 和 Undertow。</p>
+<p><strong>9.registerListeners</strong></p>
+<p>​	将所有的 ApplicationListener 实现类注册 到 ApplicationEventMulticaster中,觉得是观察者模式。</p>
+<p><strong>10.finishBeanFactoryInitialization</strong></p>
+<p>实列化所有 <em>非懒加载的</em> 类。</p>
+<p><strong>11.finishRefresh</strong></p>
+<ol>
+<li>完成容器的初始化过程,发布相应事件。</li>
+<li>发布 ContextRefreshedEvent事件。</li>
+<li>发布容器启动事件。</li>
+</ol>
+<h2 id="22-bean的注入方式">2.2 Bean的注入方式</h2>
+<p>常用的注入方式：<strong>SET注入，构造器注入，静态工厂，实例工厂，注解方式</strong></p>
+<p>具体参考 <a href="https://zhuanlan.zhihu.com/p/48848841">Bean注入方式详解</a></p>
+<h1 id="三bean-生命周期以及创建过程">三、Bean 生命周期以及创建过程</h1>
+<h2 id="31-bean-生命周期">3.1 Bean 生命周期</h2>
+<p>如图，总的来说可以包括四个部分：实例化  &mdash;&mdash;&ndash;&gt; 属性赋值  &mdash;&mdash;&ndash;&gt; 初始化  &mdash;&mdash;&ndash;&gt; 销毁。</p>
+<p><img src="/images/spring/1704860a4de235aa~tplv-t2oaga2asx-zoom-in-crop-mark:1304:0:0:0.awebp" alt="img"></p>
+<h2 id="32-bean-实例化流程">3.2 Bean 实例化流程</h2>
+<blockquote>
+<p>对应源码：AbstactApplicationContext.finishBeanFactoryInitialization &mdash;-&gt; DefaultListenableBeanFactory.preInstantiateSingletons &mdash;-&gt;   AbstractBeanFactory.doGetBean</p>
+</blockquote>
+<ol>
+<li>遍历所有被加载到缓存中的 beanName，触发所有剩余的非懒加载单例 bean 的实例化。</li>
+<li>首先通过 beanName 尝试从缓存中获取，如果存在则跳过实例化过程；否则，进行 bean 的实例化。</li>
+</ol>
+<p><img src="/images/spring/image-20220614133152496.png" alt="image-20220614133152496"></p>
+<ol start="3">
+<li>
+<p>根据 BeanDefinition，BeanFactory 使用反射通过构造函数创建 bean 实例。</p>
+<blockquote>
+<p>注意：此时的 BeanFactory 在容器的初始化阶段第 6 步注册了BeanPostProcessor，用在Bean 的初始化阶段</p>
+</blockquote>
+</li>
+<li>
+<p>根据 BeanDefinition，进行 bean 实例属性填充。</p>
+</li>
+<li>
+<p>执行 bean 实例的初始化。</p>
+<p>5.1 触发 Aware 方法。</p>
+<p>5.2 触发 BeanPostProcessor 的 postProcessBeforeInitialization 方法。</p>
+<p>5.3 如果 bean 实现了 InitializingBean 接口，则触发 afterPropertiesSet() 方法。</p>
+<p>5.4 如果 bean 设置了 init-method 属性，则触发 init-method 指定的方法。</p>
+<p>5.5 触发 BeanPostProcessor 的 postProcessAfterInitialization 方法。</p>
+</li>
+<li>
+<p>将创建好的 bean 实例放到缓存中，用于之后使用。</p>
+</li>
+</ol>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">拾光</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2022-06-14
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/spring/">spring</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/2022/06/maven%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/">
+            <span class="next-text nav-default">Maven生命周期</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="yang_95@126.com" class="iconfont icon-email" title="email"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2021 - 
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Huan</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.191509a5c8442abdb6eb5020a332fd59bdd83a7e78a2d2241108df9113504292.js"></script>
+
+
+
+<script id="baidu_push">
+  (function(){
+    if (window.location.hostname === 'localhost') return;
+    var bp = document.createElement('script'); bp.async = true;
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+  })();
+</script>
+
+
+
+
+</body>
+</html>
