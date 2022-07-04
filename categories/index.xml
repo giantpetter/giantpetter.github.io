@@ -7,13 +7,22 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>Huan</copyright>
-    <lastBuildDate>Tue, 14 Jun 2022 11:52:42 +0800</lastBuildDate><atom:link href="http://localhost:1313/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 04 Jul 2022 17:28:03 +0800</lastBuildDate><atom:link href="http://localhost:1313/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Java</title>
       <link>http://localhost:1313/categories/java/</link>
-      <pubDate>Tue, 14 Jun 2022 11:52:42 +0800</pubDate>
+      <pubDate>Mon, 04 Jul 2022 17:28:03 +0800</pubDate>
       
       <guid>http://localhost:1313/categories/java/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>分布式</title>
+      <link>http://localhost:1313/categories/%E5%88%86%E5%B8%83%E5%BC%8F/</link>
+      <pubDate>Mon, 04 Jul 2022 17:28:03 +0800</pubDate>
+      
+      <guid>http://localhost:1313/categories/%E5%88%86%E5%B8%83%E5%BC%8F/</guid>
       <description></description>
     </item>
     
