@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Zookeeper工作原理 - 拾光的博客</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="拾光" /><meta name="description" content="一、Zookeeper 集群中的组成 Zookeeper 主要包括三个角色： 领导者（leader），负责进行投票的发起和决议，更新系统状态； 学习者（learner" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.100.2 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/2022/07/zookeeper%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Zookeeper工作原理" />
+<meta property="og:description" content="一、Zookeeper 集群中的组成 Zookeeper 主要包括三个角色： 领导者（leader），负责进行投票的发起和决议，更新系统状态； 学习者（learner" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/2022/07/zookeeper%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-07-06T11:08:54+08:00" />
+<meta property="article:modified_time" content="2022-07-06T11:08:54+08:00" />
+
+<meta itemprop="name" content="Zookeeper工作原理">
+<meta itemprop="description" content="一、Zookeeper 集群中的组成 Zookeeper 主要包括三个角色： 领导者（leader），负责进行投票的发起和决议，更新系统状态； 学习者（learner"><meta itemprop="datePublished" content="2022-07-06T11:08:54+08:00" />
+<meta itemprop="dateModified" content="2022-07-06T11:08:54+08:00" />
+<meta itemprop="wordCount" content="5008">
+<meta itemprop="keywords" content="zookeeper," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Zookeeper工作原理"/>
+<meta name="twitter:description" content="一、Zookeeper 集群中的组成 Zookeeper 主要包括三个角色： 领导者（leader），负责进行投票的发起和决议，更新系统状态； 学习者（learner"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">拾光</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">拾光</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Zookeeper工作原理</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2022-07-06 </span>
+        <div class="post-category">
+            <a href="/categories/java/"> Java </a>
+            <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/"> 分布式 </a>
+            </div>
+          <span class="more-meta"> 5008 words </span>
+          <span class="more-meta"> 10 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一zookeeper-集群中的组成">一、Zookeeper 集群中的组成</a></li>
+    <li><a href="#二读写机制">二、读写机制</a>
+      <ul>
+        <li><a href="#21-读操作">2.1 读操作</a></li>
+        <li><a href="#22-写操作">2.2 写操作</a>
+          <ul>
+            <li><a href="#221-写-leader">2.2.1 写 leader</a></li>
+            <li><a href="#222-写-followerobserver">2.2.2 写 Follower/Observer</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#三事务">三、事务</a></li>
+    <li><a href="#四观察watch">四、观察（watch）</a></li>
+    <li><a href="#五会话session">五、会话（session）</a></li>
+    <li><a href="#六zab-协议">六、ZAB 协议</a>
+      <ul>
+        <li><a href="#61-选举-leader">6.1 选举 Leader</a>
+          <ul>
+            <li><a href="#611-术语">6.1.1 术语</a></li>
+            <li><a href="#612-服务器状态">6.1.2 服务器状态</a></li>
+            <li><a href="#613-选票数据结构">6.1.3 选票数据结构</a></li>
+            <li><a href="#614-投票流程">6.1.4 投票流程</a></li>
+          </ul>
+        </li>
+        <li><a href="#62-原子广播atomic-broadcast">6.2 原子广播（Atomic Broadcast）</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="一zookeeper-集群中的组成">一、Zookeeper 集群中的组成</h1>
+<p>Zookeeper 主要包括三个角色：</p>
+<ul>
+<li>
+<p><strong>领导者（leader）</strong>，负责进行投票的发起和决议，更新系统状态；</p>
+</li>
+<li>
+<p><strong>学习者（learner）</strong>，包括跟随者（follower）和观察者（observer），<strong>follower</strong> 用于接受客户端请求并想客户端返回结果，在选主过程中参与投票；</p>
+</li>
+<li>
+<p><strong>Observer</strong> 可以接受客户端连接，将写请求转发给leader，但observer不参加投票过程，只同步leader的状态，observer的目的是为了扩展系统，提高读取速度。</p>
+</li>
+</ul>
+<p><img src="/images/zookeeper/1482990578752713.png" alt="Zookeeper - 工作流"></p>
+<h1 id="二读写机制">二、读写机制</h1>
+<h2 id="21-读操作">2.1 读操作</h2>
+<p><strong>Leader/Follower/Observer 都可直接处理读请求，从本地内存中读取数据并返回给客户端即可。</strong></p>
+<p>由于处理读请求不需要服务器之间的交互，<strong>Follower/Observer 越多，整体系统的读请求吞吐量越大</strong>，也即读性能越好。</p>
+<img src="/images/zookeeper/640-20220706195642568.png" alt="Image" style="zoom:67%;" />
+<h2 id="22-写操作">2.2 写操作</h2>
+<p>所有的写请求实际上都要交给 Leader 处理。Leader 将写请求以事务形式发给所有 Follower 并等待 ACK，一旦收到**半数以上 Follower ** 的 ACK，即认为写操作成功。</p>
+<h3 id="221-写-leader">2.2.1 写 leader</h3>
+<img src="/images/zookeeper/640-20220706200319930.png" alt="Image" style="zoom:67%;" />
+<p>由上图可见，通过 Leader 进行写操作，主要分为五步：</p>
+<ol>
+<li>客户端向 Leader 发起写请求。</li>
+<li>Leader 将写请求以事务 Proposal 的形式发给所有 Follower 并等待 ACK。</li>
+<li>Follower 收到 Leader 的事务 Proposal 后返回 ACK。</li>
+<li>Leader 得到过半数的 ACK（Leader 对自己默认有一个 ACK）后向所有的 Follower 和 Observer 发送 Commmit。</li>
+<li>Leader 将处理结果返回给客户端。</li>
+</ol>
+<blockquote>
+<p>注意：</p>
+<ul>
+<li>
+<p>Leader 不需要得到 Observer 的 ACK，即 Observer 无投票权。</p>
+</li>
+<li>
+<p>Leader 不需要得到所有 Follower 的 ACK，只要收到过半的 ACK 即可，同时 Leader 本身对自己有一个 ACK。上图中有 4 个 Follower，只需其中两个返回 ACK 即可，因为 $$(2+1) / (4+1) &gt; 1/2 $$。</p>
+</li>
+<li>
+<p>Observer 虽然无投票权，但仍须同步 Leader 的数据从而在处理读请求时可以返回尽可能新的数据。</p>
+</li>
+</ul>
+</blockquote>
+<h3 id="222-写-followerobserver">2.2.2 写 Follower/Observer</h3>
+<img src="/images/zookeeper/640-20220706200343357.png" alt="Image" style="zoom:67%;" />
+<p>Follower/Observer 均可接受写请求，但不能直接处理，而需要将写请求转发给 Leader 处理。</p>
+<p>除了多了一步请求转发，其它流程与直接写 Leader 无任何区别。</p>
+<h1 id="三事务">三、事务</h1>
+<p>对于来自客户端的每个更新请求，ZooKeeper 具备严格的顺序访问控制能力。</p>
+<p><strong>为了保证事务的顺序一致性，ZooKeeper 采用了递增的事务 id 号（zxid）来标识事务。</strong></p>
+<p>**Leader 服务会为每一个 Follower 服务器分配一个单独的队列，然后将事务 Proposal 依次放入队列中，并根据 FIFO(先进先出) 的策略进行消息发送。**Follower 服务在接收到 Proposal 后，会将其以事务日志的形式写入本地磁盘中，并在写入成功后反馈给  Leader 一个 Ack 响应。**当 Leader 接收到超过半数 Follower 的 Ack 响应后，就会广播一个 Commit 消息给所有的 Follower 以通知其进行事务提交，**之后 Leader 自身也会完成对事务的提交。而每一个 Follower 则在接收到 Commit 消息后，完成事务的提交。</p>
+<p>所有的提议（proposal）都在被提出的时候加上了zxid。实现中 zxid 是一个64位的数字，它高32位是epoch用来标识 leader 关系是否改变，每次一个 leader 被选出来，它都会有一个新的 epoch，标识当前属于那个 leader 的统治时期。低32位用于递增计数。</p>
+<p>详细过程如下：</p>
+<ul>
+<li>Leader 等待 Server 连接；</li>
+<li>Follower 连接 Leader，将最大的 zxid 发送给 Leader；</li>
+<li>Leader 根据 Follower 的 zxid 确定同步点；</li>
+<li>完成同步后通知 follower 已经成为 uptodate 状态；</li>
+<li>Follower 收到 uptodate 消息后，又可以重新接受 client 的请求进行服务了。</li>
+</ul>
+<h1 id="四观察watch">四、观察（watch）</h1>
+<p><strong>客户端注册监听它关心的 znode，当 znode 状态发生变化（数据变化、子节点增减变化）时，ZooKeeper 服务会通知客户端。</strong></p>
+<p>客户端和服务端保持连接一般有两种形式：</p>
+<ul>
+<li>客户端向服务端不断轮询(拉取)</li>
+<li>服务端向客户端推送状态(推送)</li>
+</ul>
+<p>Zookeeper 的选择是服务端主动推送状态，也就是观察机制（ Watch ）。</p>
+<p>ZooKeeper 的观察机制允许用户在指定节点上针对感兴趣的事件注册监听，当事件发生时，监听器会被触发，并将事件信息推送到客户端。</p>
+<p>客户端使用 getData 等接口获取 znode 状态时传入了一个用于处理节点变更的回调，那么服务端就会主动向客户端推送节点的变更：</p>
+<p>从这个方法中传入的 Watcher 对象实现了相应的 process 方法，每次对应节点出现了状态的改变，WatchManager 都会通过以下的方式调用传入 Watcher 的方法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">Set</span><span class="o">&lt;</span><span class="n">Watcher</span><span class="o">&gt;</span> <span class="nf">triggerWatch</span><span class="o">(</span><span class="n">String</span> <span class="n">path</span><span class="o">,</span> <span class="n">EventType</span> <span class="n">type</span><span class="o">,</span> <span class="n">Set</span><span class="o">&lt;</span><span class="n">Watcher</span><span class="o">&gt;</span> <span class="n">supress</span><span class="o">)</span> <span class="o">{</span>    
+</span></span><span class="line"><span class="cl">  <span class="n">WatchedEvent</span> <span class="n">e</span> <span class="o">=</span> <span class="k">new</span> <span class="n">WatchedEvent</span><span class="o">(</span><span class="n">type</span><span class="o">,</span> <span class="n">KeeperState</span><span class="o">.</span><span class="na">SyncConnected</span><span class="o">,</span> <span class="n">path</span><span class="o">);</span>    
+</span></span><span class="line"><span class="cl">  <span class="n">Set</span><span class="o">&lt;</span><span class="n">Watcher</span><span class="o">&gt;</span> <span class="n">watchers</span><span class="o">;</span>    
+</span></span><span class="line"><span class="cl">  <span class="kd">synchronized</span> <span class="o">(</span><span class="k">this</span><span class="o">)</span> <span class="o">{</span>        
+</span></span><span class="line"><span class="cl">    <span class="n">watchers</span> <span class="o">=</span> <span class="n">watchTable</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">path</span><span class="o">);</span>    
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>    
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="o">(</span><span class="n">Watcher</span> <span class="n">w</span> <span class="o">:</span> <span class="n">watchers</span><span class="o">)</span> <span class="o">{</span>       
+</span></span><span class="line"><span class="cl">    <span class="n">w</span><span class="o">.</span><span class="na">process</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>    
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>    
+</span></span><span class="line"><span class="cl">  <span class="k">return</span><span class="o">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Zookeeper 中的所有数据其实都是由一个名为 DataTree 的数据结构管理的，所有的读写数据的请求最终都会改变这颗树的内容，在发出读请求时可能会传入 Watcher 注册一个回调函数，而写请求就可能会触发相应的回调，由 WatchManager 通知客户端数据的变化。</p>
+<p>通过读请求设置 Watcher 监听事件，写请求在触发事件时就能将通知发送给指定的客户端。</p>
+<h1 id="五会话session">五、会话（session）</h1>
+<p><strong>ZooKeeper 客户端通过 TCP 长连接连接到 ZooKeeper 服务集群。会话 (Session) 从第一次连接开始就已经建立，之后通过心跳检测机制来保持有效的会话状态</strong>。通过这个连接，客户端可以发送请求并接收响应，同时也可以接收到 Watch 事件的通知。</p>
+<p>每个 ZooKeeper 客户端配置中都配置了 ZooKeeper 服务器集群列表。启动时，客户端会遍历列表去尝试建立连接。如果失败，它会尝试连接下一个服务器，依次类推。</p>
+<p>一旦一台客户端与一台服务器建立连接，这台服务器会为这个客户端创建一个新的会话。**每个会话都会有一个超时时间，若服务器在超时时间内没有收到任何请求，则相应会话被视为过期。**一旦会话过期，就无法再重新打开，且任何与该会话相关的<em>临时 znode</em> 都会被删除。客户端可以通过心跳方式（ping）来保持会话不过期。</p>
+<img src="/images/zookeeper/640-20220706202557422.png" alt="Image" style="zoom:67%;" />
+<p>ZooKeeper 的会话具有四个属性：</p>
+<ul>
+<li>
+<p><strong>sessionID：</strong> 会话 ID，唯一标识一个会话，每次客户端创建新的会话时，Zookeeper 都会为其分配一个全局唯一的 sessionID。</p>
+</li>
+<li>
+<p><strong>TimeOut：</strong> 会话超时时间，客户端在构造 Zookeeper 实例时，会配置 sessionTimeout 参数用于指定会话的超时时间，Zookeeper 客户端向服务端发送这个超时时间后，服务端会根据自己的超时时间限制最终确定会话的超时时间。</p>
+</li>
+<li>
+<p><strong>TickTime：</strong> 下次会话超时时间点，为了便于 Zookeeper 对会话实行”分桶策略”管理，同时为了高效低耗地实现会话的超时检查与清理，Zookeeper 会为每个会话标记一个下次会话超时时间点，其值大致等于当前时间加上 TimeOut。</p>
+</li>
+<li>
+<p><strong>isClosing：</strong>  标记一个会话是否已经被关闭，当服务端检测到会话已经超时失效时，会将该会话的 isClosing 标记为”已关闭”，这样就能确保不再处理来自该会话的新请求了。</p>
+</li>
+</ul>
+<p>Zookeeper 的会话管理主要是通过 SessionTracker 来负责，其采用了<strong>分桶策略</strong>（将类似的会话放在同一区块中进行管理）进行管理，以便 Zookeeper 对会话进行不同区块的隔离处理以及同一区块的统一处理。</p>
+<h1 id="六zab-协议">六、ZAB 协议</h1>
+<blockquote>
+<p>ZooKeeper 并没有直接采用 Paxos 算法，而是采用了名为 ZAB 的一致性协议。ZAB 协议不是 Paxos 算法，只是比较类似，二者在操作上并不相同。</p>
+<p>ZAB 协议是 Zookeeper 专门设计的一种支持崩溃恢复的原子广播协议。(ZAB: Zookeeper Atomic Broadcast)</p>
+<p>ZAB 协议是 ZooKeeper 的数据一致性和高可用解决方案。</p>
+</blockquote>
+<p>ZAB 协议定义了两个可以<strong>无限循环</strong>的流程：</p>
+<ul>
+<li><strong>选举 Leader：</strong> 用于故障恢复，从而保证高可用。</li>
+<li><strong>原子广播：</strong> 用于主从同步，从而保证数据一致性。</li>
+</ul>
+<h2 id="61-选举-leader">6.1 选举 Leader</h2>
+<p><strong>ZooKeeper 的故障恢复</strong></p>
+<p>ZooKeeper 集群采用一主（称为 Leader）多从（称为 Follower）模式，主从节点通过副本机制保证数据一致。</p>
+<ul>
+<li>
+<p>如果 Follower 节点挂了 - ZooKeeper 集群中的每个节点都会单独在内存中维护自身的状态，并且各节点之间都保持着通讯，只要集群中有半数机器能够正常工作，那么整个集群就可以正常提供服务。</p>
+</li>
+<li>
+<p>如果 Leader 节点挂了 - 如果 Leader 节点挂了，系统就不能正常工作了。此时，需要通过 ZAB 协议的选举 Leader 机制来进行故障恢复。</p>
+</li>
+</ul>
+<p>ZAB 协议的选举 Leader 机制简单来说，就是：基于过半选举机制产生新的 Leader，之后其他机器将从新的 Leader 上同步状态，当有过半机器完成状态同步后，就退出<strong>选举 Leader 模式</strong>，<strong>进入原子广播模式</strong>。</p>
+<h3 id="611-术语">6.1.1 术语</h3>
+<ul>
+<li>
+<p><strong>myid：</strong> 每个 Zookeeper 服务器，都需要在数据文件夹下创建一个名为 myid 的文件，该文件包含整个 Zookeeper 集群唯一的 ID（整数）。</p>
+</li>
+<li>
+<p><strong>zxid：</strong> 类似于 RDBMS 中的事务 ID，用于标识一次更新操作的 Proposal ID。为了保证顺序性，该 zkid 必须单调递增。因此 Zookeeper 使用一个 64 位的数来表示，高 32 位是 Leader 的 epoch，从 1 开始，每次选出新的 Leader，epoch 加一。低 32 位为该 epoch 内的序号，每次 epoch 变化，都将低 32 位的序号重置。这样保证了 zkid 的全局递增性。</p>
+</li>
+</ul>
+<h3 id="612-服务器状态">6.1.2 服务器状态</h3>
+<ul>
+<li><strong>LOOKING：</strong> 不确定 Leader 状态。该状态下的服务器认为当前集群中没有 Leader，会发起 Leader 选举。</li>
+<li><strong>FOLLOWING：</strong> 跟随者状态。表明当前服务器角色是 Follower，并且它知道 Leader 是谁。</li>
+<li><strong>LEADING：</strong> 领导者状态。表明当前服务器角色是 Leader，它会维护与 Follower 间的心跳。</li>
+<li><strong>OBSERVING：</strong> 观察者状态。表明当前服务器角色是 Observer，与 Folower 唯一的不同在于不参与选举，也不参与集群写操作时的投票。</li>
+</ul>
+<h3 id="613-选票数据结构">6.1.3 选票数据结构</h3>
+<p>每个服务器在进行领导选举时，会发送如下关键信息：</p>
+<ul>
+<li><strong>logicClock：</strong> 每个服务器会维护一个自增的整数，名为 logicClock，它表示这是该服务器发起的第多少轮投票。</li>
+<li><strong>state：</strong> 当前服务器的状态。</li>
+<li><strong>self_id：</strong> 当前服务器的 myid。</li>
+<li><strong>self_zxid：</strong> 当前服务器上所保存的数据的最大 zxid。</li>
+<li><strong>vote_id：</strong> 被推举的服务器的 myid。</li>
+<li><strong>vote_zxid：</strong> 被推举的服务器上所保存的数据的最大 zxid。</li>
+</ul>
+<h3 id="614-投票流程">6.1.4 投票流程</h3>
+<p><strong>（1）自增选举轮次</strong></p>
+<p>Zookeeper 规定所有有效的投票都必须在同一轮次中。每个服务器在开始新一轮投票时，会先对自己维护的 logicClock 进行自增操作。</p>
+<p><strong>（2）初始化选票</strong></p>
+<p>每个服务器在广播自己的选票前，会将自己的投票箱清空。该投票箱记录了所收到的选票。例：服务器 2 投票给服务器 3，服务器 3 投票给服务器 1，则服务器 1 的投票箱为(2, 3), (3, 1), (1, 1)。票箱中只会记录每一投票者的最后一票，如投票者更新自己的选票，则其它服务器收到该新选票后会在自己票箱中更新该服务器的选票。</p>
+<p><strong>（3）发送初始化选票</strong></p>
+<p>每个服务器最开始都是通过广播把票投给自己。</p>
+<p><strong>（4）接收外部投票</strong></p>
+<p>服务器会尝试从其它服务器获取投票，并记入自己的投票箱内。如果无法获取任何外部投票，则会确认自己是否与集群中其它服务器保持着有效连接。如果是，则再次发送自己的投票；如果否，则马上与之建立连接。</p>
+<p><strong>（5）判断选举轮次</strong></p>
+<p>收到外部投票后，首先会根据投票信息中所包含的 logicClock 来进行不同处理：</p>
+<ul>
+<li>
+<p>外部投票的 logicClock <strong>大于</strong>自己的 logicClock。说明该服务器的选举轮次落后于其它服务器的选举轮次，立即清空自己的投票箱并将自己的 logicClock 更新为收到的 logicClock，然后再对比自己之前的投票与收到的投票以确定是否需要变更自己的投票，最终再次将自己的投票广播出去。</p>
+</li>
+<li>
+<p>外部投票的 logicClock <strong>小于</strong>自己的 logicClock。当前服务器直接忽略该投票，继续处理下一个投票。</p>
+</li>
+<li>
+<p>外部投票的 logickClock 与自己的<strong>相等</strong>。当时进行选票 PK。</p>
+</li>
+</ul>
+<p><strong>（6）选票 PK</strong></p>
+<p>选票 PK 是基于(self_id, self_zxid)与(vote_id, vote_zxid)的对比：</p>
+<ul>
+<li>
+<p>外部投票的 logicClock <strong>大于</strong>自己的 logicClock，则将自己的 logicClock 及自己的选票的 logicClock 变更为收到的 logicClock。</p>
+</li>
+<li>
+<p>若 <strong>logicClock</strong> <strong>一致</strong>，则对比二者的 vote_zxid，若外部投票的 vote_zxid 比较大，则将自己的票中的 vote_zxid 与 vote_myid 更新为收到的票中的 vote_zxid 与 vote_myid 并广播出去，另外将收到的票及自己更新后的票放入自己的票箱。如果票箱内已存在(self_myid, self_zxid)相同的选票，则直接覆盖。</p>
+</li>
+<li>
+<p>若二者 <strong>vote_zxid</strong> 一致，则比较二者的 vote_myid，若外部投票的 vote_myid 比较大，则将自己的票中的 vote_myid 更新为收到的票中的 vote_myid 并广播出去，另外将收到的票及自己更新后的票放入自己的票箱。</p>
+</li>
+</ul>
+<p><strong>（7）统计选票</strong></p>
+<p>如果已经确定有过半服务器认可了自己的投票（可能是更新后的投票），则终止投票。否则继续接收其它服务器的投票。</p>
+<p><strong>（8）更新服务器状态</strong></p>
+<p>投票终止后，服务器开始更新自身状态。若过半的票投给了自己，则将自己的服务器状态更新为 LEADING，否则将自己的状态更新为 FOLLOWING。</p>
+<p>通过以上流程分析，我们不难看出：要使 Leader 获得多数 Server 的支持，则 <strong>ZooKeeper 集群节点数必须是奇数。且存活的节点数目不得少于 N + 1</strong> 。</p>
+<p>每个 Server 启动后都会重复以上流程。在恢复模式下，如果是刚从崩溃状态恢复的或者刚启动的 server 还会从磁盘快照中恢复数据和会话信息，zk 会记录事务日志并定期进行快照，方便在恢复时进行状态恢复。</p>
+<h2 id="62-原子广播atomic-broadcast">6.2 原子广播（Atomic Broadcast）</h2>
+<p><strong>ZooKeeper 通过副本机制来实现高可用，数据一致。</strong></p>
+<p>ZooKeeper 是通过 ZAB 协议的原子广播如何实现副本机制。</p>
+<img src="/images/zookeeper/640-20220706210039983.png" alt="Image" style="zoom:67%;" />
+<p>ZAB 协议的原子广播要求：</p>
+<p><strong>所有的写请求都会被转发给 Leader，Leader 会以原子广播的方式通知 Follow。当半数以上的 Follow 已经更新状态持久化后，Leader 才会提交这个更新，然后客户端才会收到一个更新成功的响应。</strong> 这有些类似数据库中的数据两阶段提交协议。</p>
+<p>在整个消息的广播过程中，Leader 服务器会每个事物请求生成对应的 Proposal，并为其分配一个全局唯一的递增的事务 ID(ZXID)，之后再对其进行广播。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">拾光</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2022-07-06
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/zookeeper/">zookeeper</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/2022/07/zookeeper%E5%85%A5%E9%97%A8/">
+            <span class="next-text nav-default">Zookeeper入门</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="yang_95@126.com" class="iconfont icon-email" title="email"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2021 - 
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Huan</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.191509a5c8442abdb6eb5020a332fd59bdd83a7e78a2d2241108df9113504292.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
+
+
+
+<script id="baidu_push">
+  (function(){
+    if (window.location.hostname === 'localhost') return;
+    var bp = document.createElement('script'); bp.async = true;
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+  })();
+</script>
+
+
+
+
+</body>
+</html>

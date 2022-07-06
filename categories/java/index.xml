@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>Huan</copyright>
-    <lastBuildDate>Mon, 04 Jul 2022 17:28:03 +0800</lastBuildDate><atom:link href="http://localhost:1313/categories/java/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 06 Jul 2022 11:08:54 +0800</lastBuildDate><atom:link href="http://localhost:1313/categories/java/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Zookeeper工作原理</title>
+      <link>http://localhost:1313/2022/07/zookeeper%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/</link>
+      <pubDate>Wed, 06 Jul 2022 11:08:54 +0800</pubDate>
+      
+      <guid>http://localhost:1313/2022/07/zookeeper%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/</guid>
+      <description>一、Zookeeper 集群中的组成 Zookeeper 主要包括三个角色： 领导者（leader），负责进行投票的发起和决议，更新系统状态； 学习者（learner</description>
+    </item>
+    
     <item>
       <title>Zookeeper入门</title>
       <link>http://localhost:1313/2022/07/zookeeper%E5%85%A5%E9%97%A8/</link>
