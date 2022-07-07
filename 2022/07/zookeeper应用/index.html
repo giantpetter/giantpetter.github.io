@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Zookeeper应用 - 拾光的博客</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="拾光" /><meta name="description" content="一、应用 ZooKeeper 可以用于发布/订阅、负载均衡、命令服务、分布式协调/通知、集群管理、Master 选举、分布式锁和分布式队列等功能 。 1.1 命名服务 在分布" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.100.2 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/2022/07/zookeeper%E5%BA%94%E7%94%A8/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Zookeeper应用" />
+<meta property="og:description" content="一、应用 ZooKeeper 可以用于发布/订阅、负载均衡、命令服务、分布式协调/通知、集群管理、Master 选举、分布式锁和分布式队列等功能 。 1.1 命名服务 在分布" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/2022/07/zookeeper%E5%BA%94%E7%94%A8/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-07-07T02:44:50+08:00" />
+<meta property="article:modified_time" content="2022-07-07T02:44:50+08:00" />
+
+<meta itemprop="name" content="Zookeeper应用">
+<meta itemprop="description" content="一、应用 ZooKeeper 可以用于发布/订阅、负载均衡、命令服务、分布式协调/通知、集群管理、Master 选举、分布式锁和分布式队列等功能 。 1.1 命名服务 在分布"><meta itemprop="datePublished" content="2022-07-07T02:44:50+08:00" />
+<meta itemprop="dateModified" content="2022-07-07T02:44:50+08:00" />
+<meta itemprop="wordCount" content="5248">
+<meta itemprop="keywords" content="zookeeper," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Zookeeper应用"/>
+<meta name="twitter:description" content="一、应用 ZooKeeper 可以用于发布/订阅、负载均衡、命令服务、分布式协调/通知、集群管理、Master 选举、分布式锁和分布式队列等功能 。 1.1 命名服务 在分布"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">拾光</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">拾光</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Zookeeper应用</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2022-07-07 </span>
+        <div class="post-category">
+            <a href="/categories/java/"> Java </a>
+            <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/"> 分布式 </a>
+            </div>
+          <span class="more-meta"> 5248 words </span>
+          <span class="more-meta"> 11 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一应用">一、应用</a>
+      <ul>
+        <li><a href="#11-命名服务">1.1 命名服务</a></li>
+        <li><a href="#12-配置管理">1.2 配置管理</a></li>
+        <li><a href="#13-分布式锁">1.3 分布式锁</a></li>
+        <li><a href="#14-集群管理">1.4 集群管理</a></li>
+        <li><a href="#15-选举-leader-节点">1.5 选举 Leader 节点</a></li>
+        <li><a href="#16-队列管理">1.6 队列管理</a></li>
+      </ul>
+    </li>
+    <li><a href="#二-分布式锁对比">二、 分布式锁对比</a></li>
+    <li><a href="#三一致性算法-paxos">三、一致性算法 Paxos</a>
+      <ul>
+        <li><a href="#31-背景">3.1 背景</a></li>
+        <li><a href="#32-basic-paxos-算法">3.2 Basic Paxos 算法</a>
+          <ul>
+            <li><a href="#1-角色">1. 角色</a></li>
+            <li><a href="#2-算法">2. 算法</a></li>
+            <li><a href="#3prepare-阶段">3.Prepare 阶段</a></li>
+            <li><a href="#4accept-阶段">4.Accept 阶段</a></li>
+          </ul>
+        </li>
+        <li><a href="#33-multi-paxos-思想">3.3 Multi Paxos 思想</a>
+          <ul>
+            <li><a href="#basic-paxos-的问题">Basic Paxos 的问题</a></li>
+            <li><a href="#multi-paxos-的改进">Multi Paxos 的改进</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="一应用">一、应用</h1>
+<blockquote>
+<p>ZooKeeper 可以用于发布/订阅、负载均衡、命令服务、分布式协调/通知、集群管理、Master 选举、分布式锁和分布式队列等功能 。</p>
+</blockquote>
+<h2 id="11-命名服务">1.1 命名服务</h2>
+<p>在分布式系统中，通常需要一个全局唯一的名字，如生成全局唯一的订单号等，ZooKeeper 可以通过顺序节点的特性来生成全局唯一 ID，从而可以对分布式系统提供命名服务。</p>
+<img src="/images/zookeeper/640-20220707110849828.png" alt="Image" style="zoom:67%;" />
+<h2 id="12-配置管理">1.2 配置管理</h2>
+<p>利用 ZooKeeper 的<strong>观察机制</strong>，可以将其作为一个高可用的配置存储器，允许分布式应用的参与者检索和更新配置文件。</p>
+<h2 id="13-分布式锁">1.3 分布式锁</h2>
+<p>可以通过 ZooKeeper 的<strong>临时节点</strong>和 <strong>Watcher 机制</strong>来实现分布式锁。</p>
+<p>有一个分布式系统，有三个节点 A、B、C，试图通过 ZooKeeper 获取分布式锁。</p>
+<ol>
+<li>访问 /lock （这个目录路径由程序自己决定），创建 <strong>带序列号的临时节点（EPHEMERAL） 。</strong></li>
+</ol>
+<img src="/images/zookeeper/640-20220707111014870.png" alt="Image" style="zoom:67%;" />
+<ol start="2">
+<li>每个节点尝试获取锁时，拿到 /locks节点下的所有子节点（id_0000,id_0001,id_0002），<strong>判断自己创建的节点是不是最小的。</strong></li>
+</ol>
+<ul>
+<li>
+<p>如果是，则拿到锁。</p>
+<p>释放锁：执行完操作后，把创建的节点给删掉。</p>
+</li>
+<li>
+<p>如果不是，则监听比自己要小 1 的节点变化。</p>
+</li>
+</ul>
+<img src="/images/zookeeper/640-20220707111102494.png" alt="Image" style="zoom:67%;" />
+<ol start="3">
+<li>释放锁，即删除自己创建的节点。</li>
+</ol>
+<img src="/images/zookeeper/640-20220707111139360.png" alt="Image" style="zoom:67%;" />
+<p>图中，NodeA 删除自己创建的节点 id_0000，NodeB 监听到变化，发现自己的节点已经是最小节点，即可获取到锁。</p>
+<h2 id="14-集群管理">1.4 集群管理</h2>
+<p>ZooKeeper 还能解决大多数分布式系统中的问题：</p>
+<ul>
+<li>
+<p>如可以通过创建临时节点来建立心跳检测机制。如果分布式系统的某个服务节点宕机了，则其持有的会话会超时，此时该临时节点会被删除，相应的监听事件就会被触发。</p>
+</li>
+<li>
+<p>分布式系统的每个服务节点还可以将自己的节点状态写入临时节点，从而完成状态报告或节点工作进度汇报。</p>
+</li>
+<li>
+<p>通过数据的订阅和发布功能，ZooKeeper 还能对分布式系统进行模块的解耦和任务的调度。</p>
+</li>
+<li>
+<p>通过监听机制，还能对分布式系统的服务节点进行动态上下线，从而实现服务的动态扩容。</p>
+</li>
+</ul>
+<h2 id="15-选举-leader-节点">1.5 选举 Leader 节点</h2>
+<p>分布式系统一个重要的模式就是主从模式 (Master/Salves)，ZooKeeper 可以用于该模式下的 Matser 选举。可以让所有服务节点去竞争性地创建同一个 ZNode，由于 ZooKeeper 不能有路径相同的 ZNode，必然只有一个服务节点能够创建成功，这样该服务节点就可以成为 Master 节点。</p>
+<h2 id="16-队列管理">1.6 队列管理</h2>
+<p>ZooKeeper 可以处理两种类型的队列：</p>
+<ul>
+<li>当一个队列的成员都聚齐时，这个队列才可用，否则一直等待所有成员到达，这种是同步队列。</li>
+<li>队列按照 FIFO 方式进行入队和出队操作，例如实现生产者和消费者模型。</li>
+</ul>
+<p>同步队列用 ZooKeeper 实现的实现思路如下：</p>
+<p>创建一个父目录 /synchronizing，每个成员都监控标志（Set Watch）位目录 /synchronizing/start 是否存在，然后每个成员都加入这个队列，加入队列的方式就是创建 /synchronizing/member_i 的临时目录节点，然后每个成员获取 / synchronizing 目录的所有目录节点，也就是 member_i。判断 i 的值是否已经是成员的个数，如果小于成员个数等待 /synchronizing/start 的出现，如果已经相等就创建 /synchronizing/start。</p>
+<h1 id="二-分布式锁对比">二、 分布式锁对比</h1>
+<p>实现方式一般有：</p>
+<ul>
+<li>基于数据库实现：
+<ul>
+<li>建一张表（t_dlock），关键字段有：<code>id</code>、<code>method_name</code>、<code>time</code>。</li>
+<li>向表中插入记录成功，即为获取锁成功。需要注意的是，获取锁一般是通过自旋方式，并设置尝试次数，超过最大尝试次数，才判定获取锁失败。</li>
+<li>删除记录，即为释放锁。</li>
+<li>因为数据库没有淘汰机制，为了避免获取锁永不释放，应用需要自身实现定期检查，删除过期记录（根据 time 判断）。</li>
+</ul>
+</li>
+<li>基于 Redis 实现
+<ul>
+<li>生成一个分布式 ID 作为 key，通过 <code>setnx</code> 写入</li>
+<li>写入成功，即为获取锁成功。需要注意的是，获取锁一般是通过自旋方式，并设置尝试次数，超过最大尝试次数，才判定获取锁失败。</li>
+<li>删除 key，即为获取锁失败。</li>
+<li>Redis 自身有内存淘汰策略，所以只要设置 expire，就可以让 key 自动过期。</li>
+</ul>
+</li>
+<li>基于 ZooKeeper 实现
+<ul>
+<li>创建一个节点，所有节点都 Watch 此节点。</li>
+<li>任意节点的任意线程只要向这个节点创建临时子节点成功，即为获取锁成功。</li>
+<li>由于创建临时子节点是原子性的，不存在竞态，不需要自旋尝试，性能很好。</li>
+<li>因为 ZooKeeper 只要和节点断开会话，就会自动删除临时节点。即为删除锁。所以无需过期机制。</li>
+</ul>
+</li>
+</ul>
+<p>从实现方式可以看出，三种方案的对比：</p>
+<ul>
+<li>Mysql 方案性能最差，并且影响 Mysql 吞吐量。而且还要程序保证容错处理。不建议采用这种方案。</li>
+<li>Redis 方案需要不断自旋尝试获取锁，应用会消耗一些性能开销。而且为了保证分布式锁的可重入性，需要设置对于所有节点、所有线程都唯一的分布式 ID，生成 ID 也需要一定的 CPU 开销。</li>
+<li>ZooKeeper 方案实现最简单，最稳定。是推荐的方案。但是它也有一个问题：ZooKeeper 的主从架构，所有写都由 Master 节点负责，所以 ZooKeeper 自身有一定的性能瓶颈。</li>
+</ul>
+<h1 id="三一致性算法-paxos">三、一致性算法 Paxos</h1>
+<blockquote>
+<p>Paxos 是一种基于消息传递且具有容错性的共识性（consensus）算法。</p>
+<p>Paxos 算法解决的问题正是分布式一致性问题。在一个节点数为 2N+1 的分布式集群中，只要半数以上的节点（N + 1）还正常工作，整个系统仍可以正常工作。</p>
+</blockquote>
+<p><img src="/images/zookeeper/20200202221611.png" alt="img"></p>
+<h2 id="31-背景">3.1 背景</h2>
+<p>Paxos 是 Leslie Lamport 于 1990 年提出的一种基于消息传递且具有高度容错特性的<strong>共识（consensus）算法</strong>。</p>
+<p>Paxos 算法包含 2 个部分：</p>
+<ul>
+<li><strong>Basic Paxos 算法</strong>：描述的多节点之间如何就某个值达成共识。</li>
+<li><strong>Multi Paxos 思想</strong>：描述的是执行多个 Basic Paxos 实例，就一系列值达成共识。</li>
+</ul>
+<p>Paxos 算法解决的问题正是分布式共识性问题，即一个分布式系统中的各个进程如何就某个值（决议）达成一致。</p>
+<p>Paxos 算法运行在允许宕机故障的异步系统中，不要求可靠的消息传递，可容忍消息丢失、延迟、乱序以及重复。它利用大多数 (Majority) 机制保证了 2N+1 的容错能力，即 2N+1 个节点的系统最多允许 N 个节点同时出现故障。</p>
+<h2 id="32-basic-paxos-算法">3.2 Basic Paxos 算法</h2>
+<h3 id="1-角色">1. 角色</h3>
+<p>Paxos 将分布式系统中的节点分 Proposer、Acceptor、Learner 三种角色。</p>
+<img src="/images/zookeeper/20210528150700.png" alt="img" style="zoom:67%;" />
+<ul>
+<li><strong>提议者（Proposer）</strong>：发出提案（Proposal），用于投票表决。Proposal 信息包括提案编号 (Proposal ID) 和提议的值 (Value)。在绝大多数场景中，集群中收到客户端请求的节点，才是提议者。这样做的好处是，对业务代码没有入侵性，也就是说，我们不需要在业务代码中实现算法逻辑。</li>
+<li><strong>接受者（Acceptor）</strong>：对每个 Proposal 进行投票，若 Proposal 获得多数 Acceptor 的接受，则称该 Proposal 被批准。一般来说，集群中的所有节点都在扮演接受者的角色，参与共识协商，并接受和存储数据。</li>
+<li><strong>学习者（Learner）</strong>：不参与接受，从 Proposers/Acceptors 学习、记录最新达成共识的提案（Value）。一般来说，学习者是数据备份节点，比如主从架构中的从节点，被动地接受数据，容灾备份。</li>
+</ul>
+<p>在多副本状态机中，每个副本都同时具有 Proposer、Acceptor、Learner 三种角色。</p>
+<p>这三种角色，在本质上代表的是三种功能：</p>
+<ul>
+<li>提议者代表的是接入和协调功能，收到客户端请求后，发起二阶段提交，进行共识协商；（类似 zk 的 leader）</li>
+<li>接受者代表投票协商和存储数据，对提议的值进行投票，并接受达成共识的值，存储保存；（类似 zk 的 follower）</li>
+<li>学习者代表存储数据，不参与共识协商，只接受达成共识的值，存储保存。 （类似 zk 的 observer）</li>
+</ul>
+<h3 id="2-算法">2. 算法</h3>
+<p>Paxos 算法有 3 个阶段，其中，前 2 个阶段负责协商并达成共识：</p>
+<ol>
+<li><strong>准备（Prepare）阶段</strong>：Proposer 向 Acceptors 发出 Prepare 请求，Acceptors 针对收到的 Prepare 请求进行 Promise 承诺。</li>
+<li><strong>接受（Accept）阶段</strong>：Proposer 收到多数 Acceptors 承诺的 Promise 后，向 Acceptors 发出 Propose 请求，Acceptors 针对收到的 Propose 请求进行 Accept 处理。</li>
+<li><strong>学习（Learn）阶段</strong>：Proposer 在收到多数 Acceptors 的 Accept 之后，标志着本次 Accept 成功，决议形成，将形成的决议发送给所有 Learners。</li>
+</ol>
+<p>这里采用的正式两阶段提交的思想。两阶段提交是达成共识的常用方式。</p>
+<p>Paxos 算法流程中的每条消息描述如下：</p>
+<ul>
+<li><strong>Prepare</strong>: Proposer 生成全局唯一且递增的 Proposal ID (可使用时间戳加 Server ID)，向所有 Acceptors 发送 Prepare 请求，这里无需携带提案内容，只携带 Proposal ID 即可。</li>
+<li><strong>Promise</strong>: Acceptors 收到 Prepare 请求后，做出“两个承诺，一个应答”。
+<ul>
+<li>两个承诺：
+<ul>
+<li>不再接受 Proposal ID 小于等于当前请求的 Prepare 请求。</li>
+<li>不再接受 Proposal ID 小于当前请求的 Propose 请求。</li>
+</ul>
+</li>
+<li>一个应答：
+<ul>
+<li>不违背以前作出的承诺下，回复已经 Accept 过的提案中 Proposal ID 最大的那个提案的 Value 和 Proposal ID，没有则返回空值。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Propose</strong>: Proposer 收到多数 Acceptors 的 Promise 应答后，从应答中选择 Proposal ID 最大的提案的 Value，作为本次要发起的提案。如果所有应答的提案 Value 均为空值，则可以自己随意决定提案 Value。然后携带当前 Proposal ID，向所有 Acceptors 发送 Propose 请求。</li>
+<li><strong>Accept</strong>: Acceptor 收到 Propose 请求后，在不违背自己之前作出的承诺下，接受并持久化当前 Proposal ID 和提案 Value。</li>
+<li><strong>Learn</strong>: Proposer 收到多数 Acceptors 的 Accept 后，决议形成，将形成的决议发送给所有 Learners。</li>
+</ul>
+<h3 id="3prepare-阶段">3.Prepare 阶段</h3>
+<p>下图的示例中，首先客户端 1、2 作为提议者，分别向所有接受者发送包含提案编号的准备请求：</p>
+<img src="/images/zookeeper/20220628231557.png" alt="img" style="zoom:75%;" />
+<p>接着，当节点 A、B 收到提案编号为 1 的准备请求，节点 C 收到提案编号为 5 的准备请求后，将进行这样的处理：</p>
+<img src="/images/zookeeper/20220628231908.png" alt="img" style="zoom:75%;" />
+<ul>
+<li>
+<p>由于之前没有通过任何提案，所以节点 A、B 将返回一个 “尚无提案” 的响应。也就是说节点 A 和 B 在告诉提议者，我之前没有通过任何提案呢，并承诺以后不再响应提案编号小于等于 1 的准备请求，不会通过编号小于 1 的提案。</p>
+</li>
+<li>
+<p>节点 C 也是如此，它将返回一个 “尚无提案”的响应，并承诺以后不再响应提案编号小于等于 5 的准备请求，不会通过编号小于 5 的提案。（所以客户端 1 发出的 1 号请求不会被响应）</p>
+</li>
+</ul>
+<p>另外，当节点 A、B 收到提案编号为 5 的准备请求，和节点 C 收到提案编号为 1 的准备请求的时候，将进行这样的处理过程：</p>
+<img src="/images/zookeeper/20220628232029.png" alt="img" style="zoom:75%;" />
+<ul>
+<li>当节点 A、B 收到提案编号为 5 的准备请求的时候，因为提案编号 5 大于它们之前响应的准备请求的提案编号 1，而且两个节点都没有通过任何提案，所以它将返回一个 “尚无提案”的响应，并承诺以后不再响应提案编号小于等于 5 的准备请求，不会通过编号小于 5 的提案。</li>
+<li>当节点 C 收到提案编号为 1 的准备请求的时候，由于提案编号 1 小于它之前响应的准备请求的提案编号 5，所以丢弃该准备请求，不做响应。</li>
+</ul>
+<h3 id="4accept-阶段">4.Accept 阶段</h3>
+<p>首先客户端 1、2 在收到大多数节点的准备响应之后，会分别发送接受请求：</p>
+<img src="/images/zookeeper/20220628232309.png" alt="img" style="zoom:75%;" />
+<ul>
+<li>当客户端 1 收到大多数的接受者（节点 A、B）的准备响应后，根据响应中提案编号最大的提案的值，设置接受请求中的值。因为该值在来自节点 A、B 的准备响应中都为空（也就是图 5 中的“尚无提案”），所以就把自己的提议值 3 作为提案的值，发送接受请求[1, 3]。</li>
+<li>当客户端 2 收到大多数的接受者的准备响应后（节点 A、B 和节点 C），根据响应中提案编号最大的提案的值，来设置接受请求中的值。因为该值在来自节点 A、B、C 的准备响应中都为空（也就是图 5 和图 6 中的“尚无提案”），所以就把自己的提议值 7 作为提案的值，发送接受请求[5, 7]。</li>
+</ul>
+<p>当三个节点收到 2 个客户端的接受请求时，会进行这样的处理：</p>
+<img src="/images/zookeeper/20220628232515.png" alt="img" style="zoom:75%;" />
+<ul>
+<li>
+<p>当节点 A、B、C 收到接受请求[1, 3]的时候，由于提案的提案编号 1 小于三个节点承诺能通过的提案的最小提案编号 5，所以提案[1, 3]将被拒绝。</p>
+</li>
+<li>
+<p>当节点 A、B、C 收到接受请求[5, 7]的时候，由于提案的提案编号 5 不小于三个节点承诺能通过的提案的最小提案编号 5，所以就通过提案[5, 7]，也就是接受了值 7，三个节点就 X 值为 7 达成了共识。</p>
+</li>
+</ul>
+<p>Basic Paxos 是通过<strong>二阶段提交</strong>的方式来达成共识的。</p>
+<p>除了共识，Basic Paxos 还实现了容错，在少于一半的节点出现故障时，集群也能工作。它不像分布式事务算法那样，必须要所有节点都同意后才提交操作，因为“所有节点都同意”这个原则，在出现节点故障的时候会导致整个集群不可用。也就是说，“大多数节点都同意”的原则，赋予了 Basic Paxos 容错的能力，让它能够容忍少于一半的节点的故障。</p>
+<h2 id="33-multi-paxos-思想">3.3 Multi Paxos 思想</h2>
+<p>兰伯特提到的 Multi-Paxos 是一种思想，不是算法。而 Multi-Paxos 算法是一个统称，它是指基于 Multi-Paxos 思想，通过多个 Basic Paxos 实例实现一系列值的共识的算法（比如 Chubby 的 Multi-Paxos 实现、Raft 算法等）。</p>
+<h3 id="basic-paxos-的问题">Basic Paxos 的问题</h3>
+<p>Basic Paxos 有以下问题，导致它不能应用于实际：</p>
+<ul>
+<li><strong>Basic Paxos 算法只能对一个值形成决议</strong>。</li>
+<li><strong>Basic Paxos 算法会消耗大量网络带宽</strong>。Basic Paxos 中，决议的形成至少需要<strong>两次网络通信</strong>，在高并发情况下可能需要更多的网络通信，极端情况下甚至可能形成活锁。如果想连续确定多个值，Basic Paxos 搞不定了。</li>
+</ul>
+<h3 id="multi-paxos-的改进">Multi Paxos 的改进</h3>
+<p>Multi Paxos 正是为解决以上问题而提出。Multi Paxos 基于 Basic Paxos 做了两点改进：</p>
+<ul>
+<li><strong>针对每一个要确定的值，运行一次 Paxos 算法实例（Instance），形成决议</strong>。每一个 Paxos 实例使用唯一的 Instance ID 标识。</li>
+<li><strong>在所有 Proposer 中选举一个 Leader，由 Leader 唯一地提交 Proposal 给 Acceptor 进行表决</strong>。这样没有 Proposer 竞争，解决了活锁问题。在系统中仅有一个 Leader 进行 Value 提交的情况下，Prepare 阶段就可以跳过，从而将两阶段变为一阶段，提高效率。</li>
+</ul>
+<p>Multi Paxos 首先需要选举 Leader，Leader 的确定也是一次决议的形成，所以可执行一次 Basic Paxos 实例来选举出一个 Leader。选出 Leader 之后只能由 Leader 提交 Proposal，在 Leader 宕机之后服务临时不可用，需要重新选举 Leader 继续服务。在系统中仅有一个 Leader 进行 Proposal 提交的情况下，Prepare 阶段可以跳过。</p>
+<p>Multi Paxos 通过改变 Prepare 阶段的作用范围至后面 Leader 提交的所有实例，从而使得 Leader 的连续提交只需要执行一次 Prepare 阶段，后续只需要执行 Accept 阶段，将两阶段变为一阶段，提高了效率。为了区分连续提交的多个实例，每个实例使用一个 Instance ID 标识，Instance ID 由 Leader 本地递增生成即可。</p>
+<p>Multi Paxos 允许有多个自认为是 Leader 的节点并发提交 Proposal 而不影响其安全性，这样的场景即退化为 Basic Paxos。</p>
+<p>Chubby 和 Boxwood 均使用 Multi Paxos。<strong>ZooKeeper 使用的 Zab 也是 Multi Paxos 的变形。</strong></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">拾光</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2022-07-07
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/zookeeper/">zookeeper</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/2022/07/zookeeper%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/">
+            <span class="next-text nav-default">Zookeeper工作原理</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="yang_95@126.com" class="iconfont icon-email" title="email"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2021 - 
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Huan</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.191509a5c8442abdb6eb5020a332fd59bdd83a7e78a2d2241108df9113504292.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
+
+
+
+<script id="baidu_push">
+  (function(){
+    if (window.location.hostname === 'localhost') return;
+    var bp = document.createElement('script'); bp.async = true;
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+  })();
+</script>
+
+
+
+
+</body>
+</html>
